@@ -1,0 +1,656 @@
+@plugin './palette.js';
+@plugin './palette-dark.js';
+
+
+@red-1: color-palette(@red-6, 1);
+@red-2: color-palette(@red-6, 2);
+@red-3: color-palette(@red-6, 3);
+@red-4: color-palette(@red-6, 4);
+@red-5: color-palette(@red-6, 5);
+@red-6: #f53f3f;
+@red-7: color-palette(@red-6, 7);
+@red-8: color-palette(@red-6, 8);
+@red-9: color-palette(@red-6, 9);
+@red-10: color-palette(@red-6, 10);
+
+@orangered-1: color-palette(@orangered-6, 1);
+@orangered-2: color-palette(@orangered-6, 2);
+@orangered-3: color-palette(@orangered-6, 3);
+@orangered-4: color-palette(@orangered-6, 4);
+@orangered-5: color-palette(@orangered-6, 5);
+@orangered-6: #f77234;
+@orangered-7: color-palette(@orangered-6, 7);
+@orangered-8: color-palette(@orangered-6, 8);
+@orangered-9: color-palette(@orangered-6, 9);
+@orangered-10: color-palette(@orangered-6, 10);
+
+@orange-1: color-palette(@orange-6, 1);
+@orange-2: color-palette(@orange-6, 2);
+@orange-3: color-palette(@orange-6, 3);
+@orange-4: color-palette(@orange-6, 4);
+@orange-5: color-palette(@orange-6, 5);
+@orange-6: #ff7d00;
+@orange-7: color-palette(@orange-6, 7);
+@orange-8: color-palette(@orange-6, 8);
+@orange-9: color-palette(@orange-6, 9);
+@orange-10: color-palette(@orange-6, 10);
+
+@gold-1: color-palette(@gold-6, 1);
+@gold-2: color-palette(@gold-6, 2);
+@gold-3: color-palette(@gold-6, 3);
+@gold-4: color-palette(@gold-6, 4);
+@gold-5: color-palette(@gold-6, 5);
+@gold-6: #f7ba1e;
+@gold-7: color-palette(@gold-6, 7);
+@gold-8: color-palette(@gold-6, 8);
+@gold-9: color-palette(@gold-6, 9);
+@gold-10: color-palette(@gold-6, 10);
+
+@yellow-1: color-palette(@yellow-6, 1);
+@yellow-2: color-palette(@yellow-6, 2);
+@yellow-3: color-palette(@yellow-6, 3);
+@yellow-4: color-palette(@yellow-6, 4);
+@yellow-5: color-palette(@yellow-6, 5);
+@yellow-6: #fadc19;
+@yellow-7: color-palette(@yellow-6, 7);
+@yellow-8: color-palette(@yellow-6, 8);
+@yellow-9: color-palette(@yellow-6, 9);
+@yellow-10: color-palette(@yellow-6, 10);
+
+@lime-1: color-palette(@lime-6, 1);
+@lime-2: color-palette(@lime-6, 2);
+@lime-3: color-palette(@lime-6, 3);
+@lime-4: color-palette(@lime-6, 4);
+@lime-5: color-palette(@lime-6, 5);
+@lime-6: #9fdb1d;
+@lime-7: color-palette(@lime-6, 7);
+@lime-8: color-palette(@lime-6, 8);
+@lime-9: color-palette(@lime-6, 9);
+@lime-10: color-palette(@lime-6, 10);
+
+@green-1: color-palette(@green-6, 1);
+@green-2: color-palette(@green-6, 2);
+@green-3: color-palette(@green-6, 3);
+@green-4: color-palette(@green-6, 4);
+@green-5: color-palette(@green-6, 5);
+@green-6: #00b42a;
+@green-7: color-palette(@green-6, 7);
+@green-8: color-palette(@green-6, 8);
+@green-9: color-palette(@green-6, 9);
+@green-10: color-palette(@green-6, 10);
+
+@cyan-1: color-palette(@cyan-6, 1);
+@cyan-2: color-palette(@cyan-6, 2);
+@cyan-3: color-palette(@cyan-6, 3);
+@cyan-4: color-palette(@cyan-6, 4);
+@cyan-5: color-palette(@cyan-6, 5);
+@cyan-6: #14c9c9;
+@cyan-7: color-palette(@cyan-6, 7);
+@cyan-8: color-palette(@cyan-6, 8);
+@cyan-9: color-palette(@cyan-6, 9);
+@cyan-10: color-palette(@cyan-6, 10);
+
+@blue-1: color-palette(@blue-6, 1);
+@blue-2: color-palette(@blue-6, 2);
+@blue-3: color-palette(@blue-6, 3);
+@blue-4: color-palette(@blue-6, 4);
+@blue-5: color-palette(@blue-6, 5);
+@blue-6: #3491fa;
+@blue-7: color-palette(@blue-6, 7);
+@blue-8: color-palette(@blue-6, 8);
+@blue-9: color-palette(@blue-6, 9);
+@blue-10: color-palette(@blue-6, 10);
+
+@arcoblue-1: color-palette(@arcoblue-6, 1);
+@arcoblue-2: color-palette(@arcoblue-6, 2);
+@arcoblue-3: color-palette(@arcoblue-6, 3);
+@arcoblue-4: color-palette(@arcoblue-6, 4);
+@arcoblue-5: color-palette(@arcoblue-6, 5);
+@arcoblue-6: #165dff;
+@arcoblue-7: color-palette(@arcoblue-6, 7);
+@arcoblue-8: color-palette(@arcoblue-6, 8);
+@arcoblue-9: color-palette(@arcoblue-6, 9);
+@arcoblue-10: color-palette(@arcoblue-6, 10);
+
+@purple-1: color-palette(@purple-6, 1);
+@purple-2: color-palette(@purple-6, 2);
+@purple-3: color-palette(@purple-6, 3);
+@purple-4: color-palette(@purple-6, 4);
+@purple-5: color-palette(@purple-6, 5);
+@purple-6: #722ed1;
+@purple-7: color-palette(@purple-6, 7);
+@purple-8: color-palette(@purple-6, 8);
+@purple-9: color-palette(@purple-6, 9);
+@purple-10: color-palette(@purple-6, 10);
+
+@pinkpurple-1: color-palette(@pinkpurple-6, 1);
+@pinkpurple-2: color-palette(@pinkpurple-6, 2);
+@pinkpurple-3: color-palette(@pinkpurple-6, 3);
+@pinkpurple-4: color-palette(@pinkpurple-6, 4);
+@pinkpurple-5: color-palette(@pinkpurple-6, 5);
+@pinkpurple-6: #d91ad9;
+@pinkpurple-7: color-palette(@pinkpurple-6, 7);
+@pinkpurple-8: color-palette(@pinkpurple-6, 8);
+@pinkpurple-9: color-palette(@pinkpurple-6, 9);
+@pinkpurple-10: color-palette(@pinkpurple-6, 10);
+
+@magenta-1: color-palette(@magenta-6, 1);
+@magenta-2: color-palette(@magenta-6, 2);
+@magenta-3: color-palette(@magenta-6, 3);
+@magenta-4: color-palette(@magenta-6, 4);
+@magenta-5: color-palette(@magenta-6, 5);
+@magenta-6: #f5319d;
+@magenta-7: color-palette(@magenta-6, 7);
+@magenta-8: color-palette(@magenta-6, 8);
+@magenta-9: color-palette(@magenta-6, 9);
+@magenta-10: color-palette(@magenta-6, 10);
+
+@gray-1: #f7f8fa;
+@gray-2: #f2f3f5;
+@gray-3: #e5e6eb;
+@gray-4: #c9cdd4;
+@gray-5: #a9aeb8;
+@gray-6: #86909c;
+@gray-7: #6b7785;
+@gray-8: #4e5969;
+@gray-9: #272e3b;
+@gray-10: #1d2129;
+
+// dark
+
+@dark-red-1: color-palette-dark(@red-6, 1);
+@dark-red-2: color-palette-dark(@red-6, 2);
+@dark-red-3: color-palette-dark(@red-6, 3);
+@dark-red-4: color-palette-dark(@red-6, 4);
+@dark-red-5: color-palette-dark(@red-6, 5);
+@dark-red-6: color-palette-dark(@red-6, 6);
+@dark-red-7: color-palette-dark(@red-6, 7);
+@dark-red-8: color-palette-dark(@red-6, 8);
+@dark-red-9: color-palette-dark(@red-6, 9);
+@dark-red-10: color-palette-dark(@red-6, 10);
+
+@dark-orangered-1: color-palette-dark(@orangered-6, 1);
+@dark-orangered-2: color-palette-dark(@orangered-6, 2);
+@dark-orangered-3: color-palette-dark(@orangered-6, 3);
+@dark-orangered-4: color-palette-dark(@orangered-6, 4);
+@dark-orangered-5: color-palette-dark(@orangered-6, 5);
+@dark-orangered-6: color-palette-dark(@orangered-6, 6);
+@dark-orangered-7: color-palette-dark(@orangered-6, 7);
+@dark-orangered-8: color-palette-dark(@orangered-6, 8);
+@dark-orangered-9: color-palette-dark(@orangered-6, 9);
+@dark-orangered-10: color-palette-dark(@orangered-6, 10);
+
+@dark-orange-1: color-palette-dark(@orange-6, 1);
+@dark-orange-2: color-palette-dark(@orange-6, 2);
+@dark-orange-3: color-palette-dark(@orange-6, 3);
+@dark-orange-4: color-palette-dark(@orange-6, 4);
+@dark-orange-5: color-palette-dark(@orange-6, 5);
+@dark-orange-6: color-palette-dark(@orange-6, 6);
+@dark-orange-7: color-palette-dark(@orange-6, 7);
+@dark-orange-8: color-palette-dark(@orange-6, 8);
+@dark-orange-9: color-palette-dark(@orange-6, 9);
+@dark-orange-10: color-palette-dark(@orange-6, 10);
+
+@dark-gold-1: color-palette-dark(@gold-6, 1);
+@dark-gold-2: color-palette-dark(@gold-6, 2);
+@dark-gold-3: color-palette-dark(@gold-6, 3);
+@dark-gold-4: color-palette-dark(@gold-6, 4);
+@dark-gold-5: color-palette-dark(@gold-6, 5);
+@dark-gold-6: color-palette-dark(@gold-6, 6);
+@dark-gold-7: color-palette-dark(@gold-6, 7);
+@dark-gold-8: color-palette-dark(@gold-6, 8);
+@dark-gold-9: color-palette-dark(@gold-6, 9);
+@dark-gold-10: color-palette-dark(@gold-6, 10);
+
+@dark-yellow-1: color-palette-dark(@yellow-6, 1);
+@dark-yellow-2: color-palette-dark(@yellow-6, 2);
+@dark-yellow-3: color-palette-dark(@yellow-6, 3);
+@dark-yellow-4: color-palette-dark(@yellow-6, 4);
+@dark-yellow-5: color-palette-dark(@yellow-6, 5);
+@dark-yellow-6: color-palette-dark(@yellow-6, 6);
+@dark-yellow-7: color-palette-dark(@yellow-6, 7);
+@dark-yellow-8: color-palette-dark(@yellow-6, 8);
+@dark-yellow-9: color-palette-dark(@yellow-6, 9);
+@dark-yellow-10: color-palette-dark(@yellow-6, 10);
+
+@dark-lime-1: color-palette-dark(@lime-6, 1);
+@dark-lime-2: color-palette-dark(@lime-6, 2);
+@dark-lime-3: color-palette-dark(@lime-6, 3);
+@dark-lime-4: color-palette-dark(@lime-6, 4);
+@dark-lime-5: color-palette-dark(@lime-6, 5);
+@dark-lime-6: color-palette-dark(@lime-6, 6);
+@dark-lime-7: color-palette-dark(@lime-6, 7);
+@dark-lime-8: color-palette-dark(@lime-6, 8);
+@dark-lime-9: color-palette-dark(@lime-6, 9);
+@dark-lime-10: color-palette-dark(@lime-6, 10);
+
+@dark-green-1: color-palette-dark(@green-6, 1);
+@dark-green-2: color-palette-dark(@green-6, 2);
+@dark-green-3: color-palette-dark(@green-6, 3);
+@dark-green-4: color-palette-dark(@green-6, 4);
+@dark-green-5: color-palette-dark(@green-6, 5);
+@dark-green-6: color-palette-dark(@green-6, 6);
+@dark-green-7: color-palette-dark(@green-6, 7);
+@dark-green-8: color-palette-dark(@green-6, 8);
+@dark-green-9: color-palette-dark(@green-6, 9);
+@dark-green-10: color-palette-dark(@green-6, 10);
+
+@dark-cyan-1: color-palette-dark(@cyan-6, 1);
+@dark-cyan-2: color-palette-dark(@cyan-6, 2);
+@dark-cyan-3: color-palette-dark(@cyan-6, 3);
+@dark-cyan-4: color-palette-dark(@cyan-6, 4);
+@dark-cyan-5: color-palette-dark(@cyan-6, 5);
+@dark-cyan-6: color-palette-dark(@cyan-6, 6);
+@dark-cyan-7: color-palette-dark(@cyan-6, 7);
+@dark-cyan-8: color-palette-dark(@cyan-6, 8);
+@dark-cyan-9: color-palette-dark(@cyan-6, 9);
+@dark-cyan-10: color-palette-dark(@cyan-6, 10);
+
+@dark-blue-1: color-palette-dark(@blue-6, 1);
+@dark-blue-2: color-palette-dark(@blue-6, 2);
+@dark-blue-3: color-palette-dark(@blue-6, 3);
+@dark-blue-4: color-palette-dark(@blue-6, 4);
+@dark-blue-5: color-palette-dark(@blue-6, 5);
+@dark-blue-6: color-palette-dark(@blue-6, 6);
+@dark-blue-7: color-palette-dark(@blue-6, 7);
+@dark-blue-8: color-palette-dark(@blue-6, 8);
+@dark-blue-9: color-palette-dark(@blue-6, 9);
+@dark-blue-10: color-palette-dark(@blue-6, 10);
+
+@dark-arcoblue-1: color-palette-dark(@arcoblue-6, 1);
+@dark-arcoblue-2: color-palette-dark(@arcoblue-6, 2);
+@dark-arcoblue-3: color-palette-dark(@arcoblue-6, 3);
+@dark-arcoblue-4: color-palette-dark(@arcoblue-6, 4);
+@dark-arcoblue-5: color-palette-dark(@arcoblue-6, 5);
+@dark-arcoblue-6: color-palette-dark(@arcoblue-6, 6);
+@dark-arcoblue-7: color-palette-dark(@arcoblue-6, 7);
+@dark-arcoblue-8: color-palette-dark(@arcoblue-6, 8);
+@dark-arcoblue-9: color-palette-dark(@arcoblue-6, 9);
+@dark-arcoblue-10: color-palette-dark(@arcoblue-6, 10);
+
+@dark-purple-1: color-palette-dark(@purple-6, 1);
+@dark-purple-2: color-palette-dark(@purple-6, 2);
+@dark-purple-3: color-palette-dark(@purple-6, 3);
+@dark-purple-4: color-palette-dark(@purple-6, 4);
+@dark-purple-5: color-palette-dark(@purple-6, 5);
+@dark-purple-6: color-palette-dark(@purple-6, 6);
+@dark-purple-7: color-palette-dark(@purple-6, 7);
+@dark-purple-8: color-palette-dark(@purple-6, 8);
+@dark-purple-9: color-palette-dark(@purple-6, 9);
+@dark-purple-10: color-palette-dark(@purple-6, 10);
+
+@dark-pinkpurple-1: color-palette-dark(@pinkpurple-6, 1);
+@dark-pinkpurple-2: color-palette-dark(@pinkpurple-6, 2);
+@dark-pinkpurple-3: color-palette-dark(@pinkpurple-6, 3);
+@dark-pinkpurple-4: color-palette-dark(@pinkpurple-6, 4);
+@dark-pinkpurple-5: color-palette-dark(@pinkpurple-6, 5);
+@dark-pinkpurple-6: color-palette-dark(@pinkpurple-6, 6);
+@dark-pinkpurple-7: color-palette-dark(@pinkpurple-6, 7);
+@dark-pinkpurple-8: color-palette-dark(@pinkpurple-6, 8);
+@dark-pinkpurple-9: color-palette-dark(@pinkpurple-6, 9);
+@dark-pinkpurple-10: color-palette-dark(@pinkpurple-6, 10);
+
+@dark-magenta-1: color-palette-dark(@magenta-6, 1);
+@dark-magenta-2: color-palette-dark(@magenta-6, 2);
+@dark-magenta-3: color-palette-dark(@magenta-6, 3);
+@dark-magenta-4: color-palette-dark(@magenta-6, 4);
+@dark-magenta-5: color-palette-dark(@magenta-6, 5);
+@dark-magenta-6: color-palette-dark(@magenta-6, 6);
+@dark-magenta-7: color-palette-dark(@magenta-6, 7);
+@dark-magenta-8: color-palette-dark(@magenta-6, 8);
+@dark-magenta-9: color-palette-dark(@magenta-6, 9);
+@dark-magenta-10: color-palette-dark(@magenta-6, 10);
+
+@dark-gray-1: #17171a;
+@dark-gray-2: #2e2e30;
+@dark-gray-3: #484849;
+@dark-gray-4: #5f5f60;
+@dark-gray-5: #78787a;
+@dark-gray-6: #929293;
+@dark-gray-7: #ababac;
+@dark-gray-8: #c5c5c5;
+@dark-gray-9: #dfdfdf;
+@dark-gray-10: #f6f6f6;
+
+// 命名具有具体含义，从预置色板取值
+@primary-1: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-1'));
+@primary-2: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-2'));
+@primary-3: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-3'));
+@primary-4: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-4'));
+@primary-5: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-5'));
+@primary-6: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-6'));
+@primary-7: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-7'));
+@primary-8: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-8'));
+@primary-9: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-9'));
+@primary-10: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-10'));
+
+
+
+
+@dark-primary-1: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-1'));
+@dark-primary-2: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-2'));
+@dark-primary-3: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-3'));
+@dark-primary-4: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-4'));
+@dark-primary-5: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-5'));
+@dark-primary-6: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-6'));
+@dark-primary-7: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-7'));
+@dark-primary-8: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-8'));
+@dark-primary-9: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-9'));
+@dark-primary-10: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-10'));
+
+// 成功色
+@success-1: rgb(var(~'@{arco-cssvars-prefix}-green-1'));
+@success-2: rgb(var(~'@{arco-cssvars-prefix}-green-2'));
+@success-3: rgb(var(~'@{arco-cssvars-prefix}-green-3'));
+@success-4: rgb(var(~'@{arco-cssvars-prefix}-green-4'));
+@success-5: rgb(var(~'@{arco-cssvars-prefix}-green-5'));
+@success-6: rgb(var(~'@{arco-cssvars-prefix}-green-6'));
+@success-7: rgb(var(~'@{arco-cssvars-prefix}-green-7'));
+@success-8: rgb(var(~'@{arco-cssvars-prefix}-green-8'));
+@success-9: rgb(var(~'@{arco-cssvars-prefix}-green-9'));
+@success-10: rgb(var(~'@{arco-cssvars-prefix}-green-10'));
+
+@dark-success-1: rgb(var(~'@{arco-cssvars-prefix}-green-1'));
+@dark-success-2: rgb(var(~'@{arco-cssvars-prefix}-green-2'));
+@dark-success-3: rgb(var(~'@{arco-cssvars-prefix}-green-3'));
+@dark-success-4: rgb(var(~'@{arco-cssvars-prefix}-green-4'));
+@dark-success-5: rgb(var(~'@{arco-cssvars-prefix}-green-5'));
+@dark-success-6: rgb(var(~'@{arco-cssvars-prefix}-green-6'));
+@dark-success-7: rgb(var(~'@{arco-cssvars-prefix}-green-7'));
+@dark-success-8: rgb(var(~'@{arco-cssvars-prefix}-green-8'));
+@dark-success-9: rgb(var(~'@{arco-cssvars-prefix}-green-9'));
+@dark-success-10: rgb(var(~'@{arco-cssvars-prefix}-green-10'));
+
+// 错误色
+@danger-1: rgb(var(~'@{arco-cssvars-prefix}-red-1'));
+@danger-2: rgb(var(~'@{arco-cssvars-prefix}-red-2'));
+@danger-3: rgb(var(~'@{arco-cssvars-prefix}-red-3'));
+@danger-4: rgb(var(~'@{arco-cssvars-prefix}-red-4'));
+@danger-5: rgb(var(~'@{arco-cssvars-prefix}-red-5'));
+@danger-6: rgb(var(~'@{arco-cssvars-prefix}-red-6'));
+@danger-7: rgb(var(~'@{arco-cssvars-prefix}-red-7'));
+@danger-8: rgb(var(~'@{arco-cssvars-prefix}-red-8'));
+@danger-9: rgb(var(~'@{arco-cssvars-prefix}-red-9'));
+@danger-10: rgb(var(~'@{arco-cssvars-prefix}-red-10'));
+
+@dark-danger-1: rgb(var(~'@{arco-cssvars-prefix}-red-1'));
+@dark-danger-2: rgb(var(~'@{arco-cssvars-prefix}-red-2'));
+@dark-danger-3: rgb(var(~'@{arco-cssvars-prefix}-red-3'));
+@dark-danger-4: rgb(var(~'@{arco-cssvars-prefix}-red-4'));
+@dark-danger-5: rgb(var(~'@{arco-cssvars-prefix}-red-5'));
+@dark-danger-6: rgb(var(~'@{arco-cssvars-prefix}-red-6'));
+@dark-danger-7: rgb(var(~'@{arco-cssvars-prefix}-red-7'));
+@dark-danger-8: rgb(var(~'@{arco-cssvars-prefix}-red-8'));
+@dark-danger-9: rgb(var(~'@{arco-cssvars-prefix}-red-9'));
+@dark-danger-10: rgb(var(~'@{arco-cssvars-prefix}-red-10'));
+
+// 警示色
+@warning-1: rgb(var(~'@{arco-cssvars-prefix}-orange-1'));
+@warning-2: rgb(var(~'@{arco-cssvars-prefix}-orange-2'));
+@warning-3: rgb(var(~'@{arco-cssvars-prefix}-orange-3'));
+@warning-4: rgb(var(~'@{arco-cssvars-prefix}-orange-4'));
+@warning-5: rgb(var(~'@{arco-cssvars-prefix}-orange-5'));
+@warning-6: rgb(var(~'@{arco-cssvars-prefix}-orange-6'));
+@warning-7: rgb(var(~'@{arco-cssvars-prefix}-orange-7'));
+@warning-8: rgb(var(~'@{arco-cssvars-prefix}-orange-8'));
+@warning-9: rgb(var(~'@{arco-cssvars-prefix}-orange-9'));
+@warning-10: rgb(var(~'@{arco-cssvars-prefix}-orange-10'));
+
+@dark-warning-1: rgb(var(~'@{arco-cssvars-prefix}-orange-1'));
+@dark-warning-2: rgb(var(~'@{arco-cssvars-prefix}-orange-2'));
+@dark-warning-3: rgb(var(~'@{arco-cssvars-prefix}-orange-3'));
+@dark-warning-4: rgb(var(~'@{arco-cssvars-prefix}-orange-4'));
+@dark-warning-5: rgb(var(~'@{arco-cssvars-prefix}-orange-5'));
+@dark-warning-6: rgb(var(~'@{arco-cssvars-prefix}-orange-6'));
+@dark-warning-7: rgb(var(~'@{arco-cssvars-prefix}-orange-7'));
+@dark-warning-8: rgb(var(~'@{arco-cssvars-prefix}-orange-8'));
+@dark-warning-9: rgb(var(~'@{arco-cssvars-prefix}-orange-9'));
+@dark-warning-10: rgb(var(~'@{arco-cssvars-prefix}-orange-10'));
+
+// 链接色
+@link-1: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-1'));
+@link-2: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-2'));
+@link-3: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-3'));
+@link-4: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-4'));
+@link-5: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-5'));
+@link-6: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-6'));
+@link-7: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-7'));
+@link-8: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-8'));
+@link-9: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-9'));
+@link-10: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-10'));
+
+@dark-link-1: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-1'));
+@dark-link-2: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-2'));
+@dark-link-3: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-3'));
+@dark-link-4: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-4'));
+@dark-link-5: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-5'));
+@dark-link-6: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-6'));
+@dark-link-7: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-7'));
+@dark-link-8: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-8'));
+@dark-link-9: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-9'));
+@dark-link-10: rgb(var(~'@{arco-cssvars-prefix}-arcoblue-10'));
+
+
+
+
+
+//change
+// // 主色 (Plum)
+// @primary-1: #faedf8; // --g-plum-50
+// @primary-2: #f2d3ee; // --g-plum-100
+// @primary-3: #deb1d8; // --g-plum-200
+// @primary-4: #d19bca; // --g-plum-300
+// @primary-5: #c27ab9; // --g-plum-400
+// @primary-6: #ad57a3; // --g-plum-500
+// @primary-7: #992e8a; // --g-plum-600
+// @primary-8: #7a126b; // --g-plum-700
+// @primary-9: #4d144a; // --g-plum-800
+// @primary-10: #330d31; // --g-plum-900
+
+// // 成功色 (Green)
+// @success-1: #c8faea; // --g-green-50
+// @success-2: #91f2d3; // --g-green-100
+// @success-3: #5ae0b4; // --g-green-200
+// @success-4: #3dcc9e; // --g-green-300
+// @success-5: #29ba8b; // --g-green-400
+// @success-6: #229972; // --g-green-500
+// @success-7: #1c805f; // --g-green-600
+// @success-8: #186b50; // --g-green-700
+// @success-9: #135741; // --g-green-800
+// @success-10: #0e402f; // --g-green-900
+
+// // 错误色 (Red)
+// @danger-1: #ffeeed; // --g-red-50
+// @danger-2: #ffdbd9; // --g-red-100
+// @danger-3: #ffc2bf; // --g-red-200
+// @danger-4: #ff9e99; // --g-red-300
+// @danger-5: #ff6e66; // --g-red-400
+// @danger-6: #f2463d; // --g-red-500
+// @danger-7: #e1251b; // --g-red-600
+// @danger-8: #bf1f17; // --g-red-700
+// @danger-9: #871c23; // --g-red-800
+// @danger-10: #64131e; // --g-red-900
+
+// // 警示色 (Yellow)
+// @warning-1: #f8efe0; // --g-yellow-50
+// @warning-2: #ffe4b2; // --g-yellow-100
+// @warning-3: #ffd280; // --g-yellow-200
+// @warning-4: #fdbf4d; // --g-yellow-300
+// @warning-5: #e5ae46; // --g-yellow-400
+// @warning-6: #cc9b3e; // --g-yellow-500
+// @warning-7: #b28836; // --g-yellow-600
+// @warning-8: #916f2c; // --g-yellow-700
+// @warning-9: #735823; // --g-yellow-800
+// @warning-10: #59441a; // --g-yellow-900
+
+// // 链接色 (Plum - 同主色)
+// @link-1: #faedf8; // --g-plum-50
+// @link-2: #f2d3ee; // --g-plum-100
+// @link-3: #deb1d8; // --g-plum-200
+// @link-4: #d19bca; // --g-plum-300
+// @link-5: #c27ab9; // --g-plum-400
+// @link-6: #ad57a3; // --g-plum-500
+// @link-7: #992e8a; // --g-plum-600
+// @link-8: #7a126b; // --g-plum-700
+// @link-9: #4d144a; // --g-plum-800
+// @link-10: #330d31; // --g-plum-900
+
+
+
+
+
+
+
+// @red-1: #ffeeed;
+// @red-2: #ffdbd9;
+// @red-3: #ffc2bf;
+// @red-4: #ff9e99;
+// @red-5: #ff6e66;
+// @red-6: #f2463d;
+// @red-7: #e1251b;
+// @red-8: #bf1f17;
+// @red-9: #871c23;
+// @red-10: #64131e;
+
+// @orangered-1: color-palette(@orangered-6, 1);
+// @orangered-2: color-palette(@orangered-6, 2);
+// @orangered-3: color-palette(@orangered-6, 3);
+// @orangered-4: color-palette(@orangered-6, 4);
+// @orangered-5: color-palette(@orangered-6, 5);
+// @orangered-6: #f77234;
+// @orangered-7: color-palette(@orangered-6, 7);
+// @orangered-8: color-palette(@orangered-6, 8);
+// @orangered-9: color-palette(@orangered-6, 9);
+// @orangered-10: color-palette(@orangered-6, 10);
+
+// @orange-1: color-palette(@orange-6, 1);
+// @orange-2: color-palette(@orange-6, 2);
+// @orange-3: color-palette(@orange-6, 3);
+// @orange-4: color-palette(@orange-6, 4);
+// @orange-5: color-palette(@orange-6, 5);
+// @orange-6: #ff7d00;
+// @orange-7: color-palette(@orange-6, 7);
+// @orange-8: color-palette(@orange-6, 8);
+// @orange-9: color-palette(@orange-6, 9);
+// @orange-10: color-palette(@orange-6, 10);
+
+// @gold-1: color-palette(@gold-6, 1);
+// @gold-2: color-palette(@gold-6, 2);
+// @gold-3: color-palette(@gold-6, 3);
+// @gold-4: color-palette(@gold-6, 4);
+// @gold-5: color-palette(@gold-6, 5);
+// @gold-6: #f7ba1e;
+// @gold-7: color-palette(@gold-6, 7);
+// @gold-8: color-palette(@gold-6, 8);
+// @gold-9: color-palette(@gold-6, 9);
+// @gold-10: color-palette(@gold-6, 10);
+
+// @yellow-1: #f8efe0;
+// @yellow-2: #ffe4b2;
+// @yellow-3: #ffd280;
+// @yellow-4: #fdbf4d;
+// @yellow-5: #e5ae46;
+// @yellow-6: #cc9b3e;
+// @yellow-7: #b28836;
+// @yellow-8: #916f2c;
+// @yellow-9: #735823;
+// @yellow-10: #59441a;
+
+// @lime-1: color-palette(@lime-6, 1);
+// @lime-2: color-palette(@lime-6, 2);
+// @lime-3: color-palette(@lime-6, 3);
+// @lime-4: color-palette(@lime-6, 4);
+// @lime-5: color-palette(@lime-6, 5);
+// @lime-6: #9fdb1d;
+// @lime-7: color-palette(@lime-6, 7);
+// @lime-8: color-palette(@lime-6, 8);
+// @lime-9: color-palette(@lime-6, 9);
+// @lime-10: color-palette(@lime-6, 10);
+
+// @green-1: #c8faea;
+// @green-2: #91f2d3;
+// @green-3: #5ae0b4;
+// @green-4: #3dcc9e;
+// @green-5: #29ba8b;
+// @green-6: #229972;
+// @green-7: #1c805f;
+// @green-8: #186b50;
+// @green-9: #135741;
+// @green-10: #0e402f;
+
+// @cyan-1: #e8f8ff;
+// @cyan-2: #bfecff;
+// @cyan-3: #97dbf7;
+// @cyan-4: #62c9f5;
+// @cyan-5: #30b9f2;
+// @cyan-6: #03a8ee;
+// @cyan-7: #0176a9;
+// @cyan-8: #045f86;
+// @cyan-9: #024e6f;
+// @cyan-10: #00405c;
+
+// @blue-1: #eff5fe;
+// @blue-2: #d4e2fd;
+// @blue-3: #aec8fb;
+// @blue-4: #84a9f9;
+// @blue-5: #5989f7;
+// @blue-6: #206bfa;
+// @blue-7: #0e4bce;
+// @blue-8: #0b399e;
+// @blue-9: #082a73;
+// @blue-10: #11184f;
+
+// @arcoblue-1: #faedf8;
+// @arcoblue-2: #f2d3ee;
+// @arcoblue-3: #deb1d8;
+// @arcoblue-4: #d19bca;
+// @arcoblue-5: #c27ab9;
+// @arcoblue-6: #ad57a3;
+// @arcoblue-7: #992e8a;
+// @arcoblue-8: #7a126b;
+// @arcoblue-9: #4d144a;
+// @arcoblue-10: #330d31;
+
+// @purple-1: #f5f2fe;
+// @purple-2: #e5dbfc;
+// @purple-3: #d0bff5;
+// @purple-4: #b59beb;
+// @purple-5: #9b79e0;
+// @purple-6: #8d64dd;
+// @purple-7: #6441ab;
+// @purple-8: #4f3387;
+// @purple-9: #3c2766;
+// @purple-10: c#2a1b47;
+
+// @pinkpurple-1: color-palette(@pinkpurple-6, 1);
+// @pinkpurple-2: color-palette(@pinkpurple-6, 2);
+// @pinkpurple-3: color-palette(@pinkpurple-6, 3);
+// @pinkpurple-4: color-palette(@pinkpurple-6, 4);
+// @pinkpurple-5: color-palette(@pinkpurple-6, 5);
+// @pinkpurple-6: #d91ad9;
+// @pinkpurple-7: color-palette(@pinkpurple-6, 7);
+// @pinkpurple-8: color-palette(@pinkpurple-6, 8);
+// @pinkpurple-9: color-palette(@pinkpurple-6, 9);
+// @pinkpurple-10: color-palette(@pinkpurple-6, 10);
+
+// @magenta-1: color-palette(@magenta-6, 1);
+// @magenta-2: color-palette(@magenta-6, 2);
+// @magenta-3: color-palette(@magenta-6, 3);
+// @magenta-4: color-palette(@magenta-6, 4);
+// @magenta-5: color-palette(@magenta-6, 5);
+// @magenta-6: #f5319d;
+// @magenta-7: color-palette(@magenta-6, 7);
+// @magenta-8: color-palette(@magenta-6, 8);
+// @magenta-9: color-palette(@magenta-6, 9);
+// @magenta-10: color-palette(@magenta-6, 10);
+
+// @gray-1: #f9f6f7;
+// @gray-2: #f0ecee;
+// @gray-3: #e5e0e3;
+// @gray-4: #d4c9cf;
+// @gray-5: #b8a9b1;
+// @gray-6: #9c8993;
+// @gray-7: #85707a;
+// @gray-8: #69525d;
+// @gray-9: #3b2731;
+// @gray-10: #1e151a;
