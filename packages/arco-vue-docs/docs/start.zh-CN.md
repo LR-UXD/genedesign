@@ -15,21 +15,21 @@ vue >= 3.2.0
 
 ```shell
 # npm
-npm install --save-dev @arco-design/web-vue
+npm install --save-dev genedesign
 # yarn
-yarn add --dev @arco-design/web-vue
+yarn add --dev genedesign
 ```
 
 ## 完整引入
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'genedesign';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/arco.css';
 
 const app = createApp(App);
-app.use(ArcoVue);
+app.use(GeneVue);
 app.mount('#app');
 ```
 
@@ -64,21 +64,21 @@ export default defineConfig({
 });
 ```
 
-注意：这种方法并不会处理用户在 script 中手动导入的组件，比如 Message 组件，用户仍需要手动导入组件对应的样式文件，例如 `@arco-design/web-vue/es/message/style/css.js`。
+注意：这种方法并不会处理用户在 script 中手动导入的组件，比如 Message 组件，用户仍需要手动导入组件对应的样式文件，例如 `genedesign/es/message/style/css.js`。
 
-## 按需加载与组件库主题（Arco 插件）
+## 按需加载与组件库主题（Gene 插件）
 
-另外也可以使用 Arco 提供的 Vite 插件进行按需加载和组件库样式配置，[@arco-plugins/vite-vue](https://github.com/arco-design/arco-plugins/tree/main/packages/plugin-vite-vue) 插件会自动加载组件样式。
+另外也可以使用 Gene 提供的 Vite 插件进行按需加载和组件库样式配置，[@gene-plugins/vite-vue]插件会自动加载组件样式。
 
 ```ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { vitePluginForArco } from '@arco-plugins/vite-vue'
+import { vitePluginForGene } from '@gene-plugins/vite-vue'
 
 export default defineConfig({
   plugins: [
     vue(),
-    vitePluginForArco({
+    vitePluginForGene({
       style: 'css'
     })
   ]
@@ -86,24 +86,24 @@ export default defineConfig({
 ```
 
 ## 全局配置
-在引入 ArcoVue 时，可以传入一个全局配置对象。
+在引入 GeneVue 时，可以传入一个全局配置对象。
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'Genedesign';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue, {
   // 用于改变使用组件时的前缀名称
-  componentPrefix: 'arco'
+  componentPrefix: 'gene'
 });
 app.mount('#app');
 ```
 
 ## 导入组件
-组件库在 `2.44.3` 版本为了兼容 nuxt3 环境，增加 `exports` 配置。这个配置会对组件库的导入产生一定影响，使用中建议从 `@arco-design/web-vue` 和 `@arco-design/web-vue/es/icon` 导入组件库和图标。
+组件库在 `2.44.3` 版本为了兼容 nuxt3 环境，增加 `exports` 配置。这个配置会对组件库的导入产生一定影响，使用中建议从 `genedesign` 和 `genedesign/es/icon` 导入组件库和图标。
 
 
 ## 浏览器兼容性

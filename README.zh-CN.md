@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://uxd.lenovo.com/genedesign" target="_blank">
-    <img alt="Gene Design Logo" width="200" src="https://avatars.githubusercontent.com/u/64576149?s=200&v=4"/>
+    <img alt="Gene Design Logo" width="200" src="https://uxd.lenovo.com/icon.svg"/>
   </a>
 </div>
 
@@ -36,22 +36,22 @@
 
 ```bash
 // npm
-npm install @arco-design/web-vue
+npm install genedesign
 
 // yarn
-yarn add @arco-design/web-vue
+yarn add genedesign
 ```
 
 # 例子
 
 ```typescript
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'genedesign';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/arco.css';
 
 const app = createApp(App);
-app.use(ArcoVue);
+app.use(GeneVue);
 app.mount('#app');
 ```
 

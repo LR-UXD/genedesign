@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://uxd.lenovo.com/genedesign" target="_blank">
-    <img alt="Gene Design Logo" width="200" src="https://avatars.githubusercontent.com/u/64576149?s=200&v=4"/>
+    <img alt="Gene Design Logo" width="200" src="https://uxd.lenovo.com/icon.svg"/>
   </a>
 </div>
 <div align="center">
@@ -46,12 +46,12 @@ yarn add genedesign
 
 ```typescript
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'genedesign';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/arco.css';
 
 const app = createApp(App);
-app.use(ArcoVue);
+app.use(GeneVue);
 app.mount('#app');
 ```
 
@@ -66,5 +66,3 @@ app.mount('#app');
 # Useful Links
 
 * [Documentation website](https://uxd.lenovo.com/genedesign/)
-
-Ths project is [MIT licensed](./LICENSE).

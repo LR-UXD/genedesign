@@ -1,13 +1,13 @@
 {
   "name": "@arco-design/web-vue",
-  "version": "2.57.0",
-  "description": "Arco Design Vue 2.0: A Vue.js 3 UI Library",
+  "version": "1.0.1",
+  "description": "Gene Design Vue 2.0: A Vue.js 3 UI Library",
   "keywords": [
     "arco",
     "vue"
   ],
-  "author": "ArcoDesign Team",
-  "homepage": "https://arco.design/vue",
+  "author": "UXD Team",
+  "homepage": "https://uxd.lenovo.com/genedesign",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arco-design/arco-design-vue.git"
+    "url": "git+https://github.com/LR-UXD/genedesign.git"
   },
   "sideEffects": [
     "dist/*",
