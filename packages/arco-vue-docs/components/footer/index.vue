@@ -1,26 +1,18 @@
 <template>
   <footer class="arco-site-footer">
     <div class="arco-site-footer-main">
-      <div class="arco-site-footer-content">
+      <!-- <div class="arco-site-footer-content">
         <div class="arco-site-footer-logo">
           <logo />
         </div>
         <div class="arco-site-relevant">
-          <div
-            v-for="(group, index) of relevant"
-            :key="index"
-            class="arco-site-relevant-group"
-          >
+          <div v-for="(group, index) of relevant" :key="index" class="arco-site-relevant-group">
             <div class="arco-site-relevant-title">
               {{ t(`footer.${group.title}`) }}
               <icon-down />
             </div>
             <ul class="arco-site-relevant-list">
-              <li
-                v-for="(item, itemIndex) of group.list"
-                :key="itemIndex"
-                class="arco-site-relevant-item"
-              >
+              <li v-for="(item, itemIndex) of group.list" :key="itemIndex" class="arco-site-relevant-item">
                 <a v-if="item.link" :href="item.link">
                   {{ t(`footer.${item.text}`) }}
                 </a>
@@ -31,30 +23,14 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="arco-site-footer-bottom">
         <div class="arco-site-footer-bottom-left">
-          <a class="arco-site-footer-btn" href="/">
-            <span class="arco-site-footer-icon">
-              <span class="arco-site-footer-icon-gray">
-                <icon-arco />
-              </span>
-              <span class="arco-site-footer-icon-color">
-                <icon-arco-color />
-              </span>
-            </span>
-            Powered by ArcoDesign
-          </a>
           <div class="arco-site-footer-copyright">
-            <span>UED-火山引擎 & 架构前端 </span>
-            <span>ⓒ Copyright ByteDance 2019-{{ latestYear }}</span>
+            <span>©2024 UXD Team, Lenovo Research. All Rights Reserved.</span>
           </div>
         </div>
-        <div class="arco-site-footer-bottom-right">
-          <a target="_blank" rel="noreferrer" href="https://beian.miit.gov.cn/">
-            京ICP备19059916号-18
-          </a>
-        </div>
+
       </div>
     </div>
   </footer>
@@ -72,9 +48,9 @@ import Logo from '../logo/index.vue';
 export default defineComponent({
   name: 'ArcoFooter',
   components: {
-    IconArco,
-    IconArcoColor,
-    Logo,
+    // IconArco,
+    // IconArcoColor,
+    // Logo,
   },
   setup() {
     const { t } = useI18n();

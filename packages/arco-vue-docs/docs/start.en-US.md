@@ -11,33 +11,33 @@ description: Follow the steps below to quickly get started using the component l
 
 vue >= 3.2.0
 
-**Note**: `Vue3` does not support IE browser environment, so ArcoVue does not support IE browser environment.
+**Note**: `Vue3` does not support IE browser environment, so GeneVue does not support IE browser environment.
 
 ## Install
 
 ```shell
 # npm
-npm install --save-dev @arco-design/web-vue
+npm install --save-dev genedesign
 # yarn
-yarn add --dev @arco-design/web-vue
+yarn add --dev genedesign
 ```
 
 ## Full import
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'genedesign';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/gene.css';
 
 const app = createApp(App);
-app.use(ArcoVue);
+app.use(GeneVue);
 app.mount('#app');
 ```
 
 ## On-demand Import (template)
 
-If you use the template method for development, you can use the [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) and [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) plugin to enable on-demand import and automatic import support.
+If you use the template method for development, you can use the geneplugin-vue-components and [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) plugin to enable on-demand import and automatic import support.
 The plug-in will automatically parse the components used in the template, and import the components and corresponding style files.
 Requires component library `version >= 2.11.0`.
 
@@ -45,19 +45,19 @@ Requires component library `version >= 2.11.0`.
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite';
-import { ArcoResolver } from 'unplugin-vue-components/resolvers';
+import Components from 'geneplugin-vue-components/vite';
+import { GeneResolver } from 'geneplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      resolvers: [ArcoResolver()],
+      resolvers: [GeneResolver()],
     }),
     Components({
       resolvers: [
-        ArcoResolver({
+        GeneResolver({
           sideEffect: true
         })
       ]
@@ -66,21 +66,21 @@ export default defineConfig({
 });
 ```
 
-Note: This method does not process the components manually imported by the user in the script, such as the Message component. The user still needs to manually import the style file corresponding to the component, such as `@arco-design/web-vue/es/message/style/css.js` .
+Note: This method does not process the components manually imported by the user in the script, such as the Message component. The user still needs to manually import the style file corresponding to the component, such as `genedesign/es/message/style/css.js` .
 
 ## On-demand loading and component library themes (Arco plugin)
 
-In addition, you can also use the Vite plugin provided by Arco for on-demand loading and component library style configuration, [@arco-plugins/vite-vue](https://github.com/arco-design/arco-plugins/tree/main/ packages/plugin-vite-vue) plugin will automatically load component styles.
+In addition, you can also use the Vite plugin provided by Gene for on-demand loading and component library style configuration, @gene-plugins/vite-vue  plugin will automatically load component styles.
 
 ```ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { vitePluginForArco } from '@arco-plugins/vite-vue'
+import { vitePluginForGene } from '@gene-plugins/vite-vue'
 
 export default defineConfig({
   plugins: [
     vue(),
-    vitePluginForArco({
+    vitePluginForGene({
       style: 'css'
     })
   ]
@@ -88,24 +88,24 @@ export default defineConfig({
 ```
 
 ## Global configuration
-When ArcoVue is introduced, a global configuration object can be passed in.
+When GeneVue is introduced, a global configuration object can be passed in.
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'Genedesign';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/gene.css';
 
 const app = createApp(App);
 app.use(ArcoVue, {
-  // Used to change the prefix name when using components
-  componentPrefix: 'arco'
+  // 用于改变使用组件时的前缀名称
+  componentPrefix: 'gene'
 });
 app.mount('#app');
 ```
 
 ## import component
-In order to be compatible with the nuxt3 environment in the `2.44.3` version of the component library, the `exports` configuration is added. This configuration will have a certain impact on the import of component libraries. It is recommended to import component libraries and icons from `@arco-design/web-vue` and `@arco-design/web-vue/es/icon`.
+In order to be compatible with the nuxt3 environment in the `2.44.3` version of the component library, the `exports` configuration is added. This configuration will have a certain impact on the import of component libraries. It is recommended to import component libraries and icons from `genedesign` and `genedesign/es/icon`.
 
 
 ## Supported platforms

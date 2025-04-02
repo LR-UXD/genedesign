@@ -1,102 +1,72 @@
 <template>
   <Badge class="theme-badge" :count="theme ? 1 : 0" dot>
-    <Button
-      class="theme-badge-button"
-      :shape="hover ? 'round' : 'circle'"
-      size="large"
-      @click="modalVisible = true"
-      @mouseenter="hover = true"
-      @mouseleave="hover = false"
-    >
+    <Button class="theme-badge-button" :shape="hover ? 'round' : 'circle'" size="large" @click="modalVisible = true"
+      @mouseenter="hover = true" @mouseleave="hover = false">
       <IconSkin />
       <span v-if="hover" style="margin-left: 8px">
         {{ t('themeBox.installTheme') }}
       </span>
     </Button>
   </Badge>
-  <Modal
-    :visible="modalVisible"
-    :width="900"
-    @ok="modalVisible = false"
-    @cancel="modalVisible = false"
-  >
+  <Modal :visible="modalVisible" :width="900" @ok="modalVisible = false" @cancel="modalVisible = false">
     <template #title>
       <div class="theme-box-header">
         <span>{{ t('themeBox.installTheme') }}</span>
         <div>
-          <Input
-            :model-value="searchValue"
-            :placeholder="t('themeBox.search')"
-            allow-clear
-            @input="onSearchInput"
-          />
+          <Input :model-value="searchValue" :placeholder="t('themeBox.search')" allow-clear @input="onSearchInput" />
         </div>
       </div>
     </template>
     <Row :gutter="[20, 20]">
       <template v-if="isLoading">
         <Col v-for="(_, index) of loadingFillArray" :key="index" :span="8">
-          <Card v-if="isLoading" class="theme-box-card">
-            <template #cover>
+        <Card v-if="isLoading" class="theme-box-card">
+          <template #cover>
+            <Skeleton animation>
+              <SkeletonShape style="width: 272px; height: 160px" />
+            </Skeleton>
+          </template>
+          <CardMeta>
+            <template #title>
               <Skeleton animation>
-                <SkeletonShape style="width: 272px; height: 160px" />
+                <SkeletonLine :line-height="25" />
               </Skeleton>
             </template>
-            <CardMeta>
-              <template #title>
-                <Skeleton animation>
-                  <SkeletonLine :line-height="25" />
-                </Skeleton>
-              </template>
-            </CardMeta>
-            <Skeleton animation>
-              <SkeletonShape
-                style="
+          </CardMeta>
+          <Skeleton animation>
+            <SkeletonShape style="
                   width: 100px;
                   height: 24px;
                   margin-top: 20px;
                   margin-left: auto;
-                "
-              />
-            </Skeleton>
-          </Card>
+                " />
+          </Skeleton>
+        </Card>
         </Col>
       </template>
       <template v-else-if="themeList.length > 0">
         <Col v-for="item of themeList" :key="item.themeId" :span="8">
-          <Card class="theme-box-card">
-            <template #cover>
-              <img :src="item.cover" style="height: 160px" alt="theme-cover" />
-            </template>
-            <template #actions>
-              <Button
-                class="theme-box-card-link"
-                type="text"
-                size="mini"
-                :href="`https://arco.design/themes/design/${item.themeId}`"
-              >
-                <template #icon>
-                  <IconLink />
-                </template>
-                {{ t('themeBox.openInDesignLab') }}
-              </Button>
-              <Tag
-                v-if="theme && theme.themeId === item.themeId"
-                color="arcoblue"
-              >
-                {{ t('themeBox.currentTheme') }}
-              </Tag>
-              <Button
-                v-else
-                type="primary"
-                size="mini"
-                @click="() => useTheme(item)"
-              >
-                {{ t('themeBox.install') }}
-              </Button>
-            </template>
-            <CardMeta :title="item.packageName" />
-          </Card>
+        <Card class="theme-box-card">
+          <template #cover>
+            <img :src="item.cover" style="height: 160px" alt="theme-cover" />
+          </template>
+          <template #actions>
+            <Button class="theme-box-card-link" type="text" size="mini"
+              :href="`https://arco.design/themes/design/${item.themeId}`">
+              <template #icon>
+                <IconLink />
+              </template>
+              {{ t('themeBox.openInDesignLab') }}
+            </Button>
+            <Tag v-if="theme && theme.themeId === item.themeId" color="arcoblue">
+              {{ t('themeBox.currentTheme') }}
+            </Tag>
+            <Button v-else type="primary" size="mini" @click="() => useTheme(item)">
+              {{ t('themeBox.install') }}
+            </Button>
+          </template>
+          <CardMeta :title="item.packageName" />
+        </Card>
         </Col>
       </template>
       <template v-else>
@@ -104,31 +74,21 @@
           <template #description>
             {{ t('themeBox.noResult') }}
             <Link :href="`https://arco.design/themes`">
-              {{ t('themeBox.createTheme') }}
+            {{ t('themeBox.createTheme') }}
             </Link>
           </template>
         </Empty>
       </template>
     </Row>
     <div class="theme-box-bottom">
-      <Pagination
-        :total="total"
-        :current="page"
-        :page-size="6"
-        @change="onPageChange"
-      />
+      <Pagination :total="total" :current="page" :page-size="6" @change="onPageChange" />
     </div>
     <template v-if="theme" #footer>
       <div class="theme-box-footer">
         <TypographyText bold>
           {{ t('themeBox.currentTheme') }}: {{ theme.themeName }}
         </TypographyText>
-        <Button
-          type="primary"
-          status="danger"
-          size="small"
-          @click="onResetClick"
-        >
+        <Button type="primary" status="danger" size="small" @click="onResetClick">
           {{ t('themeBox.resetTheme') }}
         </Button>
       </div>
@@ -228,7 +188,7 @@ export default defineComponent({
 
         themeList.value = data.data.list;
         total.value = data.data.total;
-      } catch {}
+      } catch { }
       isLoading.value = false;
     };
 

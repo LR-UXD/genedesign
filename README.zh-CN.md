@@ -48,7 +48,7 @@ yarn add genedesign
 import { createApp } from 'vue'
 import GeneVue from 'genedesign';
 import App from './App.vue';
-import 'genedesign/dist/arco.css';
+import 'genedesign/dist/gene.css';
 
 const app = createApp(App);
 app.use(GeneVue);

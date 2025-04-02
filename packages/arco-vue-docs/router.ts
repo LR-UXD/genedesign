@@ -212,10 +212,10 @@ const docs = [
   //   component: Theme,
   //   componentEn: ThemeEn,
   // },
-  // {
-  //   name: 'token',
-  //   component: () => import('./pages/token/token.vue'),
-  // },
+  {
+    name: 'token',
+    component: () => import('./pages/token/token.vue'),
+  },
   // {
   //   name: 'i18n',
   //   component: I18n,
@@ -812,10 +812,10 @@ const docsMenuList = [
     name: 'docs',
     menu: docsMenu,
   },
-  {
-    name: 'proDocs',
-    menu: proDocsMenu,
-  },
+  // {
+  //   name: 'proDocs',
+  //   menu: proDocsMenu,
+  // },
 ];
 
 export { docsMenu, componentMenu, proDocsMenu, docsMenuList };

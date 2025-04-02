@@ -7,12 +7,12 @@
       <aside-nav :show="showNav" @button-click="toggleNav" />
       <router-view />
     </div>
-    <ThemeBox />
+    <!-- <ThemeBox />
     <a-back-top :style="{ right: '70px', bottom: '80px' }">
       <a-button class="site-backtop-btn" shape="circle" size="large">
         <icon-up />
       </a-button>
-    </a-back-top>
+    </a-back-top> -->
   </div>
 </template>
 
@@ -31,7 +31,7 @@ import { PageDurationTracker, teaLog } from '@arco-materials/site-utils';
 import { collapseInjectionKey } from './context';
 import AsideNav from './components/aside-nav/index.vue';
 import { getLocalStorage, setLocalStorage } from './utils/local-storage';
-import ThemeBox from './components/theme-box/index.vue';
+// import ThemeBox from './components/theme-box/index.vue';
 // import Locale from '@arco-design/web-vue/es/locale';
 // import { getLocalStorage, setLocalStorage } from './utils/local-storage';
 
@@ -39,7 +39,7 @@ export default defineComponent({
   name: 'App',
   components: {
     AsideNav,
-    ThemeBox,
+    // ThemeBox,
   },
   props: {
     theme: String,

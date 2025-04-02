@@ -10,15 +10,15 @@ Arco图标是一个独立的库，需要额外引入并注册使用。
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import GeneVue from 'genedesign';
 // 额外引入图标库
-import ArcoVueIcon from '@arco-design/web-vue/es/icon';
+import GeneVueIcon from 'genedesign/es/icon';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import 'genedesign/dist/gene.css';
 
 const app = createApp(App);
-app.use(ArcoVue);
-app.use(ArcoVueIcon);
+app.use(GeneVue);
+app.use(GeneVueIcon);
 app.mount('#app');
 ```
 
@@ -48,7 +48,7 @@ import ArcoVue from '@arco-design/web-vue';
 // import additional icon library
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@arco-design/web-vue/dist/gene.css';
 
 const app = createApp(App);
 app.use(ArcoVue);

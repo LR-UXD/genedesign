@@ -9,7 +9,7 @@ description: 跟随以下的步骤，快速上手组件库的使用。
 
 vue >= 3.2.0
 
-**注意**：由于 `Vue3` 不再支持 IE 浏览器环境，ArcoVue 也不再支持 IE 浏览器环境。
+**注意**：由于 `Vue3` 不再支持 IE 浏览器环境，GeneVue 也不再支持 IE 浏览器环境。
 
 ## 安装
 
@@ -26,7 +26,7 @@ yarn add --dev genedesign
 import { createApp } from 'vue'
 import GeneVue from 'genedesign';
 import App from './App.vue';
-import 'genedesign/dist/arco.css';
+import 'genedesign/dist/gene.css';
 
 const app = createApp(App);
 app.use(GeneVue);
@@ -35,7 +35,7 @@ app.mount('#app');
 
 ## 按需加载（模板）
 
-如果使用模板方式进行开发，可以使用 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) 和 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 这两款插件来开启按需加载及自动导入的支持。
+如果使用模板方式进行开发，可以使用 geneplugin-vue-components 和 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 这两款插件来开启按需加载及自动导入的支持。
 插件会自动解析模板中的使用到的组件，并导入组件和对应的样式文件。
 需要组件库 `version >= 2.11.0`。
 
@@ -43,19 +43,19 @@ app.mount('#app');
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite';
-import { ArcoResolver } from 'unplugin-vue-components/resolvers';
+import Components from 'geneplugin-vue-components/vite';
+import { GeneResolver } from 'geneplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      resolvers: [ArcoResolver()],
+      resolvers: [GeneResolver()],
     }),
     Components({
       resolvers: [
-        ArcoResolver({
+        GeneResolver({
           sideEffect: true
         })
       ]
@@ -68,7 +68,7 @@ export default defineConfig({
 
 ## 按需加载与组件库主题（Gene 插件）
 
-另外也可以使用 Gene 提供的 Vite 插件进行按需加载和组件库样式配置，[@gene-plugins/vite-vue]插件会自动加载组件样式。
+另外也可以使用 Gene 提供的 Vite 插件进行按需加载和组件库样式配置，@gene-plugins/vite-vue 插件会自动加载组件样式。
 
 ```ts
 import { defineConfig } from 'vite'
@@ -92,7 +92,7 @@ export default defineConfig({
 import { createApp } from 'vue'
 import GeneVue from 'Genedesign';
 import App from './App.vue';
-import 'genedesign/dist/arco.css';
+import 'genedesign/dist/gene.css';
 
 const app = createApp(App);
 app.use(ArcoVue, {
