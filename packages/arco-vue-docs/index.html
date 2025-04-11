@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Gene Design</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://uxd.lenovo.com/icon.svg" />
+  <script src="./cdn/cdn-index.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <div id="react-root"></div>
+  <script type="module" src="./index.ts"></script>
+  <script>
+    (function (win, export_obj) {
+      win['TeaAnalyticsObject'] = export_obj;
+      if (!win[export_obj]) {
+        function _collect() {
+          _collect.q.push(arguments);
+        }
+        _collect.q = _collect.q || [];
+        win[export_obj] = _collect;
+      }
+      win[export_obj].l = +new Date();
+    })(window, 'collectEvent');
+  </script>
+  <script async src="./cdn/cdn-collect.js"></script>
+</body>
+
+</html>

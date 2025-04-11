@@ -1,0 +1,24 @@
+import{_ as k,d,u as g,o as f,c as m,w as u,m as h,r as p,e as n,a as y,b as a}from"./index.9c61ea88.js";const v=d({name:"ArcoMain",components:{},setup(){const{locale:t}=g(),s={meta:{type:"Arco Pro"},title:"Internationalization",description:"Multi-language implementation"},o=(e,c)=>t.value==="zh-CN"?e:c;return{locale:t,data:s,changelog:typeof _changelog=="undefined"?void 0:_changelog,getMessage:o}}});function w(t,s,o,l,e,c){const i=p("anchor-head"),r=p("arco-article");return f(),m(r,h(t.data,{changelog:t.changelog}),{default:u(()=>[s[1]||(s[1]=n("p",null,[n("em",null,"Auto translate by google.")],-1)),y(i,{level:"2",href:"Language-Pack"},{default:u(()=>s[0]||(s[0]=[a("Language Pack")])),_:1}),s[2]||(s[2]=n("p",null,[a("Internationalization is firstly the provision of language packs. In Pro, the language packs are defined in "),n("code",null,"src/locale"),a(", and then imported into "),n("code",null,"main"),a(" to take effect.")],-1)),s[3]||(s[3]=n("pre",{class:"code-content"},[n("code",null,`\u251C\u2500\u2500 locale
+\u2502 \u251C\u2500\u2500 en-US.ts
+\u2502 \u2514\u2500\u2500 zh-CN.ts
+\u251C\u2500\u2500 hooks
+\u2502 \u251C\u2500\u2500 locale.ts
+\u2514\u2500\u2500 main.ts
+`)],-1)),s[4]||(s[4]=n("p",null,"At the same time, hooks for obtaining the current language and switching the current language are provided in the hooks directory.",-1)),s[5]||(s[5]=n("pre",{class:"code-content"},[n("code",{class:"language-lang"},[n("span",{class:"token keyword"},"import"),a(),n("span",{class:"token punctuation"},"{"),a("computed"),n("span",{class:"token punctuation"},"}"),a(),n("span",{class:"token keyword"},"from"),n("span",{class:"token string"},"'vue'"),n("span",{class:"token punctuation"},";"),a(`
+`),n("span",{class:"token keyword"},"import"),a(),n("span",{class:"token punctuation"},"{"),a("useI18n"),n("span",{class:"token punctuation"},"}"),a(),n("span",{class:"token keyword"},"from"),n("span",{class:"token string"},"'vue-i18n'"),n("span",{class:"token punctuation"},";"),a(`
+
+`),n("span",{class:"token keyword"},"export"),a(),n("span",{class:"token keyword"},"default"),a(),n("span",{class:"token keyword"},"function"),a(),n("span",{class:"token function"},"useLocale"),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},")"),a(),n("span",{class:"token punctuation"},"{"),a(`
+    `),n("span",{class:"token keyword"},"const"),a(" i18 "),n("span",{class:"token operator"},"="),a(),n("span",{class:"token function"},"useI18n"),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},")"),n("span",{class:"token punctuation"},";"),a(`
+    `),n("span",{class:"token keyword"},"const"),a(" currentLocale "),n("span",{class:"token operator"},"="),a(),n("span",{class:"token function"},"computed"),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},")"),a(),n("span",{class:"token operator"},"=>"),a(),n("span",{class:"token punctuation"},"{"),a(`
+        `),n("span",{class:"token keyword"},"return"),a(" i18"),n("span",{class:"token punctuation"},"."),a("locale"),n("span",{class:"token punctuation"},"."),a("value"),n("span",{class:"token punctuation"},";"),a(`
+    `),n("span",{class:"token punctuation"},"}"),n("span",{class:"token punctuation"},")"),n("span",{class:"token punctuation"},";"),a(`
+    `),n("span",{class:"token keyword"},"const"),a(),n("span",{class:"token function-variable function"},"changeLocale"),a(),n("span",{class:"token operator"},"="),a(),n("span",{class:"token punctuation"},"("),a("value"),n("span",{class:"token operator"},":"),a(),n("span",{class:"token builtin"},"string"),n("span",{class:"token punctuation"},")"),a(),n("span",{class:"token operator"},"=>"),a(),n("span",{class:"token punctuation"},"{"),a(`
+        i18`),n("span",{class:"token punctuation"},"."),a("locale"),n("span",{class:"token punctuation"},"."),a("value "),n("span",{class:"token operator"},"="),a(" value"),n("span",{class:"token punctuation"},";"),a(`
+        localStorage`),n("span",{class:"token punctuation"},"."),n("span",{class:"token function"},"setItem"),n("span",{class:"token punctuation"},"("),n("span",{class:"token string"},"'arco-locale'"),n("span",{class:"token punctuation"},","),a(" value"),n("span",{class:"token punctuation"},")"),n("span",{class:"token punctuation"},";"),a(`
+    `),n("span",{class:"token punctuation"},"}"),n("span",{class:"token punctuation"},";"),a(`
+    `),n("span",{class:"token keyword"},"return"),a(),n("span",{class:"token punctuation"},"{"),a(`
+        currentLocale`),n("span",{class:"token punctuation"},","),a(`
+        changeLocale`),n("span",{class:"token punctuation"},","),a(`
+    `),n("span",{class:"token punctuation"},"}"),n("span",{class:"token punctuation"},";"),a(`
+`),n("span",{class:"token punctuation"},"}"),a(`
+`)])],-1))]),_:1},16,["changelog"])}var I=k(v,[["render",w]]);export{I as default};

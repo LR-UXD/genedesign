@@ -1,0 +1,59 @@
+.action[data-v-04b99d80] {
+  display: inline-block;
+  padding: 0 4px;
+  color: var(--color-text-1);
+  line-height: 24px;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.action[data-v-04b99d80]:hover {
+  background: var(--color-fill-3);
+}
+
+.action[data-v-7b9154f0] {
+  display: inline-block;
+  padding: 0 4px;
+  color: var(--color-text-1);
+  line-height: 24px;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.action[data-v-7b9154f0]:hover {
+  background: var(--color-fill-3);
+}
+
+.action[data-v-79d1e937] {
+  display: inline-block;
+  padding: 0 4px;
+  color: var(--color-text-1);
+  line-height: 24px;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.action[data-v-79d1e937]:hover {
+  background: var(--color-fill-3);
+}
+
+.action[data-v-377cfd55] {
+  display: inline-block;
+  padding: 0 4px;
+  color: var(--color-text-1);
+  line-height: 24px;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.action[data-v-377cfd55]:hover {
+  background: var(--color-fill-3);
+}

@@ -1,0 +1,24 @@
+import{_ as i,d,u as g,o as f,c as m,w as c,m as B,r as p,a as C,b as s,e as n}from"./index.9c61ea88.js";const D=d({name:"ArcoMain",components:{},setup(){const{locale:t}=g(),a={meta:{type:"Arco Pro \u6700\u4F73\u5B9E\u8DF5"},title:"\u56FD\u9645\u5316",description:"\u591A\u8BED\u8A00\u5B9E\u73B0"},o=(u,e)=>t.value==="zh-CN"?u:e;return{locale:t,data:a,changelog:typeof _changelog=="undefined"?void 0:_changelog,getMessage:o}}});function E(t,a,o,l,u,e){const k=p("anchor-head"),r=p("arco-article");return f(),m(r,B(t.data,{changelog:t.changelog}),{default:c(()=>[C(k,{level:"2",href:"\u8BED\u8A00\u5305"},{default:c(()=>a[0]||(a[0]=[s("\u8BED\u8A00\u5305")])),_:1}),a[1]||(a[1]=n("p",null,[s("\u56FD\u9645\u5316\u9996\u5148\u662F\u8BED\u8A00\u5305\u7684\u63D0\u4F9B\uFF0CPro \u91CC\u9762\u5C06\u8BED\u8A00\u5305\u5B9A\u4E49\u5728 "),n("code",null,"src/locale"),s(" \u4E2D\uFF0C\u7136\u540E\u5BFC\u5165 "),n("code",null,"main"),s(" \u4E2D\u751F\u6548\u3002")],-1)),a[2]||(a[2]=n("pre",{class:"code-content"},[n("code",null,`\u251C\u2500\u2500 locale
+\u2502 \u251C\u2500\u2500 en-US.ts
+\u2502 \u2514\u2500\u2500 zh-CN.ts
+\u251C\u2500\u2500 hooks
+\u2502 \u251C\u2500\u2500 locale.ts
+\u2514\u2500\u2500 main.ts
+`)],-1)),a[3]||(a[3]=n("p",null,"\u540C\u65F6\u5728hooks\u76EE\u5F55\u4E2D\u63D0\u4F9B\u83B7\u53D6\u5F53\u524D\u8BED\u8A00\u4EE5\u53CA\u5207\u6362\u5F53\u524D\u8BED\u8A00\u7684hook\u3002",-1)),a[4]||(a[4]=n("pre",{class:"code-content"},[n("code",{class:"language-lang"},[n("span",{class:"token keyword"},"import"),s(),n("span",{class:"token punctuation"},"{"),s(" computed "),n("span",{class:"token punctuation"},"}"),s(),n("span",{class:"token keyword"},"from"),s(),n("span",{class:"token string"},"'vue'"),n("span",{class:"token punctuation"},";"),s(`
+`),n("span",{class:"token keyword"},"import"),s(),n("span",{class:"token punctuation"},"{"),s(" useI18n "),n("span",{class:"token punctuation"},"}"),s(),n("span",{class:"token keyword"},"from"),s(),n("span",{class:"token string"},"'vue-i18n'"),n("span",{class:"token punctuation"},";"),s(`
+
+`),n("span",{class:"token keyword"},"export"),s(),n("span",{class:"token keyword"},"default"),s(),n("span",{class:"token keyword"},"function"),s(),n("span",{class:"token function"},"useLocale"),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},")"),s(),n("span",{class:"token punctuation"},"{"),s(`
+   `),n("span",{class:"token keyword"},"const"),s(" i18 "),n("span",{class:"token operator"},"="),s(),n("span",{class:"token function"},"useI18n"),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},")"),n("span",{class:"token punctuation"},";"),s(`
+   `),n("span",{class:"token keyword"},"const"),s(" currentLocale "),n("span",{class:"token operator"},"="),s(),n("span",{class:"token function"},"computed"),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},"("),n("span",{class:"token punctuation"},")"),s(),n("span",{class:"token operator"},"=>"),s(),n("span",{class:"token punctuation"},"{"),s(`
+       `),n("span",{class:"token keyword"},"return"),s(" i18"),n("span",{class:"token punctuation"},"."),s("locale"),n("span",{class:"token punctuation"},"."),s("value"),n("span",{class:"token punctuation"},";"),s(`
+   `),n("span",{class:"token punctuation"},"}"),n("span",{class:"token punctuation"},")"),n("span",{class:"token punctuation"},";"),s(`
+   `),n("span",{class:"token keyword"},"const"),s(),n("span",{class:"token function-variable function"},"changeLocale"),s(),n("span",{class:"token operator"},"="),s(),n("span",{class:"token punctuation"},"("),s("value"),n("span",{class:"token operator"},":"),s(),n("span",{class:"token builtin"},"string"),n("span",{class:"token punctuation"},")"),s(),n("span",{class:"token operator"},"=>"),s(),n("span",{class:"token punctuation"},"{"),s(`
+       i18`),n("span",{class:"token punctuation"},"."),s("locale"),n("span",{class:"token punctuation"},"."),s("value "),n("span",{class:"token operator"},"="),s(" value"),n("span",{class:"token punctuation"},";"),s(`
+       localStorage`),n("span",{class:"token punctuation"},"."),n("span",{class:"token function"},"setItem"),n("span",{class:"token punctuation"},"("),n("span",{class:"token string"},"'arco-locale'"),n("span",{class:"token punctuation"},","),s(" value"),n("span",{class:"token punctuation"},")"),n("span",{class:"token punctuation"},";"),s(`
+   `),n("span",{class:"token punctuation"},"}"),n("span",{class:"token punctuation"},";"),s(`
+   `),n("span",{class:"token keyword"},"return"),s(),n("span",{class:"token punctuation"},"{"),s(`
+       currentLocale`),n("span",{class:"token punctuation"},","),s(`
+       changeLocale`),n("span",{class:"token punctuation"},","),s(`
+   `),n("span",{class:"token punctuation"},"}"),n("span",{class:"token punctuation"},";"),s(`
+`),n("span",{class:"token punctuation"},"}"),s(`
+`)])],-1))]),_:1},16,["changelog"])}var w=i(D,[["render",E]]);export{w as default};
