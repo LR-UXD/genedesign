@@ -17,13 +17,19 @@ export default {
     feedback: '反馈',
     navigation: '导航',
     other: '其他',
+    ai: 'Ai'
   },
   component: {
     name: '组件',
     // 组件名称
     calendar: '日历 Calendar',
     icon: '图标 Icon',
+    aiIcon: '图标 AiIcon',
+
     button: '按钮 Button',
+    anime: '动画 Anime',
+    aiInput: '输入框 AiInput',
+    aiChat: '对话 AiChat',
     link: '链接 Link',
     typography: '排版 Typography',
     empty: '空状态 Empty',
@@ -156,6 +162,7 @@ export default {
     media: '影音类图标',
     logo: '商标类图标',
     general: '通用类图标',
+    gene: 'ai类图标'
   },
   proDocs: {
     name: 'Arco Pro 最佳实践',

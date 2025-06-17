@@ -69,7 +69,7 @@ export default {
   height: 600px;
   padding: 40px;
   box-sizing: border-box;
-  background-color: var(--color-neutral-2);
+  background-color: var(--color-bg-8);
 }
 
 .menu-demo a-menu {

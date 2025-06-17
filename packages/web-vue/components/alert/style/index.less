@@ -16,8 +16,7 @@
 
   &-with-title {
     align-items: flex-start;
-    padding: @alert-padding-vertical_with_title
-      @alert-padding-horizontal_with_title;
+    padding: @alert-padding-vertical_with_title @alert-padding-horizontal_with_title;
   }
 
   &-center {
@@ -28,29 +27,48 @@
     }
   }
 
+
   &-normal {
-    background-color: @alert-normal-color-bg;
-    border: @alert-border-width solid @alert-normal-color-border;
+    // background-color: @alert-normal-color-bg;
+    // border: @alert-border-width solid @alert-normal-color-border;
+    border: @alert-border-width solid var(--color-bg-8);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
   }
 
   &-info {
-    background-color: @alert-info-color-bg;
-    border: @alert-border-width solid @alert-info-color-border;
+    // background-color: @alert-info-color-bg;
+    // border: @alert-border-width solid @alert-info-color-border;
+    border: @alert-border-width solid var(--color-bg-8);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
+
   }
 
+
+
   &-success {
-    background-color: @alert-success-color-bg;
-    border: @alert-border-width solid @alert-success-color-border;
+    // background-color: @alert-success-color-bg;
+    // border: @alert-border-width solid @alert-success-color-border;
+    border: @alert-border-width solid var(--color-bg-8);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
   }
 
   &-warning {
-    background-color: @alert-warning-color-bg;
-    border: @alert-border-width solid @alert-warning-color-border;
+    // background-color: @alert-warning-color-bg;
+    // border: @alert-border-width solid @alert-warning-color-border;
+    border: @alert-border-width solid var(--color-bg-8);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
   }
 
   &-error {
-    background-color: @alert-error-color-bg;
-    border: @alert-border-width solid @alert-error-color-border;
+    // background-color: @alert-error-color-bg;
+    // border: @alert-border-width solid @alert-error-color-border;
+    border: @alert-border-width solid var(--color-bg-8);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
   }
 
   &-banner {
@@ -183,7 +201,7 @@
     }
   }
 
-  &-action + &-close-btn {
+  &-action+&-close-btn {
     margin-left: @alert-margin-action-right;
   }
 

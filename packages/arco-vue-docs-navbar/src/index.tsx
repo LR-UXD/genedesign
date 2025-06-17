@@ -29,7 +29,7 @@ const ReactApp = ({
           onChangeTheme={(theme: string) => {
             document
               .querySelector('#react-root')
-              ?.setAttribute('arco-theme', theme);
+              ?.setAttribute('gene-theme', theme);
           }}
           loginHref={`/common/login?redirectUrl=${window.location.href}`}
           hideRtl

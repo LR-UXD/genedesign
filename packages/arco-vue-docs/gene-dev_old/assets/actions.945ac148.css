@@ -1,0 +1,31 @@
+.card-demo[data-v-d772b3a6] {
+  width: 360px;
+  margin-left: 24px;
+  transition-property: all;
+}
+
+.card-demo[data-v-d772b3a6]:hover {
+  transform: translateY(-4px);
+}
+
+.card-demo[data-v-69ccd448] {
+  width: 100%;
+}
+
+.card-demo[data-v-69ccd448] a-card-header {
+  border: none;
+}
+
+.icon-hover[data-v-5edf5337] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: all 0.1s;
+}
+
+.icon-hover[data-v-5edf5337]:hover {
+  background-color: rgb(var(--gray-2));
+}

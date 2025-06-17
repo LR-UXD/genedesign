@@ -1,10 +1,6 @@
 <template>
-  <aside-anchor
-    v-if="anchors && anchors.length > 0"
-    :show="collapseCtx.showAnchor"
-    :anchors="anchors"
-    @button-click="collapseCtx.toggleAnchor"
-  />
+  <aside-anchor v-if="anchors && anchors.length > 0" :show="collapseCtx.showAnchor" :anchors="anchors"
+    @button-click="collapseCtx.toggleAnchor" />
   <main :class="cls">
     <article class="arco-vue-article">
       <div class="article-header">
@@ -19,7 +15,7 @@
         <div v-if="description" class="article-description">
           {{ description }}
         </div>
-        <ChangelogBox v-if="changelog" :changelog="changelog" />
+        <!-- <ChangelogBox v-if="changelog" :changelog="changelog" /> -->
       </div>
       <div class="article-content">
         <slot />
@@ -44,12 +40,12 @@ import ArcoFooter from '../footer/index.vue';
 import { CollapseContext, collapseInjectionKey } from '../../context';
 import { articleInjectionKey } from './context';
 import { AnchorData } from '../aside-anchor/interface';
-import ChangelogBox from '../changelog-box/index.vue';
+// import ChangelogBox from '../changelog-box/index.vue';
 
 export default defineComponent({
   name: 'ArcoArticle',
   components: {
-    ChangelogBox,
+    // ChangelogBox,
     AsideAnchor,
     ArcoFooter,
   },
@@ -76,7 +72,7 @@ export default defineComponent({
         addAnchor: (data: AnchorData) => {
           anchors.push(data);
         },
-        removeAnchor: (href: string) => {},
+        removeAnchor: (href: string) => { },
       })
     );
 

@@ -17,8 +17,7 @@
       height: @anchor-line-slider-height;
       margin-top: ((@anchor-font-size-title * @line-height-base) / 2 + @anchor-title-padding-vertical - @anchor-line-slider-height / 2);
       background-color: @anchor-color-bg-line_active;
-      transition: top @transition-duration-2
-        @transition-timing-function-standard;
+      transition: top @transition-duration-2 @transition-timing-function-standard;
     }
   }
 
@@ -72,7 +71,7 @@
     }
   }
 
-  &-link-active > &-link {
+  &-link-active>&-link {
     color: @anchor-color-title_active;
     font-weight: @anchor-font-weight-title_active;
     transition: all @transition-duration-1 @transition-timing-function-linear;
@@ -91,7 +90,7 @@
     }
   }
 
-  &-line-less &-link-active > &-link {
+  &-line-less &-link-active>&-link {
     color: @anchor-lineless-color-title_active;
     font-weight: @anchor-lineless-font-weight-title_active;
     background-color: @anchor-lineless-bg-title_active;

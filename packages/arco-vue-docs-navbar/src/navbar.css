@@ -135,7 +135,7 @@ html.rtl .ac-navbar-search-modal-item .arco-react-icon-history {
 .ac-navbar-search-hot-svg-wrapper-rect {
   border-radius: 8px;
 }
-body[arco-theme='dark'] .ac-navbar-search-modal-item-icon {
+body[gene-theme='dark'] .ac-navbar-search-modal-item-icon {
   filter: invert(1) grayscale(1) brightness(1.1);
 }
 html.rtl .ac-navbar-search-modal-half:first-child {
@@ -927,7 +927,7 @@ html.rtl .ac-navbar-left-panel-trigger::after {
 .ac-navbar-search-input-key:first-child {
   margin: 0 4px;
 }
-body[arco-theme='dark'] .ac-navbar-search-input-key {
+body[gene-theme='dark'] .ac-navbar-search-input-key {
   background: #202022;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);

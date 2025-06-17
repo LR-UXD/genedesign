@@ -7,6 +7,16 @@ export { default as Alert } from './alert';
 export type { AlertInstance } from './alert';
 export { default as Anchor, AnchorLink } from './anchor';
 export type { AnchorInstance, AnchorLinkInstance } from './anchor';
+
+export { default as Anime } from './anime';
+export type { AnimeInstance } from './anime';
+
+export { default as AiInput } from './ai-input';
+export type { AiInputInstance } from './ai-input';
+
+export { default as AiChat } from './ai-chat';
+export type { AiChatInstance } from './ai-chat';
+
 export { default as AutoComplete } from './auto-complete';
 export type { AutoCompleteInstance } from './auto-complete';
 export { default as Avatar, AvatarGroup } from './avatar';
@@ -341,4 +351,4 @@ export type { WatermarkInstance } from './watermark';
 // hooks
 export { useFormItem } from './_hooks/use-form-item';
 // components.d.ts
-export type {} from './components';
+export type { } from './components';

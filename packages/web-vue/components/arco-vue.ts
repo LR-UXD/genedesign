@@ -4,6 +4,9 @@ import { addI18nMessages, useLocale, getLocale } from './locale';
 import Affix from './affix';
 import Alert from './alert';
 import Anchor, { AnchorLink } from './anchor';
+import Anime from './anime';
+import AiChat from './ai-chat';
+import AiInput from './ai-input';
 import AutoComplete from './auto-complete';
 import Avatar, { AvatarGroup } from './avatar';
 import BackTop from './back-top';
@@ -177,6 +180,9 @@ const components: Record<string, Plugin> = {
   OverflowList,
   Watermark,
   VerificationCode,
+  Anime,
+  AiInput,
+  AiChat
 };
 
 const install = (app: App, options?: ArcoOptions) => {

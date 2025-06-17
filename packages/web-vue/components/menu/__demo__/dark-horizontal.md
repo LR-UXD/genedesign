@@ -42,7 +42,7 @@ The theme is specified by `theme`, which can be divided into two types: `light` 
   box-sizing: border-box;
   width: 100%;
   padding: 40px;
-  background-color: var(--color-neutral-2);
+  background-color: var(--color-bg-8);
 }
 </style>
 ```

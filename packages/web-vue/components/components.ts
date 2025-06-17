@@ -10,6 +10,9 @@ declare module 'vue' {
     AAlert: typeof import('genedesign')['Alert'];
     AAnchor: typeof import('genedesign')['Anchor'];
     AAnchorLink: typeof import('genedesign')['AnchorLink'];
+    AAnime: typeof import('genedesign')['Anime'];
+    AAiInput: typeof import('genedesign')['AiInput'];
+    AAiChat: typeof import('genedesign')['AiChat'];
     AAutoComplete: typeof import('genedesign')['AutoComplete'];
     AAvatar: typeof import('genedesign')['Avatar'];
     AAvatarGroup: typeof import('genedesign')['AvatarGroup'];
@@ -141,4 +144,4 @@ declare module 'vue' {
   }
 }
 
-export {};
+export { };

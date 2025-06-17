@@ -20,10 +20,10 @@ import '@arco-design/arco-vue-docs-navbar/dist/style.css';
 import { getLocalStorage, setLocalStorage } from './utils/local-storage';
 import { checkLogin } from './utils/login';
 
-let theme = getLocalStorage('arco-theme') ?? '';
+let theme = getLocalStorage('gene-theme') ?? '';
 if (!theme) {
   theme = 'light';
-  setLocalStorage('arco-theme', theme);
+  setLocalStorage('gene-theme', theme);
 }
 const lang = /en-US/i.test(window.location.href) ? 'en-US' : 'zh-CN';
 setLocalStorage('arco-lang', lang);
@@ -65,7 +65,6 @@ checkLogin().then(() => {
   if (lang === 'en-US') {
     useLocale(lang);
   }
-
   const app = createApp(App, {
     theme,
     language: lang,

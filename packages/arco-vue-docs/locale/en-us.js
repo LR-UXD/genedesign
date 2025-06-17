@@ -17,12 +17,18 @@ export default {
     feedback: 'Feedback',
     navigation: 'Navigation',
     other: 'Other',
+    ai: 'Ai'
   },
   component: {
     name: 'Component',
     // 组件名称
     icon: 'Icon',
+    aiIcon: 'AiIcon',
+
     button: 'Button',
+    anime: 'Anime',
+    aiInput: 'AiInput',
+    aiChat: 'AiChat',
     link: 'Link',
     typography: 'Typography',
     radio: 'Radio',
@@ -157,6 +163,7 @@ export default {
     media: 'Multimedia icon',
     logo: 'Trademark icon',
     general: 'Universal icon',
+    gene: 'Ai icon'
   },
   proDocs: {
     name: 'Arco Pro',

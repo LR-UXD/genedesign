@@ -13,6 +13,7 @@ const Changelog = () => import('./pages/changelog/changelog.vue');
 const Button = () => import('@web-vue/components/button/README.zh-CN.md');
 const ButtonEn = () => import('@web-vue/components/button/README.en-US.md');
 const Icon = () => import('./pages/icon/icon-demo.vue');
+const AiIcon = () => import('./pages/aiicon/icon-demo.vue');
 const Link = () => import('@web-vue/components/link/README.zh-CN.md');
 const LinkEn = () => import('@web-vue/components/link/README.en-US.md');
 const Typography = () =>
@@ -195,6 +196,21 @@ const ColorPicker = () =>
   import('@web-vue/components/color-picker/README.zh-CN.md');
 const ColorPickerEn = () =>
   import('@web-vue/components/color-picker/README.en-US.md');
+// const Anime = () =>
+//   import('@web-vue/components/anime/README.zh-CN.md');
+// const AnimeEn = () =>
+//   import('@web-vue/components/anime/README.en-US.md');
+
+const AiInput = () =>
+  import('@web-vue/components/ai-input/README.zh-CN.md');
+const AiInputEn = () =>
+  import('@web-vue/components/ai-input/README.en-US.md');
+
+const AiChat = () =>
+  import('@web-vue/components/ai-chat/README.zh-CN.md');
+const AiChatEn = () =>
+  import('@web-vue/components/ai-chat/README.en-US.md');
+
 
 const docs = [
   {
@@ -202,11 +218,11 @@ const docs = [
     component: Start,
     componentEn: StartEn,
   },
-  // {
-  //   name: 'dark',
-  //   component: Dark,
-  //   componentEn: DarkEn,
-  // },
+  {
+    name: 'dark',
+    component: Dark,
+    componentEn: DarkEn,
+  },
   // {
   //   name: 'theme',
   //   component: Theme,
@@ -318,6 +334,11 @@ const components = [
         component: Typography,
         componentEn: TypographyEn,
       },
+      // {
+      //   name: 'anime',
+      //   component: Anime,
+      //   componentEn: AnimeEn,
+      // },
     ],
   },
   {
@@ -700,6 +721,25 @@ const components = [
       // },
     ],
   },
+  {
+    name: 'ai',
+    list: [
+      {
+        name: 'aiInput',
+        component: AiInput,
+        componentEn: AiInputEn,
+      },
+      {
+        name: 'aiChat',
+        component: AiChat,
+        componentEn: AiChatEn,
+      },
+      {
+        name: 'aiIcon',
+        component: AiIcon
+      },
+    ]
+  }
 ];
 
 function toKebabCase(string: string) {
@@ -720,17 +760,19 @@ const routes: RouteRecordRaw[] = [];
 
 const docsMenu = [];
 for (const item of docs) {
-  const path = `/vue/docs/${toKebabCase(item.name)}`;
+  const path = `/gene-dev/vue/docs/${toKebabCase(item.name)}`;
   routes.push(
     {
       path,
       component: item.component,
     },
     {
-      path: `/vue/en-US/docs/${toKebabCase(item.name)}`,
+      path: `/gene-dev/vue/en-US/docs/${toKebabCase(item.name)}`,
       component: item.componentEn ?? item.component,
     }
   );
+  console.log('name1:' + item.name)
+
   docsMenu.push({
     name: item.name,
     path,
@@ -744,17 +786,18 @@ for (const group of components) {
     list: [],
   };
   for (const item of group.list) {
-    const path = `/vue/component/${toKebabCase(item.name)}`;
+    const path = `/gene-dev/vue/component/${toKebabCase(item.name)}`;
     routes.push(
       {
         path,
         component: item.component,
       },
       {
-        path: `/vue/en-US/component/${toKebabCase(item.name)}`,
+        path: `/gene-dev/vue/en-US/component/${toKebabCase(item.name)}`,
         component: item.componentEn ?? item.component,
       }
     );
+    console.log('name2:' + item.name)
     menuGroup.list.push({
       name: item.name,
       path,
@@ -765,17 +808,19 @@ for (const group of components) {
 
 const proDocsMenu: { path: string; name: string }[] = [];
 proDocs.forEach((item) => {
-  const path = `/vue/docs/pro/${toKebabCase(item.name)}`;
+  const path = `/gene-dev/vue/docs/pro/${toKebabCase(item.name)}`;
   routes.push(
     {
       path,
       component: item.component,
     },
     {
-      path: `/vue/en-US/docs/pro/${toKebabCase(item.name)}`,
+      path: `/gene-dev/vue/en-US/docs/pro/${toKebabCase(item.name)}`,
       component: item.componentEn ?? item.component,
     }
   );
+  console.log('name3:' + item.name)
+
   proDocsMenu.push({
     name: item.name,
     path,
@@ -783,8 +828,8 @@ proDocs.forEach((item) => {
 });
 
 // Add redirects for unmatched routes at the end
-routes.push({ path: '/vue/en-US', redirect: '/vue/en-US/docs/start' });
-routes.push({ path: '/:pathMatch(.*)*', redirect: '/vue/docs/start' });
+routes.push({ path: '/gene-dev/vue/en-US', redirect: '/gene-dev/vue/en-US/docs/start' });
+routes.push({ path: '/gene-dev/:pathMatch(.*)*', redirect: '/gene-dev/vue/docs/start' });
 
 nProgress.configure({ minimum: 0.4, showSpinner: false });
 

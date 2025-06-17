@@ -1,0 +1,1 @@
+.tree-demo[data-v-5e6b8bdd] .tree-node-dropover > :deep(a-tree-node-title),.tree-demo[data-v-5e6b8bdd] .tree-node-dropover > :deep(a-tree-node-title):hover,{animation:blinkBg-5e6b8bdd .4s 2}@keyframes blinkBg-5e6b8bdd{0%{background-color:transparent}to{background-color:var(--color-primary-light-1)}}

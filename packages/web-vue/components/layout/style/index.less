@@ -16,8 +16,7 @@
     margin: 0;
     padding: 0;
     background: @layout-sider-background;
-    transition: width @transition-duration-2
-      @transition-timing-function-standard;
+    transition: width @transition-duration-2 @transition-timing-function-standard;
 
     &-children {
       height: 100%;
@@ -25,6 +24,7 @@
     }
 
     &-collapsed &-children {
+
       /* width */
       &::-webkit-scrollbar {
         width: 0;
@@ -62,8 +62,7 @@
       color: var(~'@{arco-cssvars-prefix}-color-white');
       background: @layout-trigger-dark-color;
       cursor: pointer;
-      transition: width @transition-duration-2
-        @transition-timing-function-standard;
+      transition: width @transition-duration-2 @transition-timing-function-standard;
 
       &-light {
         color: @layout-font-color;
@@ -97,8 +96,8 @@
 .@{layout-prefix-cls}-has-sider {
   flex-direction: row;
 
-  > .@{layout-prefix-cls},
-  > .@{layout-prefix-cls}-content {
+  >.@{layout-prefix-cls},
+  >.@{layout-prefix-cls}-content {
     overflow-x: hidden;
   }
 }

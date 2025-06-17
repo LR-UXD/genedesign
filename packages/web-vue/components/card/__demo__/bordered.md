@@ -24,7 +24,7 @@ Set `bordered` to `false` to use borderless cards.
       width: '100%',
       boxSizing: 'border-box',
       padding: '40px',
-      backgroundColor: 'var(--color-fill-2)',
+      backgroundColor: 'var(--color-fill-8)',
     }"
   >
     <a-card :style="{ width: '360px' }" title="Gene Card" :bordered="false">

@@ -23510,7 +23510,7 @@ var isInternal = location.host === arcoConfig.internalHostName;
 var isDev = location.hostname.startsWith("localhost") || location.host.startsWith("127.0.0.1");
 var isBoe = !isExternal && !isInternal && !isDev;
 var hostname = isDev ? arcoConfig.externalHostName : location.hostname;
-var apiBasename = isBoe ? "http://" + hostname : "https://" + (hostname || "arco.design");
+var apiBasename = isBoe ? "https://" + hostname : "https://" + (hostname || "arco.design");
 var internalHost = arcoConfig.internalHostName;
 var externalHost = arcoConfig.externalHostName;
 var eventMap = {
@@ -23965,7 +23965,7 @@ var __read$e = globalThis && globalThis.__read || function (o, n2) {
   return ar;
 };
 var NavbarThemeContext = react.exports.createContext({});
-var BODY_ATTRIBUTE_NAME = "arco-theme";
+var BODY_ATTRIBUTE_NAME = "gene-theme";
 function NavbarThemeProvider(props) {
 
   var children = props.children, localStorageKey = props.localStorageKey;
@@ -24003,7 +24003,7 @@ function NavbarThemeProvider(props) {
   }, children);
 }
 NavbarThemeProvider.defaultProps = {
-  localStorageKey: "arco-theme"
+  localStorageKey: "gene-theme"
 };
 var index$d = "";
 var index$c = "";
@@ -33462,21 +33462,21 @@ function NavbarLogo(props) {
   };
   const [currentTheme, setCurrentTheme] = React.useState(() => {
     return typeof window !== 'undefined'
-      ? localStorage.getItem('arco-theme') || 'light'
+      ? localStorage.getItem('gene-theme') || 'light'
       : 'light';
   });
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const handleStorageChange = (e) => {
-      if (e.key === 'arco-theme') {
+      if (e.key === 'gene-theme') {
         setCurrentTheme(e.newValue || 'light');
       }
     };
     window.addEventListener('storage', handleStorageChange);
     const originalSetItem = localStorage.setItem;
     localStorage.setItem = function (key, value) {
-      if (key === 'arco-theme') {
+      if (key === 'gene-theme') {
         setCurrentTheme(value);
       }
       originalSetItem.apply(this, arguments);
@@ -33486,7 +33486,7 @@ function NavbarLogo(props) {
       localStorage.setItem = originalSetItem;
     };
   }, []);
-  console.log(localStorage.getItem('arco-theme'))
+  console.log(localStorage.getItem('gene-theme'))
   const currentLogo = themeLogos[currentTheme] || themeLogos.default;
   console.log('currentLogo', currentLogo)
   const { logoHref = "/", logo = null } = props;
@@ -33911,8 +33911,8 @@ var PREFIX = "ac-navbar";
 var Navbar = function (props) {
 
   React.useEffect(() => {
-    const savedTheme = localStorage.getItem('arco-theme') || 'light';
-    document.querySelector("#react-root")?.setAttribute("arco-theme", savedTheme);
+    const savedTheme = localStorage.getItem('gene-theme') || 'light';
+    document.querySelector("#react-root")?.setAttribute("gene-theme", savedTheme);
   }, []);
 
   var _a, _b;
@@ -34002,7 +34002,7 @@ const ReactApp = ({
     defaultVersion: version2,
     onChangeTheme: (theme) => {
       var _a;
-      (_a = document.querySelector("#react-root")) == null ? void 0 : _a.setAttribute("arco-theme", theme);
+      (_a = document.querySelector("#react-root")) == null ? void 0 : _a.setAttribute("gene-theme", theme);
     },
     loginHref: `/common/login?redirectUrl=${window.location.href}`,
     hideRtl: true,

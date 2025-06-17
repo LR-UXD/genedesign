@@ -88,7 +88,7 @@ export default {
   width: 100%;
   height: 600px;
   padding: 40px;
-  background-color: var(--color-neutral-2);
+  background-color: var(--color-bg-8);
 }
 </style>
 ```

@@ -107,7 +107,7 @@ export default {
   width: 660px;
   height: 300px;
   padding: 40px;
-  background-color: var(--color-fill-2);
+  background-color: var(--color-bg-8);
   position: relative;
 }
 .button-trigger {

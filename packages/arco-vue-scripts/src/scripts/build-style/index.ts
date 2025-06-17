@@ -72,19 +72,19 @@ const run = async ({ material }: { material: boolean }) => {
   fs.ensureDirSync(paths.resolvePath('dist'));
 
   fs.writeFileSync(
-    paths.resolvePath(material ? 'dist/index.less' : 'dist/arco.less'),
+    paths.resolvePath(material ? 'dist/index.less' : 'dist/gene.less'),
     "@import '../es/index.less';\n\n"
   );
 
   fs.writeFileSync(
-    paths.resolvePath(material ? 'dist/index.css' : 'dist/arco.css'),
+    paths.resolvePath(material ? 'dist/index.css' : 'dist/gene.css'),
     result.css
   );
 
   const compress = new CleanCSS().minify(result.css);
 
   fs.writeFileSync(
-    paths.resolvePath(material ? 'dist/index.min.css' : 'dist/arco.min.css'),
+    paths.resolvePath(material ? 'dist/index.min.css' : 'dist/gene.min.css'),
     compress.styles
   );
 

@@ -1,7 +1,7 @@
 import { Ref, ref } from 'vue';
 import { useMutationObserver } from './use-mutation-observer';
 
-const THEME_TOKEN = 'arco-theme';
+const THEME_TOKEN = 'gene-theme';
 const Theme = {
   Dark: 'dark' as const,
   Light: 'light' as const,

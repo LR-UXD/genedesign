@@ -68,6 +68,8 @@ export default defineComponent({
       showAnchor.value = !showAnchor.value;
     };
 
+    document.body.setAttribute('gene-theme', 'dark')
+
     provide(
       collapseInjectionKey,
       reactive({

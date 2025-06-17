@@ -5,7 +5,7 @@
 
 .@{radio-prefix-cls},
 .@{radio-prefix-cls}-button {
-  > input[type='radio'] {
+  >input[type='radio'] {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,7 +13,7 @@
     height: 0;
     opacity: 0;
 
-    &:focus + .@{prefix}-radio-icon-hover::before {
+    &:focus+.@{prefix}-radio-icon-hover::before {
       background-color: @icon-hover-color-bg;
     }
   }
@@ -57,8 +57,7 @@
       background-color: @radio-color-bg;
       border-radius: @radio-border-radius;
       transform: scale(1);
-      transition: transform @transition-duration-3
-        @transition-timing-function-overshoot;
+      transition: transform @transition-duration-3 @transition-timing-function-overshoot;
       content: '';
     }
   }
@@ -73,7 +72,7 @@
 
     &::after {
       background-color: var(~'@{arco-cssvars-prefix}-color-white');
-      transform: scale(0.4);
+      transform: scale(0.6);
     }
   }
 
@@ -106,6 +105,7 @@
   }
 
   &-checked&-disabled {
+
     .@{radio-prefix-cls}-icon,
     &:hover .@{radio-prefix-cls}-icon {
       background-color: @radio-color-bg_checked_disabled;
@@ -181,9 +181,9 @@
 
   // 被选中的按钮不需要左右的分割线
   &:hover::before,
-  &:hover + &::before,
+  &:hover+&::before,
   &.@{radio-prefix-cls}-checked::before,
-  &.@{radio-prefix-cls}-checked + &::before {
+  &.@{radio-prefix-cls}-checked+&::before {
     opacity: 0;
   }
 
@@ -244,6 +244,7 @@
 
 // vertical direction
 .@{radio-prefix-cls}-group-direction-vertical {
+
   // default radio
   .@{radio-prefix-cls} {
     display: flex;
@@ -254,7 +255,8 @@
 
 // dark mode
 
-@{arco-theme-tag}[arco-theme='dark'] {
+@{arco-theme-tag}[gene-theme='dark'] {
+
   .@{radio-prefix-cls}-button.@{radio-prefix-cls}-checked,
   .@{radio-prefix-cls}-button:not(.@{radio-prefix-cls}-disabled):hover {
     background-color: var(~'@{arco-cssvars-prefix}-color-fill-3');

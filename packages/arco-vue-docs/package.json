@@ -24,7 +24,7 @@
   "devDependencies": {
     "@arco-design/arco-vue-docs-navbar": "workspace:*",
     "@arco-design/arco-vue-scripts": "workspace:*",
-    "genedesign": "workspace:*",
+    "genedesign": "^1.0.3",
     "@stackblitz/sdk": "^1.11.0",
     "@types/nprogress": "^0.2.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",

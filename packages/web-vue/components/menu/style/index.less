@@ -6,6 +6,7 @@
 @trigger-menu-prefix-cls: ~'@{prefix}-trigger-menu';
 
 .applyStyleToItem(@style) {
+
   .@{menu-prefix-cls}-item,
   .@{menu-prefix-cls}-group-title,
   .@{menu-prefix-cls}-pop-header,
@@ -77,23 +78,28 @@
           margin-right: 0;
         }
       }
-    };
+    }
+
+    ;
 
     .applyStyleToItem(@style);
   }
 
   .item-mode(@mode) {
     @style-both: {
-      padding: 0 ~'@{menu-@{mode}-item-padding-horizontal}';
-      line-height: ~'@{menu-@{mode}-item-height}';
+      padding: 0~'@{menu-@{mode}-item-padding-horizontal}';
+      line-height:~'@{menu-@{mode}-item-height}';
 
       .@{menu-prefix-cls}-icon-suffix .@{prefix}-icon {
         margin-right: 0;
       }
-    };
+    }
+
+    ;
 
     @style-vertical-only: {
       margin-bottom: @menu-item-gap;
+
       &:not(.@{menu-prefix-cls}-has-icon) {
         .text-ellipsis();
       }
@@ -102,8 +108,8 @@
         display: flex;
         align-items: center;
 
-        > .@{menu-prefix-cls}-indent-list,
-        > .@{menu-prefix-cls}-icon {
+        >.@{menu-prefix-cls}-indent-list,
+        >.@{menu-prefix-cls}-icon {
           flex: none;
         }
 
@@ -126,9 +132,12 @@
         position: absolute;
         right: @menu-vertical-item-padding-horizontal;
       }
-    };
+    }
+
+    ;
 
     @style-horizontal-only: {
+
       .@{prefix}-icon,
       .@{menu-prefix-cls}-icon {
         margin-right: @menu-horizontal-margin-right-item-prefix-icon;
@@ -137,74 +146,79 @@
       .@{menu-prefix-cls}-icon-suffix {
         margin-left: @menu-margin-left-item-suffix-icon;
       }
-    };
+    }
+
+    ;
 
     .applyStyleToItem(@style-both);
-    .applyStyleToItem(if(@mode = vertical, @style-vertical-only, @style-horizontal-only));
+    .applyStyleToItem(if(@mode =vertical, @style-vertical-only, @style-horizontal-only));
   }
+
 
   .theme(@theme) {
     &-@{theme} {
-      background-color: ~'@{menu-@{theme}-color-bg}';
+      background-color:~'@{menu-@{theme}-color-bg}';
 
       // 处理普通菜单项的状态变化
       @item-style: {
-        color: ~'@{menu-@{theme}-color-item_default}';
-        background-color: ~'@{menu-@{theme}-color-bg-item_default}';
+        color:~'@{menu-@{theme}-color-item_default}';
+        background-color:~'@{menu-@{theme}-color-bg-item_default}';
 
         .@{prefix}-icon,
         .@{menu-prefix-cls}-icon {
-          color: ~'@{menu-@{theme}-color-icon_default}';
+          color:~'@{menu-@{theme}-color-icon_default}';
         }
 
         &:hover {
-          color: ~'@{menu-@{theme}-color-item_hover}';
-          background-color: ~'@{menu-@{theme}-color-bg-item_hover}';
+          color:~'@{menu-@{theme}-color-item_hover}';
+          background-color:~'@{menu-@{theme}-color-bg-item_hover}';
 
           .@{prefix}-icon,
           .@{menu-prefix-cls}-icon {
-            color: ~'@{menu-@{theme}-color-icon_hover}';
+            color:~'@{menu-@{theme}-color-icon_hover}';
           }
         }
 
         &.@{menu-prefix-cls}-selected {
-          color: ~'@{menu-@{theme}-color-item_selected}';
+          color:~'@{menu-@{theme}-color-item_selected}';
 
           .@{prefix}-icon,
           .@{menu-prefix-cls}-icon {
-            color: ~'@{menu-@{theme}-color-icon_selected}';
+            color:~'@{menu-@{theme}-color-icon_selected}';
           }
         }
 
         &.@{menu-prefix-cls}-disabled {
-          color: ~'@{menu-@{theme}-color-item_disabled}';
-          background-color: ~'@{menu-@{theme}-color-bg-item_disabled}';
+          color:~'@{menu-@{theme}-color-item_disabled}';
+          background-color:~'@{menu-@{theme}-color-bg-item_disabled}';
 
           .@{prefix}-icon,
           .@{menu-prefix-cls}-icon {
-            color: ~'@{menu-@{theme}-color-icon_disabled}';
+            color:~'@{menu-@{theme}-color-icon_disabled}';
           }
         }
-      };
+      }
+
+      ;
 
       .applyStyleToItem(@item-style);
 
       // 只有 menuItem 选中时需要背景色
       .@{menu-prefix-cls}-item.@{menu-prefix-cls}-selected {
-        background-color: ~'@{menu-@{theme}-color-bg-item_selected}';
+        background-color:~'@{menu-@{theme}-color-bg-item_selected}';
       }
 
       //  子菜单被选中时，没有背景色，所以可以单独设置字体色
       .@{menu-prefix-cls}-inline-header.@{menu-prefix-cls}-selected {
-        color: ~'@{menu-@{theme}-color-submenu_selected}';
+        color:~'@{menu-@{theme}-color-submenu_selected}';
 
         .@{prefix}-icon,
         .@{menu-prefix-cls}-icon {
-          color: ~'@{menu-@{theme}-color-submenu_selected}';
+          color:~'@{menu-@{theme}-color-submenu_selected}';
         }
 
         &:hover {
-          background-color: ~'@{menu-@{theme}-color-bg-submenu_selected_hover}';
+          background-color:~'@{menu-@{theme}-color-bg-submenu_selected_hover}';
         }
       }
 
@@ -216,28 +230,30 @@
             .text-color-transition();
 
             &:hover {
-              background-color: ~'@{menu-@{theme}-color-bg-item_hover}';
+              background-color:~'@{menu-@{theme}-color-bg-item_hover}';
             }
           }
-        };
+        }
+
+        ;
 
         .applyStyleToItem(@item-selected-style);
       }
 
       // 处理标题样式
       .@{menu-prefix-cls}-group-title {
-        color: ~'@{menu-@{theme}-color-group-title}';
+        color:~'@{menu-@{theme}-color-group-title}';
         // 快速消除 hover 的特殊样式
         pointer-events: none;
       }
 
       // 展开折叠按钮颜色
       .@{menu-prefix-cls}-collapse-button {
-        color: ~'@{menu-@{theme}-color-button}';
-        background-color: ~'@{menu-@{theme}-color-bg-button}';
+        color:~'@{menu-@{theme}-color-button}';
+        background-color:~'@{menu-@{theme}-color-bg-button}';
 
         &:hover {
-          background-color: ~'@{menu-@{theme}-color-bg-button_hover}';
+          background-color:~'@{menu-@{theme}-color-bg-button_hover}';
         }
       }
     }
@@ -299,8 +315,7 @@
     .@{menu-prefix-cls}-inner {
       display: flex;
       align-items: center;
-      padding: @menu-horizontal-padding-vertical
-        @menu-horizontal-padding-horizontal;
+      padding: @menu-horizontal-padding-vertical @menu-horizontal-padding-horizontal;
     }
 
     .@{menu-prefix-cls}-item,
@@ -347,8 +362,7 @@
     left: @menu-horizontal-item-padding-horizontal;
     height: @menu-height-label-item-selected;
     background-color: @menu-color-label-item-selected;
-    animation: ~'@{prefix}-menu-selected-item-label-enter' @transition-duration-2
-      @transition-timing-function-linear;
+    animation:~'@{prefix}-menu-selected-item-label-enter'@transition-duration-2 @transition-timing-function-linear;
   }
 
   &-pop-button {
@@ -368,7 +382,9 @@
       border: 1px solid @menu-pop-button-border-color;
       border-radius: 50%;
       box-shadow: @menu-pop-button-box-shadow;
-    };
+    }
+
+    ;
 
     .applyStyleToItem(@item-style);
   }
@@ -390,10 +406,12 @@
       .@{prefix}-icon {
         margin-right: 100%;
       }
-    };
+    }
+
+    ;
 
     .@{menu-prefix-cls}-has-icon {
-      > *:not(.@{menu-prefix-cls}-icon) {
+      >*:not(.@{menu-prefix-cls}-icon) {
         opacity: 0;
       }
     }
@@ -419,8 +437,7 @@
   &-inline-content {
     height: auto;
     overflow: hidden;
-    transition: height @transition-duration-2
-      @transition-timing-function-standard;
+    transition: height @transition-duration-2 @transition-timing-function-standard;
 
     &-hide {
       height: 0;
@@ -536,7 +553,7 @@
       line-height: 1;
     }
 
-    > * {
+    >* {
       flex: none;
     }
 
@@ -558,17 +575,14 @@
 
   &-group {
     &:first-child &-title {
-      padding-top: @dropdown-group-title-padding-top -
-        @dropdown-padding-vertical;
+      padding-top: @dropdown-group-title-padding-top - @dropdown-padding-vertical;
     }
   }
 
   &-group-title {
     box-sizing: border-box;
     width: 100%;
-    padding: @dropdown-group-title-padding-top
-      @dropdown-group-title-padding-horizontal 0
-      @dropdown-group-title-padding-horizontal;
+    padding: @dropdown-group-title-padding-top @dropdown-group-title-padding-horizontal 0 @dropdown-group-title-padding-horizontal;
     color: @dropdown-group-title-color-text;
     font-size: @dropdown-group-title-font-size;
     line-height: @dropdown-group-title-height;
@@ -576,6 +590,7 @@
   }
 
   &-pop-trigger {
+
     // 下拉框的 menu 弹出不需要小箭头
     .@{prefix}-trigger-arrow {
       display: none;

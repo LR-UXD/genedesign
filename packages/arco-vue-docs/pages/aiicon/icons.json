@@ -1,0 +1,312 @@
+[
+  {
+    "title": "ai类图标",
+    "type": "gene",
+    "list": [
+      {
+        "name": "icon-gene-apps",
+        "componentName": "IconGeneApps"
+      },
+      {
+        "name": "icon-ai-gene-apps",
+        "componentName": "IconAiGeneApps"
+      },
+      {
+        "name": "icon-gene-brush",
+        "componentName": "IconGeneBrush"
+      },
+      {
+        "name": "icon-ai-gene-brush",
+        "componentName": "IconAiGeneBrush"
+      },
+      {
+        "name": "icon-gene-bulb",
+        "componentName": "IconGeneBulb"
+      },
+      {
+        "name": "icon-ai-gene-bulb",
+        "componentName": "IconAiGeneBulb"
+      },
+      {
+        "name": "icon-gene-calendar",
+        "componentName": "IconGeneCalendar"
+      },
+      {
+        "name": "icon-ai-gene-calendar",
+        "componentName": "IconAiGeneCalendar"
+      },
+      {
+        "name": "icon-gene-camera",
+        "componentName": "IconGeneCamera"
+      },
+      {
+        "name": "icon-ai-gene-camera",
+        "componentName": "IconAiGeneCamera"
+      },
+      {
+        "name": "icon-gene-cloud",
+        "componentName": "IconGeneCloud"
+      },
+      {
+        "name": "icon-ai-gene-cloud",
+        "componentName": "IconAiGeneCloud"
+      },
+      {
+        "name": "icon-gene-common",
+        "componentName": "IconGeneCommon"
+      },
+      {
+        "name": "icon-ai-gene-common",
+        "componentName": "IconAiGeneCommon"
+      },
+      {
+        "name": "icon-gene-copy",
+        "componentName": "IconGeneCopy"
+      },
+      {
+        "name": "icon-ai-gene-copy",
+        "componentName": "IconAiGeneCopy"
+      },
+      {
+        "name": "icon-gene-default",
+        "componentName": "IconGeneDefault"
+      },
+      {
+        "name": "icon-ai-gene-default",
+        "componentName": "IconAiGeneDefault"
+      },
+      {
+        "name": "icon-gene-delete",
+        "componentName": "IconGeneDelete"
+      },
+      {
+        "name": "icon-ai-gene-delete",
+        "componentName": "IconAiGeneDelete"
+      },
+      {
+        "name": "icon-gene-ear",
+        "componentName": "IconGeneEar"
+      },
+      {
+        "name": "icon-ai-gene-ear",
+        "componentName": "IconAiGeneEar"
+      },
+      {
+        "name": "icon-gene-edit",
+        "componentName": "IconGeneEdit"
+      },
+      {
+        "name": "icon-ai-gene-edit",
+        "componentName": "IconAiGeneEdit"
+      },
+      {
+        "name": "icon-gene-email",
+        "componentName": "IconGeneEmail"
+      },
+      {
+        "name": "icon-ai-gene-email",
+        "componentName": "IconAiGeneEmail"
+      },
+      {
+        "name": "icon-gene-eraser",
+        "componentName": "IconGeneEraser"
+      },
+      {
+        "name": "icon-ai-gene-eraser",
+        "componentName": "IconAiGeneEraser"
+      },
+      {
+        "name": "icon-gene-filter",
+        "componentName": "IconGeneFilter"
+      },
+      {
+        "name": "icon-ai-gene-filter",
+        "componentName": "IconAiGeneFilter"
+      },
+      {
+        "name": "icon-gene-folder",
+        "componentName": "IconGeneFolder"
+      },
+      {
+        "name": "icon-ai-gene-folder",
+        "componentName": "IconAiGeneFolder"
+      },
+      {
+        "name": "icon-gene-h8",
+        "componentName": "IconGeneH8"
+      },
+      {
+        "name": "icon-ai-gene-h8",
+        "componentName": "IconAiGeneH8"
+      },
+      {
+        "name": "icon-gene-heart",
+        "componentName": "IconGeneHeart"
+      },
+      {
+        "name": "icon-ai-gene-heart",
+        "componentName": "IconAiGeneHeart"
+      },
+      {
+        "name": "icon-gene-highlight",
+        "componentName": "IconGeneHighlight"
+      },
+      {
+        "name": "icon-ai-gene-highlight",
+        "componentName": "IconAiGeneHighlight"
+      },
+      {
+        "name": "icon-gene-image",
+        "componentName": "IconGeneImage"
+      },
+      {
+        "name": "icon-ai-gene-image",
+        "componentName": "IconAiGeneImage"
+      },
+      {
+        "name": "icon-gene-interaction",
+        "componentName": "IconGeneInteraction"
+      },
+      {
+        "name": "icon-ai-gene-interaction",
+        "componentName": "IconAiGeneInteraction"
+      },
+      {
+        "name": "icon-gene-link",
+        "componentName": "IconGeneLink"
+      },
+      {
+        "name": "icon-ai-gene-link",
+        "componentName": "IconAiGeneLink"
+      },
+      {
+        "name": "icon-gene-message",
+        "componentName": "IconGeneMessage"
+      },
+      {
+        "name": "icon-ai-gene-message",
+        "componentName": "IconAiGeneMessage"
+      },
+      {
+        "name": "icon-gene-notification",
+        "componentName": "IconGeneNotification"
+      },
+      {
+        "name": "icon-ai-gene-notification",
+        "componentName": "IconAiGeneNotification"
+      },
+      {
+        "name": "icon-gene-pen",
+        "componentName": "IconGenePen"
+      },
+      {
+        "name": "icon-ai-gene-pen",
+        "componentName": "IconAiGenePen"
+      },
+      {
+        "name": "icon-gene-qrcode",
+        "componentName": "IconGeneQrcode"
+      },
+      {
+        "name": "icon-ai-gene-qrcode",
+        "componentName": "IconAiGeneQrcode"
+      },
+      {
+        "name": "icon-gene-robot",
+        "componentName": "IconGeneRobot"
+      },
+      {
+        "name": "icon-ai-gene-robot",
+        "componentName": "IconAiGeneRobot"
+      },
+      {
+        "name": "icon-gene-robot-add",
+        "componentName": "IconGeneRobotAdd"
+      },
+      {
+        "name": "icon-ai-gene-robot-add",
+        "componentName": "IconAiGeneRobotAdd"
+      },
+      {
+        "name": "icon-gene-scan",
+        "componentName": "IconGeneScan"
+      },
+      {
+        "name": "icon-ai-gene-scan",
+        "componentName": "IconAiGeneScan"
+      },
+      {
+        "name": "icon-gene-scissor",
+        "componentName": "IconGeneScissor"
+      },
+      {
+        "name": "icon-ai-gene-scissor",
+        "componentName": "IconAiGeneScissor"
+      },
+      {
+        "name": "icon-gene-search",
+        "componentName": "IconGeneSearch"
+      },
+      {
+        "name": "icon-ai-gene-search",
+        "componentName": "IconAiGeneSearch"
+      },
+      {
+        "name": "icon-gene-settings",
+        "componentName": "IconGeneSettings"
+      },
+      {
+        "name": "icon-ai-gene-settings",
+        "componentName": "IconAiGeneSettings"
+      },
+      {
+        "name": "icon-gene-skin",
+        "componentName": "IconGeneSkin"
+      },
+      {
+        "name": "icon-ai-gene-skin",
+        "componentName": "IconAiGeneSkin"
+      },
+      {
+        "name": "icon-gene-star",
+        "componentName": "IconGeneStar"
+      },
+      {
+        "name": "icon-ai-gene-star",
+        "componentName": "IconAiGeneStar"
+      },
+      {
+        "name": "icon-gene-storage",
+        "componentName": "IconGeneStorage"
+      },
+      {
+        "name": "icon-ai-gene-storage",
+        "componentName": "IconAiGeneStorage"
+      },
+      {
+        "name": "icon-gene-thunderbolt",
+        "componentName": "IconGeneThunderbolt"
+      },
+      {
+        "name": "icon-ai-gene-thunderbolt",
+        "componentName": "IconAiGeneThunderbolt"
+      },
+      {
+        "name": "icon-gene-user",
+        "componentName": "IconGeneUser"
+      },
+      {
+        "name": "icon-ai-gene-user",
+        "componentName": "IconAiGeneUser"
+      },
+      {
+        "name": "icon-gene-video-camera",
+        "componentName": "IconGeneVideoCamera"
+      },
+      {
+        "name": "icon-ai-gene-video-camera",
+        "componentName": "IconAiGeneVideoCamera"
+      }
+    ]
+  }
+]
