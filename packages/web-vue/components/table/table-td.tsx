@@ -264,6 +264,11 @@ export default defineComponent({
     };
 
     return () => {
+      // 获取单元格内容，简化aria-label，因为行级别会提供完整信息
+      const cellContent = props.column.dataIndex && props.record?.raw
+        ? String(getValueByPath(props.record.raw, props.column.dataIndex) ?? '')
+        : '';
+
       return createVNode(
         slots.td?.({
           record: props.record?.raw,
@@ -275,6 +280,8 @@ export default defineComponent({
           style: style.value,
           rowspan: props.rowSpan > 1 ? props.rowSpan : undefined,
           colspan: props.colSpan > 1 ? props.colSpan : undefined,
+          role: 'cell',
+          'aria-label': cellContent || undefined,
         },
         {
           default: () => [renderCell()],

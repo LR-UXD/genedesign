@@ -1,0 +1,1 @@
+import{o as e,i as t}from"./index.a2f55686.js";const o={src:"https://uxd.lenovo.com/liquid-glass/index.html",style:{width:"100%",height:"100vh",border:"none"}},c={__name:"glass",setup(s){return(r,n)=>(e(),t("iframe",o))}};export{c as default};

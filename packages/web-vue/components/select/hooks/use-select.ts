@@ -201,6 +201,32 @@ export const useSelect = ({
           }
         },
       ],
+      [
+        KEYBOARD_KEY.TAB,
+        (e: Event) => {
+          if (popupVisible.value) {
+            const next = getNextActiveKey('down');
+            if (next) {
+              activeKey.value = next;
+              scrollIntoView(next);
+            }
+            e.preventDefault();
+          }
+        },
+      ],
+      [
+        { key: KEYBOARD_KEY.TAB, shift: true },
+        (e: Event) => {
+          if (popupVisible.value) {
+            const next = getNextActiveKey('up');
+            if (next) {
+              activeKey.value = next;
+              scrollIntoView(next);
+            }
+            e.preventDefault();
+          }
+        },
+      ],
     ])
   );
 

@@ -1,5 +1,6 @@
 <template>
-  <component :is="simple ? 'span' : 'li'" :class="cls" @click="handleClick">
+  <component :is="simple ? 'span' : 'li'" :class="cls" :tabindex="mergedDisabled ? -1 : 0"
+    :aria-label="isNext ? '下一页' : '上一页'" role="button" @click="handleClick" @keydown="handleKeydown">
     <slot :type="isNext ? 'next' : 'previous'">
       <icon-right v-if="isNext" />
       <icon-left v-else />
@@ -71,6 +72,13 @@ export default defineComponent({
       }
     };
 
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick(e as any);
+      }
+    };
+
     const cls = computed(() => [
       prefixCls,
       `${prefixCls}-${props.type}`,
@@ -83,7 +91,9 @@ export default defineComponent({
       prefixCls,
       cls,
       isNext,
+      mergedDisabled,
       handleClick,
+      handleKeydown,
     };
   },
 });

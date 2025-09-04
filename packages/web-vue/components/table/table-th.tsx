@@ -214,8 +214,7 @@ export default defineComponent({
     const cellCls = computed(() => {
       const cls: any[] = [
         `${prefixCls}-cell`,
-        `${prefixCls}-cell-align-${
-          props.column?.align ?? (props.column.children ? 'center' : 'left')
+        `${prefixCls}-cell-align-${props.column?.align ?? (props.column.children ? 'center' : 'left')
         }`,
       ];
 
@@ -351,6 +350,9 @@ export default defineComponent({
           style: style.value,
           colspan: colSpan > 1 ? colSpan : undefined,
           rowspan: rowSpan > 1 ? rowSpan : undefined,
+          role: 'columnheader',
+          scope: 'col',
+          'aria-label': typeof props.column.title === 'string' ? props.column.title : undefined,
         },
         {
           default: () => [

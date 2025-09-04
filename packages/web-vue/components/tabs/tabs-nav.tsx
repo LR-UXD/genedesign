@@ -186,11 +186,11 @@ export default defineComponent({
             ? 'marginLeft'
             : 'marginRight'
           : scrollPosition.value === 'end'
-          ? 'marginRight'
-          : 'marginLeft'
+            ? 'marginRight'
+            : 'marginLeft'
         : scrollPosition.value === 'end'
-        ? 'marginBottom'
-        : 'marginTop';
+          ? 'marginBottom'
+          : 'marginTop';
 
       const tabStyle = window.getComputedStyle(activeTabRef.value);
       const tabMargin = parseFloat(tabStyle[marginSide]) || 0;
@@ -334,7 +334,7 @@ export default defineComponent({
     ]);
 
     return () => (
-      <div class={cls.value}>
+      <div class={cls.value} role="tablist" aria-orientation={props.direction === 'horizontal' ? 'horizontal' : 'vertical'}>
         {isScroll.value && (
           <TabsButton
             type={isRtlHorizontal.value ? 'next' : 'previous'}

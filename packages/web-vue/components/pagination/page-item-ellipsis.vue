@@ -1,5 +1,6 @@
 <template>
-  <li :class="cls" @click="handleClick">
+  <li :class="cls" :tabindex="0" :aria-label="`跳转到第 ${nextPage} 页`" role="button" @click="handleClick"
+    @keydown="handleKeydown">
     <slot>
       <icon-more />
     </slot>
@@ -46,12 +47,21 @@ export default defineComponent({
       emit('click', nextPage.value);
     };
 
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick(e as any);
+      }
+    };
+
     const cls = computed(() => [prefixCls, `${prefixCls}-ellipsis`]);
 
     return {
       prefixCls,
       cls,
+      nextPage,
       handleClick,
+      handleKeydown,
     };
   },
 });

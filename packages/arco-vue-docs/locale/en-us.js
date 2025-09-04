@@ -19,12 +19,29 @@ export default {
     other: 'Other',
     ai: 'Ai'
   },
+  demo: {
+    name: 'demo',
+    aiDemo: 'Quantum',
+    leforecast: 'Le Forecast',
+    lsm: 'LSM',
+    mopp: 'MOPP'
+  },
+  liquid_glass: {
+    name: 'Liquid Glass',
+    effects: 'Effects',
+    glassButton: 'GlassButton',
+    glassCard: 'GlassCard',
+    glassMessage: 'GlassMessage',
+    glassTooltip: 'GlassTooltip'
+
+
+  },
   component: {
     name: 'Component',
     // 组件名称
     icon: 'Icon',
     aiIcon: 'AiIcon',
-
+    aiDemo: 'Quantum',
     button: 'Button',
     anime: 'Anime',
     aiInput: 'AiInput',

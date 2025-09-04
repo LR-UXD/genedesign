@@ -12,11 +12,11 @@
           <div class="aside-nav-group">
             <div class="aside-nav-group-name">{{
               t(`${group.name}.name`)
-              }}</div>
+            }}</div>
             <ul class="aside-nav-list">
               <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
-                  ? item.path.replace('vue/', 'vue/en-US/')
-                  : item.path
+                ? item.path.replace('vue/', 'vue/en-US/')
+                : item.path
                 " custom>
                 <li :class="[
                   'aside-nav-item',
@@ -32,6 +32,7 @@
           </div>
         </template>
 
+
         <div class="aside-nav-group">
           <div class="aside-nav-group-name">{{ t('component.name') }}</div>
           <div v-for="group of componentMenu" :key="group.name" class="aside-nav-group">
@@ -40,8 +41,8 @@
             </h4>
             <ul class="aside-nav-list">
               <router-link v-for="item of group.list" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
-                  ? item.path.replace('vue/', 'vue/en-US/')
-                  : item.path
+                ? item.path.replace('vue/', 'vue/en-US/')
+                : item.path
                 " custom>
                 <li :class="[
                   'aside-nav-item',
@@ -56,6 +57,56 @@
             </ul>
           </div>
         </div>
+
+        <template v-for="group in demoMenuList" :key="group.name">
+          <div class="aside-nav-group">
+            <div class="aside-nav-group-name">{{
+              t(`${group.name}.name`)
+            }}</div>
+            <ul class="aside-nav-list">
+              <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
+                ? item.path.replace('vue/', 'vue/en-US/')
+                : item.path
+                " custom>
+                <li :class="[
+                  'aside-nav-item',
+                  { 'aside-nav-item-active': isActive },
+                ]">
+                  <a :href="locale === 'en-US' ? href.replace('#', '#/en-US') : href
+                    " class="aside-nav-item-link" @click="navigate">
+                    {{ t(`${group.name}.${item.name}`) }}
+                  </a>
+                </li>
+              </router-link>
+            </ul>
+          </div>
+        </template>
+
+        <!-- <template v-for="group in glassMenuList" :key="group.name">
+          <div class="aside-nav-group">
+            <div class="aside-nav-group-name">{{
+              t(`${group.name}.name`)
+              }}</div>
+            <ul class="aside-nav-list">
+              <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
+                ? item.path.replace('vue/', 'vue/en-US/')
+                : item.path
+                " custom>
+                <li :class="[
+                  'aside-nav-item',
+                  { 'aside-nav-item-active': isActive },
+                ]">
+                  <a :href="locale === 'en-US' ? href.replace('#', '#/en-US') : href
+                    " class="aside-nav-item-link" @click="navigate">
+                    {{ t(`${group.name}.${item.name}`) }}
+                  </a>
+                </li>
+              </router-link>
+            </ul>
+          </div>
+        </template> -->
+
+
       </div>
     </nav>
     <a-button class="aside-nav-btn" shape="circle" size="mini" @click="$emit('buttonClick')">
@@ -68,7 +119,7 @@
 <script>
 import { computed, defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { componentMenu, docsMenuList } from '../../router';
+import { componentMenu, docsMenuList, demoMenuList, glassMenuList } from '../../router';
 
 export default defineComponent({
   name: 'AsideNav',
@@ -80,6 +131,7 @@ export default defineComponent({
   },
   emits: ['buttonClick'],
   setup(props) {
+    console.log('demoMenu', demoMenuList);
     const { t, locale } = useI18n();
     const showNav = ref(true);
 
@@ -105,7 +157,9 @@ export default defineComponent({
     return {
       showNav,
       componentMenu,
+      demoMenuList,
       docsMenuList,
+      glassMenuList,
       t,
       locale,
       cls,

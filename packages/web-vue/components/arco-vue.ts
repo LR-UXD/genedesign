@@ -41,6 +41,10 @@ import Dropdown, {
 import Empty from './empty';
 import Form, { FormItem } from './form';
 import Grid, { Row, Col, GridItem } from './grid';
+import GlassButton from './glass-button';
+import GlassCard from './glass-card';
+import GlassMessage from './glass-message';
+import GlassTooltip from './glass-tooltip';
 import Icon from './icon-component';
 import Image, {
   ImagePreview,
@@ -182,7 +186,11 @@ const components: Record<string, Plugin> = {
   VerificationCode,
   Anime,
   AiInput,
-  AiChat
+  AiChat,
+  GlassButton,
+  GlassCard,
+  GlassMessage,
+  GlassTooltip
 };
 
 const install = (app: App, options?: ArcoOptions) => {

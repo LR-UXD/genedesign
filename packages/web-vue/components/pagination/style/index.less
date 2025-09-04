@@ -1,26 +1,26 @@
 @import './token.less';
 
 .page-item(@size) {
-  min-width: ~'@{pagination-size-@{size}}';
-  height: ~'@{pagination-size-@{size}}';
-  font-size: ~'@{pagination-size-@{size}-font-size}';
-  line-height: ~'@{pagination-size-@{size}}';
+  min-width:~'@{pagination-size-@{size}}';
+  height:~'@{pagination-size-@{size}}';
+  font-size:~'@{pagination-size-@{size}-font-size}';
+  line-height:~'@{pagination-size-@{size}}';
 
   &-previous,
   &-next {
-    font-size: ~'@{pagination-size-icon-arrow_@{size}}';
+    font-size:~'@{pagination-size-icon-arrow_@{size}}';
   }
 }
 
 .option(@size) {
-  height: ~'@{pagination-size-@{size}}';
-  font-size: ~'@{pagination-size-@{size}-font-size}';
+  height:~'@{pagination-size-@{size}}';
+  font-size:~'@{pagination-size-@{size}-font-size}';
   line-height: 0;
 }
 
 .total(@size) {
-  font-size: ~'@{pagination-size-@{size}-font-size}';
-  line-height: ~'@{pagination-size-@{size}}';
+  font-size:~'@{pagination-size-@{size}-font-size}';
+  line-height:~'@{pagination-size-@{size}}';
 }
 
 .@{pagination-prefix-cls} {
@@ -59,15 +59,24 @@
       border-color: @pagination-color-item-border_hover;
     }
 
+    &:focus-visible {
+      color: @pagination-color-item-text_hover;
+      background-color: @pagination-color-bg-item_hover;
+      border-color: @pagination-color-item-border_hover;
+      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
+    }
+
     &-active,
     &-active:hover {
       color: @pagination-color-item-text_active;
       background-color: @pagination-color-bg-item_active;
       border-color: @pagination-color-item-border_active;
-      transition: color @transition-duration-2
-          @transition-timing-function-linear,
-        background-color @transition-duration-2
-          @transition-timing-function-linear;
+      transition: color @transition-duration-2 @transition-timing-function-linear,
+        background-color @transition-duration-2 @transition-timing-function-linear;
+    }
+
+    &-active:focus-visible {
+      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-2');
     }
 
     &-disabled,
@@ -76,6 +85,10 @@
       background-color: @pagination-color-bg-item_disabled;
       border-color: @pagination-color-item-border_disabled;
       cursor: not-allowed;
+    }
+
+    &-disabled:focus-visible {
+      box-shadow: none;
     }
 
     &:not(:last-child) {
@@ -92,6 +105,12 @@
     &:not(.@{pagination-prefix-cls}-item-disabled):hover {
       color: @pagination-color-icon-arrow-text_hover;
       background-color: @pagination-color-icon-arrow-bg_hover;
+    }
+
+    &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
+      color: @pagination-color-icon-arrow-text_hover;
+      background-color: @pagination-color-icon-arrow-bg_hover;
+      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
     }
 
     // 解决少数情况下出现的图标不垂直水平剧中的 bug
@@ -119,7 +138,7 @@
     align-items: center;
     margin-left: @pagination-margin-jumper-left;
 
-    > span {
+    >span {
       font-size: @pagination-size-default-font-size;
     }
 
@@ -184,13 +203,11 @@
     flex: 0 0 auto;
 
     &-separator {
-      padding: 0 @pagination-simple-margin-separator-right 0
-        @pagination-simple-margin-separator-left;
+      padding: 0 @pagination-simple-margin-separator-right 0 @pagination-simple-margin-separator-left;
     }
 
     &-total-page {
-      margin-right: @pagination-simple-margin-next-left -
-        @pagination-simple-margin-prev-right;
+      margin-right: @pagination-simple-margin-next-left - @pagination-simple-margin-prev-right;
     }
   }
 
@@ -221,6 +238,12 @@
     &:not(.@{pagination-prefix-cls}-item-disabled):hover {
       color: @pagination-simple-color-icon-arrow-text_hover;
       background-color: @pagination-simple-color-icon-arrow-bg_hover;
+    }
+
+    &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
+      color: @pagination-simple-color-icon-arrow-text_hover;
+      background-color: @pagination-simple-color-icon-arrow-bg_hover;
+      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
     }
   }
 
@@ -262,7 +285,7 @@
     .option(mini);
   }
 
-  &-size-mini &-jumper > span {
+  &-size-mini &-jumper>span {
     font-size: @pagination-size-mini-font-size;
   }
 
@@ -278,7 +301,7 @@
     .option(small);
   }
 
-  &-size-small &-jumper > span {
+  &-size-small &-jumper>span {
     font-size: @pagination-size-small-font-size;
   }
 
@@ -294,7 +317,295 @@
     .option(large);
   }
 
-  &-size-large &-jumper > span {
+  &-size-large &-jumper>span {
     font-size: @pagination-size-large-font-size;
+  }
+}
+
+// 高对比度模式支持
+@media (prefers-contrast: high),
+(-ms-high-contrast: active),
+(-ms-high-contrast: white-on-black) {
+  .@{pagination-prefix-cls} {
+    -ms-high-contrast-adjust: none;
+
+    &-item {
+      color: WindowText !important;
+      background-color: ButtonFace !important;
+      border: 1px solid ButtonBorder !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &:focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &-active,
+      &-active:hover,
+      &-active:focus-visible {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &-disabled,
+      &-disabled:hover {
+        background-color: ButtonFace !important;
+        color: GrayText !important;
+        border-color: GrayText !important;
+        cursor: not-allowed !important;
+      }
+    }
+
+    &-item-previous,
+    &-item-next {
+      color: WindowText !important;
+      background-color: ButtonFace !important;
+      border: 1px solid ButtonBorder !important;
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):hover {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+      }
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+      }
+    }
+
+    & &-item-previous&-item-disabled,
+    & &-item-next&-item-disabled {
+      color: GrayText !important;
+      background-color: ButtonFace !important;
+      border-color: GrayText !important;
+    }
+
+    // 跳转器样式
+    &-jumper {
+
+      &-text-goto,
+      &-prepend,
+      &-append {
+        color: WindowText !important;
+      }
+
+      & &-input input {
+        color: WindowText !important;
+        background-color: Field !important;
+        border-color: ButtonBorder !important;
+
+        &:focus {
+          border-color: Highlight !important;
+          outline: 2px solid Highlight !important;
+          outline-offset: 1px !important;
+        }
+      }
+    }
+
+    &-total {
+      color: WindowText !important;
+    }
+
+    &-simple &-jumper {
+      color: WindowText !important;
+    }
+
+    &-simple &-item-previous,
+    &-simple &-item-next {
+      color: WindowText !important;
+      background-color: ButtonFace !important;
+      border: 1px solid ButtonBorder !important;
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):hover {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+      }
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+      }
+    }
+
+    &-simple &-item-previous&-item-disabled,
+    &-simple &-item-next&-item-disabled {
+      color: GrayText !important;
+      background-color: ButtonFace !important;
+      border-color: GrayText !important;
+    }
+
+    // 禁用状态分页组件
+    &-disabled &-item,
+    &-disabled &-item:not(&-item-disabled):not(&-item-active):hover {
+      color: GrayText !important;
+      background-color: ButtonFace !important;
+      border-color: GrayText !important;
+    }
+
+    &&-disabled &-item-active {
+      color: GrayText !important;
+      background-color: ButtonFace !important;
+      border-color: GrayText !important;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .@{pagination-prefix-cls} {
+    forced-color-adjust: none;
+
+    &-item {
+      color: CanvasText !important;
+      background-color: Canvas !important;
+      border: 1px solid ButtonBorder !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &:focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &-active,
+      &-active:hover,
+      &-active:focus-visible {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &-disabled,
+      &-disabled:hover {
+        background-color: Canvas !important;
+        color: GrayText !important;
+        border-color: GrayText !important;
+        cursor: not-allowed !important;
+      }
+    }
+
+    &-item-previous,
+    &-item-next {
+      color: CanvasText !important;
+      background-color: Canvas !important;
+      border: 1px solid ButtonBorder !important;
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):hover {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+      }
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+      }
+    }
+
+    & &-item-previous&-item-disabled,
+    & &-item-next&-item-disabled {
+      color: GrayText !important;
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+    }
+
+    // 跳转器样式
+    &-jumper {
+
+      &-text-goto,
+      &-prepend,
+      &-append {
+        color: CanvasText !important;
+      }
+
+      & &-input input {
+        color: CanvasText !important;
+        background-color: Field !important;
+        border-color: ButtonBorder !important;
+
+        &:focus {
+          border-color: Highlight !important;
+          outline: 2px solid Highlight !important;
+          outline-offset: 1px !important;
+        }
+      }
+    }
+
+    // 总数文本
+    &-total {
+      color: CanvasText !important;
+    }
+
+    &-simple &-jumper {
+      color: CanvasText !important;
+    }
+
+    &-simple &-item-previous,
+    &-simple &-item-next {
+      color: CanvasText !important;
+      background-color: Canvas !important;
+      border: 1px solid ButtonBorder !important;
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):hover {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+      }
+
+      &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: HighlightText !important;
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+      }
+    }
+
+    &-simple &-item-previous&-item-disabled,
+    &-simple &-item-next&-item-disabled {
+      color: GrayText !important;
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+    }
+
+    // 禁用状态下的整个分页组件
+    &-disabled &-item,
+    &-disabled &-item:not(&-item-disabled):not(&-item-active):hover {
+      color: GrayText !important;
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+    }
+
+    &&-disabled &-item-active {
+      color: GrayText !important;
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+    }
   }
 }

@@ -19,13 +19,29 @@ export default {
     other: '其他',
     ai: 'Ai'
   },
+  demo: {
+    name: '案例',
+    aiDemo: 'Quantum',
+    leforecast: 'Le Forecast',
+    lsm: 'LSM',
+    mopp: 'MOPP'
+  },
+  liquid_glass: {
+    name: '液态玻璃',
+    effects: '效果预览',
+    glassButton: '液态玻璃按钮',
+    glassCard: '液态玻璃卡片',
+    glassMessage: '液态玻璃消息提示',
+    glassTooltip: '液态玻璃文字气泡'
+
+  },
   component: {
     name: '组件',
     // 组件名称
     calendar: '日历 Calendar',
     icon: '图标 Icon',
     aiIcon: '图标 AiIcon',
-
+    aiDemo: 'Quantum',
     button: '按钮 Button',
     anime: '动画 Anime',
     aiInput: '输入框 AiInput',

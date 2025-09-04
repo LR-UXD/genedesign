@@ -75,6 +75,7 @@ import { useSorter } from './hooks/use-sorter';
 import ClientOnly from '../_components/client-only';
 import { useSpan } from './hooks/use-span';
 import { useChildrenComponents } from '../_hooks/use-children-components';
+import { useKeyboardNavigation } from './hooks/use-keyboard-navigation';
 import Scrollbar, { ScrollbarProps } from '../scrollbar';
 import { useComponentRef } from '../_hooks/use-component-ref';
 import type { BaseType } from '../_utils/types';
@@ -329,9 +330,9 @@ export default defineComponent({
       type: [Boolean, Function] as PropType<
         | boolean
         | ((params: {
-            columns: TableColumnData[];
-            data: TableData[];
-          }) => TableData[])
+          columns: TableColumnData[];
+          data: TableData[];
+        }) => TableData[])
       >,
     },
     /**
@@ -425,6 +426,14 @@ export default defineComponent({
     showEmptyTree: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * @zh 是否启用键盘导航
+     * @en Whether to enable keyboard navigation
+     */
+    keyboardNavigation: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: {
@@ -700,6 +709,7 @@ export default defineComponent({
       summarySpanMethod,
       scrollbar,
       showEmptyTree,
+      keyboardNavigation,
     } = toRefs(props);
     const prefixCls = getPrefixCls('table');
     const configCtx = inject(configProviderInjectionKey, undefined);
@@ -873,9 +883,9 @@ export default defineComponent({
     ) => {
       _sorter.value = direction
         ? {
-            field: dataIndex,
-            direction,
-          }
+          field: dataIndex,
+          direction,
+        }
         : undefined;
 
       emit('sorterChange', dataIndex, direction);
@@ -1108,7 +1118,7 @@ export default defineComponent({
           if (
             sourcePath.length === targetPath.length &&
             sourcePath.slice(0, -1).toString() ===
-              targetPath.slice(0, -1).toString()
+            targetPath.slice(0, -1).toString()
           ) {
             let children = data;
             for (let i = 0; i < sourcePath.length; i++) {
@@ -1160,6 +1170,26 @@ export default defineComponent({
     });
 
     const flattenRawData = computed(() => mapRawTableData(flattenData.value));
+
+    // 键盘导航功能
+    const hasRowSelectionRef = computed(() => Boolean(props.rowSelection));
+    const hasHeaderCheckboxRef = computed(() =>
+      Boolean(props.rowSelection && props.rowSelection.type !== 'radio' && props.rowSelection.showCheckedAll !== false)
+    );
+    const {
+      currentRowIndex,
+      rowTabIndex,
+      checkboxTabIndex,
+      headerCheckboxTabIndex,
+      headerRowTabIndex
+    } = useKeyboardNavigation({
+      flattenData,
+      tableRef: containerElement,
+      enableKeyboardNavigation: props.keyboardNavigation,
+      dataColumns,
+      hasRowSelection: hasRowSelectionRef,
+      hasHeaderCheckbox: hasHeaderCheckboxRef,
+    });
 
     const getSummaryData = () => {
       return dataColumns.value.reduce((per, column, index) => {
@@ -1647,9 +1677,8 @@ export default defineComponent({
             );
           })}
           {dataColumns.value.map((column, index) => {
-            const cellId = `${rowIndex}-${operations.value.length + index}-${
-              record.key
-            }`;
+            const cellId = `${rowIndex}-${operations.value.length + index}-${record.key
+              }`;
             const [rowspan, colspan] = tableSummarySpan.value[cellId] ?? [1, 1];
 
             if (removedSummaryCells.value.includes(cellId)) {
@@ -1800,34 +1829,34 @@ export default defineComponent({
 
       const dragSourceEvent = dragType.value
         ? {
-            draggable: allowDrag,
-            onDragstart: (ev: DragEvent) => {
-              if (!allowDrag) return;
-              handleDragStart(ev, record.key, currentPath, record.raw);
-            },
-            onDragend: (ev: DragEvent) => {
-              if (!allowDrag) return;
-              handleDragEnd(ev);
-            },
-          }
+          draggable: allowDrag,
+          onDragstart: (ev: DragEvent) => {
+            if (!allowDrag) return;
+            handleDragStart(ev, record.key, currentPath, record.raw);
+          },
+          onDragend: (ev: DragEvent) => {
+            if (!allowDrag) return;
+            handleDragEnd(ev);
+          },
+        }
         : {};
 
       const dragTargetEvent = dragType.value
         ? {
-            onDragenter: (ev: DragEvent) => {
-              if (!allowDrag) return;
-              handleDragEnter(ev, currentPath);
-            },
-            onDragover: (ev: DragEvent) => {
-              if (!allowDrag) return;
-              handleDragover(ev);
-            },
-            onDrop: (ev: DragEvent) => {
-              if (!allowDrag) return;
-              handleChange('drag');
-              handleDrop(ev);
-            },
-          }
+          onDragenter: (ev: DragEvent) => {
+            if (!allowDrag) return;
+            handleDragEnter(ev, currentPath);
+          },
+          onDragover: (ev: DragEvent) => {
+            if (!allowDrag) return;
+            handleDragover(ev);
+          },
+          onDrop: (ev: DragEvent) => {
+            if (!allowDrag) return;
+            handleChange('drag');
+            handleDrop(ev);
+          },
+        }
         : {};
 
       return (
@@ -1851,6 +1880,7 @@ export default defineComponent({
             checked={
               props.rowSelection && selectedRowKeys.value?.includes(currentKey)
             }
+            tabIndex={rowTabIndex.value(rowIndex)}
             // @ts-ignore
             onClick={(ev: Event) => handleRowClick(record, ev)}
             onDblclick={(ev: Event) => handleRowDblclick(record, ev)}
@@ -1885,14 +1915,15 @@ export default defineComponent({
                   rowSpan={rowspan}
                   colSpan={colspan}
                   renderExpandBtn={renderExpandBtn}
+                  rowIndex={rowIndex}
+                  checkboxTabIndex={checkboxTabIndex.value}
                   {...(dragType.value === 'handle' ? dragSourceEvent : {})}
                 />
               );
             })}
             {dataColumns.value.map((column, index) => {
-              const cellId = `${rowIndex}-${
-                props.spanAll ? operations.value.length + index : index
-              }-${record.key}`;
+              const cellId = `${rowIndex}-${props.spanAll ? operations.value.length + index : index
+                }-${record.key}`;
               const [rowspan, colspan] = tableSpan.value[cellId] ?? [1, 1];
 
               if (removedCells.value.includes(cellId)) {
@@ -1902,11 +1933,11 @@ export default defineComponent({
               const extraProps =
                 index === 0
                   ? {
-                      showExpandBtn: record.hasSubtree,
-                      indentSize: record.hasSubtree
-                        ? indentSize - 20
-                        : indentSize,
-                    }
+                    showExpandBtn: record.hasSubtree,
+                    indentSize: record.hasSubtree
+                      ? indentSize - 20
+                      : indentSize,
+                  }
                   : {};
 
               const style = getVirtualColumnStyle(column.dataIndex);
@@ -1969,8 +2000,8 @@ export default defineComponent({
         >
           {flattenData.value.length > 0
             ? flattenData.value.map((record, index) =>
-                renderRecord(record, index, { indentSize: hasSubData ? 20 : 0 })
-              )
+              renderRecord(record, index, { indentSize: hasSubData ? 20 : 0 })
+            )
             : renderEmpty()}
         </Tbody>
       );
@@ -1979,7 +2010,10 @@ export default defineComponent({
     const renderHeader = () => (
       <Thead v-slots={{ thead: slots.thead }}>
         {groupColumns.value.map((row, index) => (
-          <Tr key={`header-row-${index}`}>
+          <Tr
+            key={`header-row-${index}`}
+            tabIndex={headerRowTabIndex.value}
+          >
             {index === 0 &&
               operations.value.map((operation, index) => (
                 <OperationTh
@@ -1994,9 +2028,10 @@ export default defineComponent({
                   operations={operations.value}
                   selectAll={Boolean(
                     operation.name === 'selection-checkbox' &&
-                      props.rowSelection?.showCheckedAll
+                    props.rowSelection?.showCheckedAll
                   )}
                   rowSpan={groupColumns.value.length}
+                  headerCheckboxTabIndex={headerCheckboxTabIndex.value}
                 />
               ))}
             {row.map((column, index) => {
@@ -2061,12 +2096,12 @@ export default defineComponent({
                 }}
                 {...(scrollbar.value
                   ? {
-                      hide: flattenData.value.length !== 0,
-                      disableVertical: true,
-                      ...scrollbarProps.value,
-                      outerClass: mergeOuterClass,
-                      outerStyle: mergeOuterStyle,
-                    }
+                    hide: flattenData.value.length !== 0,
+                    disableVertical: true,
+                    ...scrollbarProps.value,
+                    outerClass: mergeOuterClass,
+                    outerStyle: mergeOuterStyle,
+                  }
                   : undefined)}
               >
                 <table
@@ -2074,6 +2109,8 @@ export default defineComponent({
                   style={headerStyle.value}
                   cellpadding={0}
                   cellspacing={0}
+                  role="table"
+                  aria-label="表头"
                 >
                   <ColGroup
                     dataColumns={dataColumns.value}
@@ -2126,9 +2163,9 @@ export default defineComponent({
                   }}
                   {...(scrollbar.value
                     ? {
-                        outerStyle: { display: 'flex', minHeight: '0' },
-                        ...scrollbarProps.value,
-                      }
+                      outerStyle: { display: 'flex', minHeight: '0' },
+                      ...scrollbarProps.value,
+                    }
                     : undefined)}
                   onScroll={onTbodyScroll}
                 >
@@ -2184,6 +2221,9 @@ export default defineComponent({
             cellpadding={0}
             cellspacing={0}
             style={contentStyle.value}
+            role="table"
+            aria-label="数据表格"
+            aria-rowcount={flattenData.value.length}
           >
             <ColGroup
               dataColumns={dataColumns.value}
@@ -2247,11 +2287,11 @@ export default defineComponent({
     const renderPagination = () => {
       const paginationProps = isObject(props.pagination)
         ? omit(props.pagination, [
-            'current',
-            'pageSize',
-            'defaultCurrent',
-            'defaultPageSize',
-          ])
+          'current',
+          'pageSize',
+          'defaultCurrent',
+          'defaultPageSize',
+        ])
         : {};
 
       return (

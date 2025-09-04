@@ -41,6 +41,15 @@
     background-color: @dropdown-option-color-bg_default;
     cursor: pointer;
 
+    // 键盘导航支持
+    &:focus,
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-6);
+      outline-offset: -2px;
+      background-color: @dropdown-option-color-bg_hover;
+      color: @dropdown-option-color-text_hover;
+    }
+
     &-content {
       .text-ellipsis();
     }
@@ -55,6 +64,31 @@
       color: @dropdown-option-color-text_hover;
       background-color: @dropdown-option-color-bg_hover;
       transition: all @transition-duration-1 @transition-timing-function-linear;
+    }
+
+    @media (prefers-contrast: high) {
+
+      &-active,
+      &:not(&-disabled):hover,
+      &:focus,
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: -2px;
+        background-color: HighlightText;
+        color: Highlight;
+      }
+    }
+
+    @media (forced-colors: active) {
+
+      &-active,
+      &:not(&-disabled):hover,
+      &:focus,
+      &:focus-visible {
+        background-color: Highlight;
+        color: HighlightText;
+        forced-color-adjust: none;
+      }
     }
 
     // disabled

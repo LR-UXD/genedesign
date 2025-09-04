@@ -19,7 +19,7 @@ Button is divided into five types: `primary`, `secondary`, `dashed`, `outline`, 
 ```vue
 <template>
   <a-space>
-    <a-button type="primary">Primary</a-button>
+    <a-button type="primary" blur='10px' background='rgba(153,46,138,.7)'>Primary</a-button>
     <a-button>Secondary</a-button>
     <a-button type="dashed">Dashed</a-button>
     <a-button type="outline">Outline</a-button>

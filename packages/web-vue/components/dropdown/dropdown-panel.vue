@@ -1,17 +1,12 @@
 <template>
-  <div :class="cls">
+  <div :class="cls" @keydown="handleKeydown" tabindex="-1">
     <div v-if="isEmpty" :class="`${prefixCls}-empty`">
       <slot name="empty">
         <empty />
       </slot>
     </div>
-    <Scrollbar
-      ref="wrapperRef"
-      :class="`${prefixCls}-list-wrapper`"
-      :style="style"
-      @scroll="handleScroll"
-    >
-      <ul :class="`${prefixCls}-list`">
+    <Scrollbar ref="wrapperRef" :class="`${prefixCls}-list-wrapper`" :style="style" @scroll="handleScroll">
+      <ul :class="`${prefixCls}-list`" role="listbox">
         <slot />
       </ul>
     </Scrollbar>
@@ -81,6 +76,82 @@ export default defineComponent({
       emit('scroll', e);
     };
 
+    const handleKeydown = (e: KeyboardEvent) => {
+      // 直接在当前组件内查找选项，不依赖event target
+      const currentElement = e.currentTarget as HTMLElement;
+      const listElement = currentElement.querySelector(`.${prefixCls}-list`);
+
+      if (!listElement) return;
+
+      const options = Array.from(
+        listElement.querySelectorAll(
+          `.${prefixCls}-option:not(.${prefixCls}-option-disabled)`
+        )
+      ) as HTMLElement[];
+
+      if (options.length === 0) return;
+
+      const currentIndex = options.findIndex(
+        (option) => option === document.activeElement
+      );
+
+      let nextIndex: number;
+      let prevIndex: number;
+
+      // 如果当前没有焦点在任何选项上
+      const noCurrentFocus = currentIndex === -1;
+
+      switch (e.key) {
+        case 'Tab': {
+          e.preventDefault();
+          if (noCurrentFocus) {
+            options[0]?.focus();
+          } else if (e.shiftKey) {
+            // Shift+Tab - 向上
+            prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+            options[prevIndex]?.focus();
+          } else {
+            // Tab - 向下
+            nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+            options[nextIndex]?.focus();
+          }
+          break;
+        }
+        case 'ArrowDown': {
+          e.preventDefault();
+          if (noCurrentFocus) {
+            options[0]?.focus();
+          } else {
+            nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+            options[nextIndex]?.focus();
+          }
+          break;
+        }
+        case 'ArrowUp': {
+          e.preventDefault();
+          if (noCurrentFocus) {
+            options[options.length - 1]?.focus();
+          } else {
+            prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+            options[prevIndex]?.focus();
+          }
+          break;
+        }
+        case 'Home':
+          e.preventDefault();
+          options[0]?.focus();
+          break;
+        case 'End':
+          e.preventDefault();
+          options[options.length - 1]?.focus();
+          break;
+        case 'Escape':
+          break;
+        default:
+          break;
+      }
+    };
+
     const style = computed<CSSProperties | undefined>(() => {
       if (isNumber(dropdownCtx.popupMaxHeight)) {
         return {
@@ -109,6 +180,7 @@ export default defineComponent({
       style,
       wrapperRef,
       handleScroll,
+      handleKeydown,
     };
   },
 });

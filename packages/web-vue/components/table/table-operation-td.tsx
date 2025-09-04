@@ -1,4 +1,4 @@
-import { computed, defineComponent, inject, PropType, VNode } from 'vue';
+import { computed, defineComponent, inject, PropType, VNode, ref, onMounted, nextTick, watch } from 'vue';
 import { TableDataWithRaw, TableOperationColumn } from './interface';
 import { getPrefixCls } from '../_utils/global-config';
 import {
@@ -60,13 +60,55 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    rowIndex: {
+      type: Number,
+    },
+    checkboxTabIndex: {
+      type: Function as PropType<(index: number) => number | undefined>,
+    },
   },
   emits: ['select'],
   setup(props, { emit, slots }) {
     const prefixCls = getPrefixCls('table');
     const tableCtx = inject<Partial<TableContext>>(tableInjectionKey, {});
+    const checkboxRef = ref();
+    const radioRef = ref();
+
     const style = computed(() =>
       getOperationStyle(props.operationColumn, props.operations)
+    );
+
+    // 设置tabindex
+    const updateTabIndex = () => {
+      if (props.checkboxTabIndex && props.rowIndex !== undefined) {
+        const tabIndex = props.checkboxTabIndex(props.rowIndex);
+
+        if (checkboxRef.value) {
+          const input = checkboxRef.value.$el?.querySelector('input');
+          if (input) {
+            input.tabIndex = tabIndex ?? -1;
+          }
+        }
+
+        if (radioRef.value) {
+          const input = radioRef.value.$el?.querySelector('input');
+          if (input) {
+            input.tabIndex = tabIndex ?? -1;
+          }
+        }
+      }
+    };
+
+    onMounted(() => {
+      nextTick(updateTabIndex);
+    });
+
+    // 监听 checkboxTabIndex 变化
+    watch(
+      () => props.checkboxTabIndex && props.rowIndex !== undefined ? props.checkboxTabIndex(props.rowIndex) : undefined,
+      () => {
+        nextTick(updateTabIndex);
+      }
     );
 
     const cls = computed(() => [
@@ -103,6 +145,7 @@ export default defineComponent({
         if (!tableCtx.checkStrictly && !props.record.isLeaf) {
           return (
             <Checkbox
+              ref={checkboxRef}
               modelValue={selectionStatus.value.checked}
               indeterminate={selectionStatus.value.indeterminate}
               disabled={Boolean(props.record.disabled)}
@@ -118,6 +161,7 @@ export default defineComponent({
 
         return (
           <Checkbox
+            ref={checkboxRef}
             modelValue={props.selectedRowKeys?.includes(value) ?? false}
             disabled={Boolean(props.record.disabled)}
             uninjectGroupContext
@@ -133,6 +177,7 @@ export default defineComponent({
         const value = props.record.key;
         return (
           <Radio
+            ref={radioRef}
             modelValue={props.selectedRowKeys?.includes(value) ?? false}
             disabled={Boolean(props.record.disabled)}
             uninjectGroupContext

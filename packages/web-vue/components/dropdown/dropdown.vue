@@ -1,18 +1,10 @@
 <template>
-  <Trigger
-    :popup-visible="computedPopupVisible"
-    animation-name="slide-dynamic-origin"
-    auto-fit-transform-origin
-    :trigger="trigger"
-    :position="position"
-    :popup-offset="4"
-    :popup-container="popupContainer"
-    :opened-class="`${prefixCls}-open gene-dropdown-open`"
-    @popup-visible-change="handlePopupVisibleChange"
-  >
+  <Trigger :popup-visible="computedPopupVisible" animation-name="slide-dynamic-origin" auto-fit-transform-origin
+    :trigger="trigger" :position="position" :popup-offset="4" :popup-container="popupContainer"
+    :opened-class="`${prefixCls}-open gene-dropdown-open`" @popup-visible-change="handlePopupVisibleChange">
     <slot />
     <template #content>
-      <DropdownPanel>
+      <DropdownPanel ref="dropdownPanelRef">
         <slot name="content" />
         <template v-if="$slots.footer" #footer>
           <slot name="footer" />
@@ -23,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, provide, reactive, toRefs } from 'vue';
+import { defineComponent, PropType, provide, reactive, toRefs, ref, nextTick, watch } from 'vue';
 import { TriggerEvent } from '../_utils/constant';
 import { getPrefixCls } from '../_utils/global-config';
 import Trigger from '../trigger';
@@ -133,6 +125,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { defaultPopupVisible, popupVisible, popupMaxHeight } = toRefs(props);
     const prefixCls = getPrefixCls('dropdown');
+    const dropdownPanelRef = ref();
 
     const { computedPopupVisible, handlePopupVisibleChange } = useTrigger({
       defaultPopupVisible,
@@ -148,6 +141,18 @@ export default defineComponent({
       props.hideOnSelect && handlePopupVisibleChange(false);
     };
 
+    // 当下拉菜单打开时，聚焦到面板容器以启用键盘导航
+    watch(computedPopupVisible, (visible) => {
+      if (visible) {
+        nextTick(() => {
+          const panelEl = dropdownPanelRef.value?.$el || dropdownPanelRef.value;
+          if (panelEl && typeof panelEl.focus === 'function') {
+            panelEl.focus();
+          }
+        });
+      }
+    });
+
     provide(
       dropdownInjectionKey,
       reactive({
@@ -160,6 +165,7 @@ export default defineComponent({
       prefixCls,
       computedPopupVisible,
       handlePopupVisibleChange,
+      dropdownPanelRef,
     };
   },
 });

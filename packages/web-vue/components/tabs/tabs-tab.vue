@@ -1,13 +1,11 @@
 <template>
-  <div tabindex="0" :class="cls" v-bind="eventHandlers">
+  <div tabindex="0" :class="cls" v-bind="eventHandlers" role="tab" :aria-selected="active" :aria-disabled="tab.disabled"
+    :aria-label="tab.title || undefined">
     <span :class="`${prefixCls}-title`">
       <slot />
     </span>
-    <icon-hover
-      v-if="editable && tab.closable"
-      :class="`${prefixCls}-close-btn`"
-      @click.stop="handleDelete"
-    >
+    <icon-hover v-if="editable && tab.closable" :class="`${prefixCls}-close-btn`" @click.stop="handleDelete"
+      :aria-label="'Close tab'" role="button" tabindex="-1">
       <icon-close />
     </icon-hover>
   </div>

@@ -27,7 +27,9 @@ export default defineComponent({
     error: Boolean,
     // used for outer focused
     focused: Boolean,
+    opened: Boolean,
     uninjectFormItemContext: Boolean,
+    activeKey: String,
   },
   emits: ['update:inputValue', 'inputValueChange', 'focus', 'blur'],
   setup(props, { attrs, emit, slots }) {
@@ -103,15 +105,32 @@ export default defineComponent({
       },
     ]);
 
-    const wrapperAttrs = computed(() => omit(attrs, INPUT_EVENTS));
-    const inputAttrs = computed(() => pick(attrs, INPUT_EVENTS));
+    const wrapperAttrs = computed(() => {
+      const wrapper = omit(attrs, INPUT_EVENTS) as any;
+      // Add keyboard events to wrapper since it's now focusable
+      if (attrs.onKeydown) wrapper.onKeydown = attrs.onKeydown;
+      if (attrs.onKeypress) wrapper.onKeypress = attrs.onKeypress;
+      if (attrs.onKeyup) wrapper.onKeyup = attrs.onKeyup;
+      return wrapper;
+    });
+    const inputAttrs = computed(() => omit(pick(attrs, INPUT_EVENTS), ['onKeydown', 'onKeypress', 'onKeyup', 'onFocus', 'onBlur']));
 
     const render = () => (
       <span
         {...wrapperAttrs.value}
         class={cls.value}
         title={formatLabel()}
+        role="combobox"
+        tabindex={mergedDisabled.value ? -1 : 0}
+        aria-expanded={mergedFocused.value}
+        aria-haspopup="listbox"
+        aria-owns="arco-select-listbox"
+        aria-activedescendant={props.activeKey ? `arco-option-${props.activeKey}` : undefined}
+        aria-readonly={!props.enabledInput}
+        aria-disabled={mergedDisabled.value}
         onMousedown={handleMousedown}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       >
         {slots.prefix && (
           <span class={`${prefixCls}-prefix`}>{slots.prefix()}</span>
@@ -129,6 +148,11 @@ export default defineComponent({
           readonly={!props.enabledInput}
           placeholder={mergedPlaceholder.value}
           disabled={mergedDisabled.value}
+          role="combobox"
+          aria-expanded={props.opened ? "true" : "false"}
+          aria-haspopup="listbox"
+          aria-activedescendant={props.activeKey ? `arco-select-option-${props.activeKey}` : undefined}
+          tabindex={-1}
           onInput={handleInput}
           onFocus={handleFocus}
           onBlur={handleBlur}

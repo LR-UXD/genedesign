@@ -68,7 +68,7 @@ The Slider on the left can be set to expand/collapse in conjunction with Menu, a
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header>
+      <a-layout-header >
         <a-menu
           :openKeys="['1']"
           :selectedKeys="['0_2']"
@@ -114,8 +114,8 @@ The Slider on the left can be set to expand/collapse in conjunction with Menu, a
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
         </a-breadcrumb>
-        <a-layout-content>Content</a-layout-content>
-        <a-layout-footer>Footer</a-layout-footer>
+        <a-layout-content class='gene-layout-content'>Content</a-layout-content>
+        <a-layout-footer class='gene-layout-footer'>Footer</a-layout-footer>
       </a-layout>
     </a-layout>
   </a-layout>
@@ -166,34 +166,6 @@ export default defineComponent({
 }
 .layout-demo :deep(a-layout-sider-light) .logo{
   background: var(--color-fill-2);
-}
-.layout-demo :deep(a-layout-header)  {
-  height: 64px;
-  line-height: 64px;
-  background: var(--color-bg-3);
-}
-.layout-demo :deep(a-layout-footer) {
-  height: 48px;
-  color: var(--color-text-2);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 48px;
-}
-.layout-demo :deep(a-layout-content) {
-  color: var(--color-text-2);
-  font-weight: 400;
-  font-size: 14px;
-  background: var(--color-bg-3);
-}
-.layout-demo :deep(a-layout-footer),
-.layout-demo :deep(a-layout-content)  {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--color-white);
-  font-size: 16px;
-  font-stretch: condensed;
-  text-align: center;
 }
 </style>
 ```

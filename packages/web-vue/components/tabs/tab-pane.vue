@@ -1,11 +1,8 @@
 <template>
-  <div
-    ref="itemRef"
-    :class="[
-      `${prefixCls}-content-item`,
-      { [`${prefixCls}-content-item-active`]: active },
-    ]"
-  >
+  <div ref="itemRef" :class="[
+    `${prefixCls}-content-item`,
+    { [`${prefixCls}-content-item-active`]: active },
+  ]" role="tabpanel" :aria-hidden="!active" :aria-labelledby="tabId">
     <div v-if="mounted" :class="`${prefixCls}-pane`">
       <slot />
     </div>
@@ -77,6 +74,7 @@ export default defineComponent({
     const key = computed(() => instance?.vnode.key as string | number);
     const active = computed(() => key.value === tabsCtx.activeKey);
     const mounted = ref(tabsCtx.lazyLoad ? active.value : true);
+    const tabId = computed(() => `tab-${key.value}`);
 
     const data = reactive({
       key,
@@ -115,6 +113,7 @@ export default defineComponent({
       active,
       itemRef,
       mounted,
+      tabId,
     };
   },
 });

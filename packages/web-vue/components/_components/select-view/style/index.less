@@ -51,8 +51,127 @@
   &:hover &-clear-btn {
     display: block;
 
-    & ~ * {
+    &~* {
       display: none;
+    }
+  }
+
+  // Tab键焦点样式
+  &-single,
+  &-multiple {
+    &:focus-visible {
+      outline: 2px solid var(~'@{arco-cssvars-prefix}-color-primary-6');
+      outline-offset: -2px;
+    }
+  }
+}
+
+// 高对比度模式支持
+@media (prefers-contrast: high),
+(-ms-high-contrast: active),
+(-ms-high-contrast: white-on-black) {
+  .@{select-view-prefix-cls} {
+
+    &-single,
+    &-multiple {
+      background-color: Field !important;
+      border-color: WindowText !important;
+      color: WindowText !important;
+
+      // 禁用状态
+      &.@{select-view-prefix-cls}-disabled {
+        background-color: ButtonFace !important;
+        border-color: GrayText !important;
+        color: GrayText !important;
+      }
+
+      // 错误状态
+      &.@{select-view-prefix-cls}-error {
+        border-color: WindowText !important;
+      }
+
+      // 聚焦状态
+      &.@{select-view-prefix-cls}-focus,
+      &:focus-visible {
+        border-color: Highlight !important;
+        box-shadow: 0 0 0 2px Highlight !important;
+      }
+    }
+
+    // 图标颜色调整
+    &-icon,
+    &-arrow-icon,
+    &-clear-btn {
+      color: WindowText !important;
+
+      &:hover {
+        color: Highlight !important;
+      }
+    }
+
+    // 禁用状态下的图标
+    &-disabled &-icon,
+    &-disabled &-arrow-icon {
+      color: GrayText !important;
+    }
+
+    // 标签样式（多选模式）
+    &-multiple {
+      .@{prefix}-tag {
+        background-color: ButtonFace !important;
+        border-color: WindowText !important;
+        color: WindowText !important;
+
+        &-close-btn {
+          color: WindowText !important;
+
+          &:hover {
+            color: Highlight !important;
+          }
+        }
+      }
+    }
+
+    // placeholder 文本
+    &-placeholder {
+      color: GrayText !important;
+    }
+  }
+}
+
+// forced-colors 模式支持
+@media (forced-colors: active) {
+  .@{select-view-prefix-cls} {
+
+    &-single,
+    &-multiple {
+      forced-color-adjust: none;
+      background-color: Canvas !important;
+      border-color: CanvasText !important;
+      color: CanvasText !important;
+
+      &.@{select-view-prefix-cls}-focus,
+      &:focus-visible {
+        border-color: Highlight !important;
+        outline: 2px solid Highlight !important;
+        outline-offset: -2px !important;
+      }
+
+      &.@{select-view-prefix-cls}-disabled {
+        color: GrayText !important;
+        border-color: GrayText !important;
+      }
+    }
+
+    &-icon,
+    &-arrow-icon,
+    &-clear-btn {
+      color: CanvasText !important;
+    }
+
+    &-disabled &-icon,
+    &-disabled &-arrow-icon {
+      color: GrayText !important;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { computed, defineComponent, inject, PropType } from 'vue';
+import { computed, defineComponent, inject, PropType, onMounted, ref, watchEffect } from 'vue';
 import { getOperationFixedCls, getOperationStyle } from './utils';
 import { getPrefixCls } from '../_utils/global-config';
 import Checkbox from '../checkbox';
@@ -26,10 +26,16 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    // for keyboard navigation
+    headerCheckboxTabIndex: {
+      type: Number,
+      default: undefined,
+    },
   },
   setup(props) {
     const prefixCls = getPrefixCls('table');
     const tableCtx = inject<Partial<TableContext>>(tableInjectionKey, {});
+    const thRef = ref<HTMLElement>();
 
     const checkboxStatus = computed(() => {
       let checked = false;
@@ -53,6 +59,17 @@ export default defineComponent({
         checked,
         indeterminate,
       };
+    });
+
+    // 设置表头复选框的tabIndex
+    watchEffect(() => {
+      if (props.selectAll && thRef.value) {
+        const checkboxInput = thRef.value.querySelector('.arco-checkbox input') as HTMLInputElement;
+        if (checkboxInput) {
+          // 如果传入了headerCheckboxTabIndex，使用它；否则默认为-1以防止默认tab顺序
+          checkboxInput.tabIndex = props.headerCheckboxTabIndex ?? -1;
+        }
+      }
     });
 
     const renderContent = () => {
@@ -96,6 +113,7 @@ export default defineComponent({
 
     return () => (
       <th
+        ref={thRef}
         class={cls.value}
         style={style.value}
         rowspan={props.rowSpan > 1 ? props.rowSpan : undefined}

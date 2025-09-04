@@ -1,9 +1,6 @@
 <template>
-  <li
-    ref="liRef"
-    :class="[cls, { [`${prefixCls}-has-suffix`]: Boolean($slots.suffix) }]"
-    @click="handleClick"
-  >
+  <li ref="liRef" :class="[cls, { [`${prefixCls}-has-suffix`]: Boolean($slots.suffix) }]" :tabindex="disabled ? -1 : 0"
+    role="option" :aria-disabled="disabled" @click="handleClick" @keydown="handleKeydown">
     <span v-if="$slots.icon" :class="`${prefixCls}-icon`">
       <slot name="icon" />
     </span>
@@ -75,6 +72,15 @@ export default defineComponent({
       }
     };
 
+    const handleKeydown = (ev: KeyboardEvent) => {
+      if (props.disabled) return;
+
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        handleClick(ev as any);
+      }
+    };
+
     const cls = computed(() => [
       prefixCls,
       {
@@ -88,6 +94,7 @@ export default defineComponent({
       cls,
       liRef,
       handleClick,
+      handleKeydown,
     };
   },
 });

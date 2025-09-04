@@ -87,11 +87,9 @@
       display: flex;
       flex: 1;
       align-items: center;
-      justify-content: if(
-        (@modal-default-align-header = left),
-        flex-start,
-        (if((@modal-default-align-header = right), flex-end, center))
-      );
+      justify-content: if((@modal-default-align-header =left),
+          flex-start,
+          (if((@modal-default-align-header =right), flex-end, center)));
 
       &-align-start {
         justify-content: flex-start;
@@ -105,8 +103,7 @@
 
   &-body {
     position: relative;
-    padding: @modal-default-padding-content-vertical
-      @modal-default-padding-horizontal;
+    padding: @modal-default-padding-content-vertical @modal-default-padding-horizontal;
     overflow: auto;
     color: @modal-color-content-text;
     font-size: @modal-font-content-size;
@@ -116,12 +113,11 @@
     flex-shrink: 0;
     box-sizing: border-box;
     width: 100%;
-    padding: @modal-default-padding-footer-vertical
-      @modal-default-padding-horizontal;
+    padding: @modal-default-padding-footer-vertical @modal-default-padding-horizontal;
     text-align: right;
     border-top: @border-1 solid @modal-color-border;
 
-    > .@{prefix}-btn:not(:nth-child(1)) {
+    >.@{prefix}-btn:not(:nth-child(1)) {
       margin-left: @modal-margin-footer-button-left;
     }
   }
@@ -165,8 +161,7 @@
 // 简洁模式
 .@{modal-prefix-cls}-simple {
   width: @modal-simple-size-width;
-  padding: @modal-simple-padding-top @modal-simple-padding-horizontal
-    @modal-simple-padding-bottom;
+  padding: @modal-simple-padding-top @modal-simple-padding-horizontal @modal-simple-padding-bottom;
 
   .@{modal-prefix-cls}-header,
   .@{modal-prefix-cls}-footer {
@@ -180,11 +175,9 @@
   }
 
   .@{modal-prefix-cls}-title {
-    justify-content: if(
-      (@modal-default-align-header = left),
-      flex-start,
-      (if((@modal-default-align-header = right), flex-end, center))
-    );
+    justify-content: if((@modal-default-align-header =left),
+        flex-start,
+        (if((@modal-default-align-header =right), flex-end, center)));
 
     &-align-start {
       justify-content: flex-start;
@@ -232,8 +225,7 @@
 
 .zoom-modal-enter-active,
 .zoom-modal-appear-active {
-  transition: opacity @transition-duration-4
-      @transition-timing-function-overshoot,
+  transition: opacity @transition-duration-4 @transition-timing-function-overshoot,
     transform @transition-duration-4 @transition-timing-function-overshoot;
 }
 
@@ -248,8 +240,7 @@
 }
 
 .zoom-modal-leave-active {
-  transition: opacity @transition-duration-4
-      @transition-timing-function-overshoot,
+  transition: opacity @transition-duration-4 @transition-timing-function-overshoot,
     transform @transition-duration-4 @transition-timing-function-overshoot;
 }
 
@@ -265,8 +256,7 @@
 
 .fade-modal-enter-active,
 .fade-modal-appear-active {
-  transition: opacity @transition-duration-4
-    @transition-timing-function-overshoot;
+  transition: opacity @transition-duration-4 @transition-timing-function-overshoot;
 }
 
 .fade-modal-leave-from {
@@ -278,6 +268,122 @@
 }
 
 .fade-modal-leave-active {
-  transition: opacity @transition-duration-4
-    @transition-timing-function-overshoot;
+  transition: opacity @transition-duration-4 @transition-timing-function-overshoot;
+}
+
+
+// 高对比度模式支持
+@media (prefers-contrast: high),
+(-ms-high-contrast: active) {
+  .@{modal-prefix-cls}-mask {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .@{modal-prefix-cls} {
+    border: 2px solid;
+    border-color: var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-1', #fff);
+  }
+
+  .@{modal-prefix-cls}-header {
+    border-bottom: 2px solid var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+
+    .@{modal-prefix-cls}-title {
+      color: var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+      font-weight: @font-weight-600;
+    }
+  }
+
+  .@{modal-prefix-cls}-body {
+    color: var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+  }
+
+  .@{modal-prefix-cls}-footer {
+    border-top: 2px solid var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+  }
+
+  .@{modal-prefix-cls}-close-btn {
+    color: var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+    border: 1px solid transparent;
+    border-radius: 2px;
+
+    &:hover,
+    &:focus {
+      border-color: var(~'@{arco-cssvars-prefix}-color-text-1', #000);
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-2', #f0f0f0);
+    }
+  }
+
+  .@{modal-prefix-cls}-simple {
+    .@{modal-prefix-cls}-title-icon {
+
+      .@{prefix}-icon-info-circle-fill,
+      .@{prefix}-icon-check-circle-fill,
+      .@{prefix}-icon-exclamation-circle-fill,
+      .@{prefix}-icon-close-circle-fill {
+        filter: contrast(2) brightness(0.8);
+      }
+    }
+  }
+}
+
+@media (-ms-high-contrast: active) {
+  .@{modal-prefix-cls}-mask {
+    background-color: ButtonShadow;
+  }
+
+  .@{modal-prefix-cls} {
+    background-color: ButtonFace;
+    border-color: ButtonText;
+    color: ButtonText;
+  }
+
+  .@{modal-prefix-cls}-header,
+  .@{modal-prefix-cls}-footer {
+    border-color: ButtonText;
+  }
+
+  .@{modal-prefix-cls}-title,
+  .@{modal-prefix-cls}-body,
+  .@{modal-prefix-cls}-close-btn {
+    color: ButtonText;
+  }
+}
+
+// 强制颜色
+@media (forced-colors: active) {
+  .@{modal-prefix-cls}-mask {
+    background-color: Canvas;
+    opacity: 0.8;
+  }
+
+  .@{modal-prefix-cls} {
+    background-color: Canvas;
+    border: 2px solid CanvasText;
+    color: CanvasText;
+    //forced-color-adjust: none
+  }
+
+  .@{modal-prefix-cls}-header,
+  .@{modal-prefix-cls}-footer {
+    border-color: CanvasText;
+  }
+
+  .@{modal-prefix-cls}-title,
+  .@{modal-prefix-cls}-body,
+  .@{modal-prefix-cls}-close-btn {
+    color: CanvasText;
+  }
+
+  .@{modal-prefix-cls}-close-btn:hover,
+  .@{modal-prefix-cls}-close-btn:focus {
+    background-color: Highlight;
+    color: HighlightText;
+    border-color: HighlightText;
+  }
+
+  .@{prefix}-btn {
+    forced-color-adjust: auto;
+  }
 }

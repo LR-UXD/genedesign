@@ -9,8 +9,8 @@ import paths from '../utils/paths';
 const root = process.cwd();
 
 const base =
-  process.env.AssetsPublicPath ||
-  'https://uxd.lenovo.com/genedesign/';
+  process.env.AssetsPublicPath || 'https://uxd.lenovo.com/genedesign/';
+// const base = 'https://uxd.lenovo.com/gene-test/';
 
 export default defineConfig({
   mode: 'production',

@@ -20,68 +20,40 @@ A typical page layout.
 <template>
   <div class="layout-demo">
     <a-layout style="height: 400px;">
-      <a-layout-header>Header</a-layout-header>
-      <a-layout-content>Content</a-layout-content>
-      <a-layout-footer>Footer</a-layout-footer>
+      <a-layout-header class='gene-layout-header'>Header</a-layout-header>
+      <a-layout-content class='gene-layout-content'>Content</a-layout-content>
+      <a-layout-footer class='gene-layout-footer'>Footer</a-layout-footer>
     </a-layout>
     <br />
     <a-layout style="height: 400px;">
-      <a-layout-header>Header</a-layout-header>
+      <a-layout-header class='gene-layout-header'>Header</a-layout-header>
       <a-layout>
-        <a-layout-sider theme="dark">Sider</a-layout-sider>
-        <a-layout-content>Content</a-layout-content>
+        <a-layout-sider theme="dark" class='gene-layout-sider'>Sider</a-layout-sider>
+        <a-layout-content class='gene-layout-content'>Content</a-layout-content>
       </a-layout>
-      <a-layout-footer>Footer</a-layout-footer>
+      <a-layout-footer class='gene-layout-footer'>Footer</a-layout-footer>
     </a-layout>
     <br />
     <a-layout style="height: 400px;">
-      <a-layout-header>Header</a-layout-header>
+      <a-layout-header class='gene-layout-header'>Header</a-layout-header>
       <a-layout>
-        <a-layout-content>Content</a-layout-content>
-        <a-layout-sider>Sider</a-layout-sider>
+        <a-layout-content class='gene-layout-content'>Content</a-layout-content>
+        <a-layout-sider class='gene-layout-sider'>Sider</a-layout-sider>
       </a-layout>
-      <a-layout-footer>Footer</a-layout-footer>
+      <a-layout-footer class='gene-layout-footer'>Footer</a-layout-footer>
     </a-layout>
     <br />
     <a-layout style="height: 400px;">
-      <a-layout-header>Header</a-layout-header>
+      <a-layout-header class='gene-layout-header'>Header</a-layout-header>
       <a-layout>
-        <a-layout-sider style="width: 64px;">Sider</a-layout-sider>
-        <a-layout-sider style="width: 206px; margin-left: 1px;">Sider</a-layout-sider>
-        <a-layout-content>Content</a-layout-content>
+        <a-layout-sider style="width: 64px;" class='gene-layout-sider'>Sider</a-layout-sider>
+        <a-layout-sider style="width: 206px; margin-left: 1px;" class='gene-layout-sider'>Sider</a-layout-sider>
+        <a-layout-content class='gene-layout-content'>Content</a-layout-content>
       </a-layout>
-      <a-layout-footer>Footer</a-layout-footer>
+      <a-layout-footer class='gene-layout-footer'>Footer</a-layout-footer>
     </a-layout>
   </div>
 </template>
 <style scoped>
-.layout-demo :deep(a-layout-header),
-.layout-demo :deep(a-layout-footer),
-.layout-demo :deep(a-layout-sider-children),
-.layout-demo :deep(a-layout-content) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--color-white);
-  font-size: 16px;
-  font-stretch: condensed;
-  text-align: center;
-}
-
-
-.layout-demo :deep(a-layout-header),
-.layout-demo :deep(a-layout-footer) {
-  height: 64px;
-  background-color: var(--color-primary-light-4);
-}
-
-.layout-demo :deep(a-layout-sider) {
-  width: 206px;
-  background-color: var(--color-primary-light-3);
-}
-
-.layout-demo :deep(a-layout-content) {
-  background-color: rgb(var(--g-plum-500));
-}
 </style>
 ```

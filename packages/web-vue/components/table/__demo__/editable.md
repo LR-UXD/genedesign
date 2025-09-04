@@ -6,15 +6,13 @@ title:
 
 ## zh-CN
 
-可以在使用插槽获得的数据，修改 `data` 中的数据，达到可编辑表格的功能。
-`2.25.0` 版本后可以直接修改插槽传出的 `record` 变量。这个 `record` 变量是传入的 `data` 中对应数据的引用，请保证 `data` 为 Reactive 类型。
+可以在使用插槽获得的数据，修改 `data` 中的数据，达到可编辑表格的功能; 可以直接修改插槽传出的 `record` 变量。这个 `record` 变量是传入的 `data` 中对应数据的引用，请保证 `data` 为 Reactive 类型。
 
 ---
 
 ## en-US
 
-You can use the data obtained from the slot to modify the data in `data` to achieve the function of editing the table.
-After the `2.25.0` version, you can directly modify the `record` variable from the slot. This `record` variable is a reference to the corresponding data in the incoming `data`, please make sure that `data` is of Reactive type.
+You can use the data obtained from the slot to modify the data in `data` to achieve the function of editing the table;  you can directly modify the `record` variable from the slot. This `record` variable is a reference to the corresponding data in the incoming `data`, please make sure that `data` is of Reactive type.
 
 ---
 

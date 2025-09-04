@@ -1,29 +1,19 @@
 <template>
-  <component
-    :is="component"
-    v-show="isValid"
-    ref="itemRef"
-    :class="[cls, { [`${prefixCls}-has-suffix`]: Boolean($slots.suffix) }]"
-    @click="handleClick"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave"
-  >
+  <component :is="component" v-show="isValid" ref="itemRef"
+    :class="[cls, { [`${prefixCls}-has-suffix`]: Boolean($slots.suffix) }]" :id="`${prefixCls}-${key}`" role="option"
+    :aria-selected="isSelected" :aria-disabled="disabled" :tabindex="disabled ? -1 : 0" @click="handleClick"
+    @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <span v-if="$slots.icon" :class="`${prefixCls}-icon`">
       <slot name="icon" />
     </span>
-    <checkbox
-      v-if="selectCtx && selectCtx.multiple"
-      :class="`${prefixCls}-checkbox`"
-      :model-value="isSelected"
-      :disabled="disabled"
-      uninject-group-context
-    >
+    <checkbox v-if="selectCtx && selectCtx.multiple" :class="`${prefixCls}-checkbox`" :model-value="isSelected"
+      :disabled="disabled" uninject-group-context>
       <slot>{{ label }}</slot>
     </checkbox>
     <template v-else>
-      <span :class="`${prefixCls}-content`"
-        ><slot>{{ label }}</slot></span
-      >
+      <span :class="`${prefixCls}-content`">
+        <slot>{{ label }}</slot>
+      </span>
     </template>
     <span v-if="$slots.suffix" :class="`${prefixCls}-suffix`">
       <slot name="suffix" />
@@ -45,6 +35,7 @@ import {
   onUpdated,
   getCurrentInstance,
   watch,
+  nextTick,
 } from 'vue';
 import type { TagProps } from '../tag';
 import { getPrefixCls } from '../_utils/global-config';
@@ -145,8 +136,9 @@ export default defineComponent({
       () => selectCtx?.valueKeys.includes(key.value) ?? false
     );
     const isActive = computed(
-      () => selectCtx?.activeKey === key.value ?? false
+      () => (selectCtx?.activeKey === key.value) || false
     );
+
     let isValid = ref(true);
 
     if (!props.internal) {
@@ -219,7 +211,9 @@ export default defineComponent({
       selectCtx,
       itemRef,
       component,
+      key,
       isSelected,
+      isActive,
       isValid,
       handleClick,
       handleMouseEnter,

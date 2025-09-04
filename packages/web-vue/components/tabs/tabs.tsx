@@ -310,6 +310,8 @@ export default defineComponent({
               [`${prefixCls}-content-hide`]: props.hideContent,
             },
           ]}
+          role="tabpanel"
+          aria-hidden={props.hideContent}
         >
           <div
             class={[

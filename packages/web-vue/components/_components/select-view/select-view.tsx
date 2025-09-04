@@ -76,6 +76,7 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    activeKey: String,
   },
   emits: ['remove', 'clear', 'focus', 'blur'],
   setup(props, { emit, slots }) {
@@ -195,6 +196,7 @@ export default defineComponent({
             maxTagCount={props.maxTagCount}
             disabledInput={!props.allowSearch && !props.allowCreate}
             tagNowrap={props.tagNowrap}
+            activeKey={props.activeKey}
             retainInputValue
             uninjectFormItemContext
             onRemove={handleRemove}
@@ -216,11 +218,13 @@ export default defineComponent({
           modelValue={props.modelValue[0]}
           inputValue={props.inputValue}
           focused={props.opened}
+          opened={props.opened}
           placeholder={props.placeholder}
           disabled={mergedDisabled.value}
           size={mergedSize.value}
           error={mergedError.value}
           enabledInput={enabledInput.value}
+          activeKey={props.activeKey}
           uninjectFormItemContext
           onFocus={handleFocus}
           onBlur={handleBlur}

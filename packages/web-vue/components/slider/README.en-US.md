@@ -43,6 +43,9 @@ description: Sliding input device, showing current value and selectable range.
 |show-input|Whether to show the input|`boolean`|`false`||
 |range|Whether to use range selection|`boolean`|`false`||
 |show-tooltip|Whether to show tooltip|`boolean`|`true`|2.42.0|
+|keyboard|Whether to enable keyboard control|`boolean`|`true`||
+
+
 ### `<slider>` Events
 
 |Event Name|Description|Parameters|

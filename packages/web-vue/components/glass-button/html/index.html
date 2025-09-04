@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Glass Studio - Enhanced Controls</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #333;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        canvas {
+            display: block;
+            background: transparent;
+            /* 添加透明背景 */
+        }
+
+        /* 其余样式保持不变 */
+        .controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 10;
+            max-height: 90vh;
+            overflow-y: auto;
+            min-width: 250px;
+        }
+
+        .controls label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .controls input[type="range"] {
+            width: 200px;
+        }
+
+        .controls input[type="file"] {
+            margin-top: 10px;
+        }
+
+        .controls input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .folder {
+            border: 1px solid #444;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .folder-header {
+            background: #444;
+            padding: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .folder-content {
+            padding: 10px;
+            display: block;
+        }
+
+        .folder.collapsed .folder-content {
+            display: none;
+        }
+
+        .reset-btn {
+            background: #666;
+            border: none;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .reset-btn:hover {
+            background: #888;
+        }
+
+        /* 添加数字输入框样式 */
+        .num-input {
+            width: 60px;
+            margin-left: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #555;
+            color: white;
+            border-radius: 3px;
+            padding: 3px 6px;
+            font-size: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        /* 形状切换按钮样式 */
+        .shape-toggle {
+            display: flex;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .shape-toggle-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            color: #ccc;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .shape-toggle-btn.active {
+            background: #666;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <label for="imageUpload">Background Image:</label>
+        <input type="file" id="imageUpload" accept="image/*">
+
+        <!-- Basic Settings -->
+        <div class="folder">
+            <div class="folder-header">
+                Basic Settings
+                <button class="reset-btn" data-target="basic">Reset</button>
+            </div>
+            <div class="folder-content">
+                <div class="input-group">
+                    <label for="glareAngle">Glare Angle: <span id="glareAngleValue">-45</span>°</label>
+                    <input type="number" class="num-input" id="glareAngleInput" min="-180" max="180" step="0.01"
+                        value="-45">
+                </div>
+                <input type="range" id="glareAngle" min="-180" max="180" value="-45" step="0.01">
+
+                <div class="input-group">
+                    <label for="glareFactor">Glare Factor: <span id="glareFactorValue">80</span></label>
+                    <input type="number" class="num-input" id="glareFactorInput" min="0" max="100" step="0.01"
+                        value="80">
+                </div>
+                <input type="range" id="glareFactor" min="0" max="100" value="80" step="0.01">
+
+                <div class="input-group">
+                    <label for="refFactor">Refraction Factor: <span id="refFactorValue">100</span></label>
+                    <input type="number" class="num-input" id="refFactorInput" min="0" max="100" step="1" value="100">
+                </div>
+                <input type="range" id="refFactor" min="0" max="100" value="100" step="1">
+
+                <div class="input-group">
+                    <label for="refThickness">Refraction Thickness: <span id="refThicknessValue">23</span></label>
+                    <input type="number" class="num-input" id="refThicknessInput" min="1" max="100" step="0.01"
+                        value="23">
+                </div>
+                <input type="range" id="refThickness" min="1" max="100" value="23" step="0.01">
+
+                <div class="input-group">
+                    <label for="refDispersion">Refraction Dispersion: <span id="refDispersionValue">50</span></label>
+                    <input type="number" class="num-input" id="refDispersionInput" min="0" max="100" step="0.01"
+                        value="50">
+                </div>
+                <input type="range" id="refDispersion" min="0" max="100" value="50" step="0.01">
+
+                <div class="input-group">
+                    <label for="blurRadius">Blur Radius: <span id="blurRadiusValue">4</span></label>
+                    <input type="number" class="num-input" id="blurRadiusInput" min="0" max="100" step="1" value="4">
+                </div>
+                <input type="range" id="blurRadius" min="0" max="100" value="0" step="4">
+            </div>
+        </div>
+
+        <!-- Shape Settings -->
+        <div class="folder">
+            <div class="folder-header">
+                Shape Settings
+                <button class="reset-btn" data-target="shape">Reset</button>
+            </div>
+            <div class="folder-content">
+                <div>
+                    <input type="checkbox" id="showCenterCircle" checked>
+                    <label for="showCenterCircle" style="display: inline;">Show Center Circle</label>
+                </div>
+                <!-- 添加形状切换按钮 -->
+                <div class="shape-toggle">
+                    <button class="shape-toggle-btn active" id="rectangleBtn">Rectangle</button>
+                    <button class="shape-toggle-btn" id="circleBtn">Circle</button>
+                </div>
+
+                <!-- 矩形参数 -->
+                <div id="rectangleParams">
+                    <div class="input-group">
+                        <label for="shapeWidth">Shape Width: <span id="shapeWidthValue">580</span></label>
+                        <input type="number" class="num-input" id="shapeWidthInput" min="20" max="800" step="1"
+                            value="580">
+                    </div>
+                    <input type="range" id="shapeWidth" min="20" max="800" value="580" step="1">
+
+                    <div class="input-group">
+                        <label for="shapeHeight">Shape Height: <span id="shapeHeightValue">210</span></label>
+                        <input type="number" class="num-input" id="shapeHeightInput" min="20" max="800" step="1"
+                            value="210">
+                    </div>
+                    <input type="range" id="shapeHeight" min="20" max="800" value="210" step="1">
+
+                    <div class="input-group">
+                        <label for="shapeRadius">Shape Radius: <span id="shapeRadiusValue">100</span></label>
+                        <input type="number" class="num-input" id="shapeRadiusInput" min="1" max="100" step="0.1"
+                            value="100">
+                    </div>
+                    <input type="range" id="shapeRadius" min="1" max="100" value="100" step="0.1">
+
+                    <div class="input-group">
+                        <label for="shapeRoundness">Shape Roundness: <span id="shapeRoundnessValue">2</span></label>
+                        <input type="number" class="num-input" id="shapeRoundnessInput" min="2" max="7" step="0.01"
+                            value="2">
+                    </div>
+                    <input type="range" id="shapeRoundness" min="2" max="7" value="2" step="0.01">
+                </div>
+
+                <!-- 圆形参数 -->
+                <div id="circleParams" style="display:none;">
+                    <div class="input-group">
+                        <label for="circleRadius">Circle Radius: <span id="circleRadiusValue">150</span></label>
+                        <input type="number" class="num-input" id="circleRadiusInput" min="20" max="400" step="1"
+                            value="150">
+                    </div>
+                    <input type="range" id="circleRadius" min="20" max="400" value="150" step="1">
+                </div>
+
+                <div class="input-group">
+                    <label for="mergeRate">Merge Rate: <span id="mergeRateValue">0.05</span></label>
+                    <input type="number" class="num-input" id="mergeRateInput" min="0" max="0.3" step="0.01"
+                        value="0.05">
+                </div>
+                <input type="range" id="mergeRate" min="0" max="0.3" value="0.05" step="0.01">
+            </div>
+        </div>
+
+        <!-- Hidden Parameters-->
+        <div class="folder collapsed">
+            <div class="folder-header">
+                Advanced Settings
+                <button class="reset-btn" data-target="advanced">Reset</button>
+            </div>
+            <div class="folder-content">
+                <div class="input-group">
+                    <label for="refFresnelRange">Fresnel Range: <span id="refFresnelRangeValue">30</span></label>
+                    <input type="number" class="num-input" id="refFresnelRangeInput" min="0" max="100" step="0.01"
+                        value="30">
+                </div>
+                <input type="range" id="refFresnelRange" min="0" max="100" value="30" step="0.01">
+
+                <div class="input-group">
+                    <label for="refFresnelHardness">Fresnel Hardness: <span
+                            id="refFresnelHardnessValue">20</span></label>
+                    <input type="number" class="num-input" id="refFresnelHardnessInput" min="0" max="100" step="0.01"
+                        value="20">
+                </div>
+                <input type="range" id="refFresnelHardness" min="0" max="100" value="20" step="0.01">
+
+                <div class="input-group">
+                    <label for="refFresnelFactor">Fresnel Factor: <span id="refFresnelFactorValue">0</span></label>
+                    <input type="number" class="num-input" id="refFresnelFactorInput" min="0" max="100" step="0.01"
+                        value="0">
+                </div>
+                <input type="range" id="refFresnelFactor" min="0" max="100" value="0" step="0.01">
+
+                <div class="input-group">
+                    <label for="glareRange">Glare Range: <span id="glareRangeValue">30</span></label>
+                    <input type="number" class="num-input" id="glareRangeInput" min="0" max="100" step="0.01"
+                        value="30">
+                </div>
+                <input type="range" id="glareRange" min="0" max="100" value="30" step="0.01">
+
+                <div class="input-group">
+                    <label for="glareHardness">Glare Hardness: <span id="glareHardnessValue">20</span></label>
+                    <input type="number" class="num-input" id="glareHardnessInput" min="0" max="100" step="0.01"
+                        value="20">
+                </div>
+                <input type="range" id="glareHardness" min="0" max="100" value="20" step="0.01">
+
+                <div class="input-group">
+                    <label for="glareConvergence">Glare Convergence: <span id="glareConvergenceValue">50</span></label>
+                    <input type="number" class="num-input" id="glareConvergenceInput" min="0" max="100" step="0.01"
+                        value="50">
+                </div>
+                <input type="range" id="glareConvergence" min="0" max="100" value="50" step="0.01">
+
+                <div class="input-group">
+                    <label for="glareOppositeFactor">Glare Opposite Factor: <span
+                            id="glareOppositeFactorValue">80</span></label>
+                    <input type="number" class="num-input" id="glareOppositeFactorInput" min="0" max="100" step="0.01"
+                        value="80">
+                </div>
+                <input type="range" id="glareOppositeFactor" min="0" max="100" value="80" step="0.01">
+
+                <div>
+                    <input type="checkbox" id="showShape1" checked>
+                    <label for="showShape1" style="display: inline;">Show Circle Shape</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Debug Settings -->
+        <div class="folder collapsed">
+            <div class="folder-header">
+                Debug Settings
+                <button class="reset-btn" data-target="debug">Reset</button>
+            </div>
+            <div class="folder-content">
+                <div class="input-group">
+                    <label for="debugStep">Debug Step: <span id="debugStepValue">9</span></label>
+                    <input type="number" class="num-input" id="debugStepInput" min="0" max="9" step="1" value="9">
+                </div>
+                <input type="range" id="debugStep" min="0" max="9" value="9" step="1">
+
+                <div class="input-group">
+                    <label for="nonShapeAlpha">Non-Shape Alpha: <span id="nonShapeAlphaValue">100</span></label>
+                    <input type="number" class="num-input" id="nonShapeAlphaInput" min="0" max="100" step="1"
+                        value="100">
+                </div>
+                <input type="range" id="nonShapeAlpha" min="0" max="100" value="100" step="1">
+            </div>
+        </div>
+    </div>
+
+    <canvas id="glCanvas"></canvas>
+
+    <!-- 保留对app.js的引用 -->
+    <script src="app.js"></script>
+
+    <script>
+        // 双向绑定滑块和输入框
+        function setupSliderInputBinding(sliderId, inputId) {
+            const slider = document.getElementById(sliderId);
+            const input = document.getElementById(inputId);
+            const valueSpan = document.getElementById(sliderId + 'Value');
+
+            // 滑块变化时更新输入框和值显示
+            slider.addEventListener('input', function () {
+                input.value = this.value;
+                if (valueSpan) valueSpan.textContent = this.value;
+
+                // 确保app.js中的事件监听器被触发
+                const event = new Event('input', { bubbles: true });
+                this.dispatchEvent(event);
+            });
+
+            // 输入框变化时更新滑块
+            input.addEventListener('input', function () {
+                let value = parseFloat(this.value);
+                if (isNaN(value)) return;
+
+                // 确保值在合理范围内
+                const min = parseFloat(slider.min);
+                const max = parseFloat(slider.max);
+                if (value < min) value = min;
+                if (value > max) value = max;
+
+                slider.value = value;
+                if (valueSpan) valueSpan.textContent = value;
+
+                // 触发滑块的事件，让效果更新
+                const event = new Event('input', { bubbles: true });
+                slider.dispatchEvent(event);
+            });
+        }
+
+        // 初始化所有滑块-输入框绑定
+        const sliderBindings = [
+            // Basic Settings
+            { slider: 'glareAngle', input: 'glareAngleInput' },
+            { slider: 'glareFactor', input: 'glareFactorInput' },
+            { slider: 'refFactor', input: 'refFactorInput' },
+            { slider: 'refThickness', input: 'refThicknessInput' },
+            { slider: 'refDispersion', input: 'refDispersionInput' },
+            { slider: 'blurRadius', input: 'blurRadiusInput' },
+
+            // Shape Settings
+            { slider: 'shapeWidth', input: 'shapeWidthInput' },
+            { slider: 'shapeHeight', input: 'shapeHeightInput' },
+            { slider: 'shapeRadius', input: 'shapeRadiusInput' },
+            { slider: 'shapeRoundness', input: 'shapeRoundnessInput' },
+            { slider: 'mergeRate', input: 'mergeRateInput' },
+            { slider: 'circleRadius', input: 'circleRadiusInput' },
+
+            // Advanced Settings
+            { slider: 'refFresnelRange', input: 'refFresnelRangeInput' },
+            { slider: 'refFresnelHardness', input: 'refFresnelHardnessInput' },
+            { slider: 'refFresnelFactor', input: 'refFresnelFactorInput' },
+            { slider: 'glareRange', input: 'glareRangeInput' },
+            { slider: 'glareHardness', input: 'glareHardnessInput' },
+            { slider: 'glareConvergence', input: 'glareConvergenceInput' },
+            { slider: 'glareOppositeFactor', input: 'glareOppositeFactorInput' },
+
+            // Debug Settings
+            { slider: 'debugStep', input: 'debugStepInput' }
+        ];
+
+        // DOM加载完成后初始化绑定
+        document.addEventListener('DOMContentLoaded', function () {
+            sliderBindings.forEach(binding => {
+                setupSliderInputBinding(binding.slider, binding.input);
+            });
+
+            // 形状切换功能
+            const rectangleBtn = document.getElementById('rectangleBtn');
+            const circleBtn = document.getElementById('circleBtn');
+            const rectangleParams = document.getElementById('rectangleParams');
+            const circleParams = document.getElementById('circleParams');
+
+            rectangleBtn.addEventListener('click', function () {
+                rectangleBtn.classList.add('active');
+                circleBtn.classList.remove('active');
+                rectangleParams.style.display = 'block';
+                circleParams.style.display = 'none';
+
+                // 更新形状类型
+                controls.shapeType = 0;
+            });
+
+            circleBtn.addEventListener('click', function () {
+                circleBtn.classList.add('active');
+                rectangleBtn.classList.remove('active');
+                rectangleParams.style.display = 'none';
+                circleParams.style.display = 'block';
+
+                // 更新形状类型
+                controls.shapeType = 1;
+            });
+        });
+
+        // 折叠/展开功能
+        document.querySelectorAll('.folder-header').forEach(header => {
+            header.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('reset-btn')) {
+                    header.parentElement.classList.toggle('collapsed');
+                }
+            });
+        });
+
+        // 重置按钮功能
+        document.querySelectorAll('.reset-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.stopPropagation();
+
+                const folder = this.closest('.folder');
+
+                const inputs = folder.querySelectorAll('input');
+                inputs.forEach(input => {
+                    if (input.type === 'range') {
+                        input.value = input.defaultValue;
+                        const event = new Event('input', { bubbles: true });
+                        input.dispatchEvent(event);
+                    } else if (input.type === 'checkbox') {
+                        input.checked = input.defaultChecked;
+                        const event = new Event('change', { bubbles: true });
+                        input.dispatchEvent(event);
+                    } else if (input.type === 'number') {
+                        const sliderId = input.id.replace('Input', '');
+                        const slider = document.getElementById(sliderId);
+                        if (slider) {
+                            input.value = slider.defaultValue;
+                            slider.value = slider.defaultValue;
+                            const event = new Event('input', { bubbles: true });
+                            slider.dispatchEvent(event);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

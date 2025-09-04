@@ -1,0 +1,39 @@
+.button-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 20px;
+    background: rgba(213, 227, 255, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    margin-right: 24px;
+    font-family: Segoe UI Variable;
+    line-height: 100%;
+    letter-spacing: 0.07px;
+    vertical-align: middle;
+}
+
+.thumb {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.action-button.hovered {
+    background-color: #f0f6ff;
+    box-shadow: 0 4px 12px rgba(0, 120, 255, 0.2);
+}

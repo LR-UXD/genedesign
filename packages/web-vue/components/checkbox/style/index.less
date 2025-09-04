@@ -13,7 +13,7 @@
   line-height: unset;
   cursor: pointer;
 
-  > input[type='checkbox'] {
+  >input[type='checkbox'] {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,7 +21,7 @@
     height: 0;
     opacity: 0;
 
-    &:focus-visible + .@{checkbox-prefix-cls}-icon-hover::before {
+    &:focus-visible+.@{checkbox-prefix-cls}-icon-hover::before {
       background-color: @icon-hover-color-bg;
     }
   }
@@ -43,8 +43,7 @@
     width: @checkbox-mask-height;
     height: @checkbox-mask-height;
     background-color: @checkbox-mask-color-bg;
-    border: @checkbox-mask-border-width @checkbox-mask-border-style
-      @checkbox-mask-color-border;
+    border: @checkbox-mask-border-width @checkbox-mask-border-style @checkbox-mask-color-border;
     border-radius: @checkbox-mask-border-radius;
     user-select: none;
 
@@ -76,15 +75,13 @@
 
   &:hover &-icon {
     border-color: @checkbox-mask-color-border_hover;
-    transition: border-color @transition-duration-1
-        @transition-timing-function-linear,
+    transition: border-color @transition-duration-1 @transition-timing-function-linear,
       transform @transition-duration-3 @transition-timing-function-overshoot;
   }
 
   &-checked:hover &-icon,
   &-indeterminate:hover &-icon {
-    transition: transform @transition-duration-3
-      @transition-timing-function-overshoot;
+    transition: transform @transition-duration-3 @transition-timing-function-overshoot;
   }
 
   &-checked &-icon {
@@ -93,8 +90,7 @@
 
     &-check {
       transform: scale(1);
-      transition: transform @transition-duration-3
-        @transition-timing-function-overshoot;
+      transition: transform @transition-duration-3 @transition-timing-function-overshoot;
     }
   }
 
@@ -108,8 +104,7 @@
 
     &::after {
       transform: translateX(-50%) translateY(-50%) scale(1);
-      transition: transform @transition-duration-3
-        @transition-timing-function-overshoot;
+      transition: transform @transition-duration-3 @transition-timing-function-overshoot;
     }
   }
 
@@ -178,5 +173,125 @@
     display: flex;
     margin-right: 0;
     line-height: @checkbox-group-size-line-height_vertical;
+  }
+}
+
+// 高对比度模式支持 (强制颜色模式)
+// 高对比度模式支持
+@media (forced-colors: active) {
+  .@{checkbox-prefix-cls} {
+    forced-color-adjust: none;
+
+    >input[type='checkbox']:focus-visible+.@{checkbox-prefix-cls}-icon-hover::before {
+      outline: 2px solid Highlight !important;
+      outline-offset: 2px !important;
+    }
+
+    &-label {
+      color: CanvasText !important;
+    }
+
+    &-disabled &-label {
+      color: GrayText !important;
+    }
+
+    &-icon {
+      background-color: Canvas !important;
+      border: 2px solid ButtonText !important;
+      border-radius: 2px !important;
+
+      &-check {
+        color: CanvasText !important;
+      }
+
+      &::after {
+        background: CanvasText !important;
+      }
+    }
+
+    &:hover &-icon {
+      border-color: Highlight !important;
+      background-color: Canvas !important;
+      transition: border-color 0.1s ease !important;
+    }
+
+    &-checked &-icon {
+      background-color: Highlight !important;
+      border-color: Highlight !important;
+
+      &-check {
+        color: HighlightText !important;
+      }
+    }
+
+    &-checked:hover &-icon {
+      background-color: ButtonText !important;
+      border-color: ButtonText !important;
+      transition: border-color 0.1s ease !important;
+
+      &-check {
+        color: HighlightText !important;
+      }
+    }
+
+    &-indeterminate &-icon {
+      background-color: Highlight !important;
+      border-color: Highlight !important;
+
+      &::after {
+        background: HighlightText !important;
+      }
+    }
+
+    &-indeterminate:hover &-icon {
+      background-color: ButtonText !important;
+      border-color: ButtonText !important;
+      transition: border-color 0.1s ease !important;
+
+      &::after {
+        background: HighlightText !important;
+      }
+    }
+
+    &-disabled &-icon {
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+
+      &-check {
+        color: GrayText !important;
+      }
+
+      &::after {
+        background: GrayText !important;
+      }
+    }
+
+    &-disabled&-checked &-icon,
+    &-disabled&-indeterminate &-icon {
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+
+      &-check {
+        color: GrayText !important;
+      }
+
+      &::after {
+        background: GrayText !important;
+      }
+    }
+
+    &-disabled:hover &-icon,
+    &-disabled&-checked:hover &-icon,
+    &-disabled&-indeterminate:hover &-icon {
+      border-color: GrayText !important;
+      background-color: Canvas !important;
+      transition: none !important;
+    }
+
+    &-disabled:hover .@{checkbox-prefix-cls}-icon-hover::before,
+    &-disabled&-checked:hover .@{checkbox-prefix-cls}-icon-hover::before,
+    &-disabled&-indeterminate:hover .@{checkbox-prefix-cls}-icon-hover::before {
+      background-color: transparent !important;
+    }
   }
 }

@@ -1,5 +1,6 @@
 <template>
-  <li :class="cls" :style="mergedStyle" @click="handleClick">
+  <li :class="cls" :style="mergedStyle" :tabindex="disabled ? -1 : 0" :aria-label="`第 ${pageNumber} 页`"
+    :aria-current="isActive ? 'page' : false" role="button" @click="handleClick" @keydown="handleKeydown">
     <slot :page="pageNumber">
       {{ pageNumber }}
     </slot>
@@ -42,6 +43,13 @@ export default defineComponent({
       }
     };
 
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick(e as any);
+      }
+    };
+
     const cls = computed(() => [
       prefixCls,
       {
@@ -57,7 +65,9 @@ export default defineComponent({
       prefixCls,
       cls,
       mergedStyle,
+      isActive,
       handleClick,
+      handleKeydown,
     };
   },
 });

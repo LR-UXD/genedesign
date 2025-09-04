@@ -1,0 +1,53 @@
+.menu-demo {
+    box-sizing: border-box;
+    width: 222px;
+    height: 800px;
+}
+
+.logo {
+    margin: 16px 0 8px;
+}
+
+.menu-demo :deep(.arco-menu-light) {
+    background: rgba(255, 255, 255, 0.63);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.menu-demo :deep(.arco-menu-inner) {
+    padding: 0 12px;
+}
+
+.menu-demo :deep(.arco-menu-inline-header),
+.menu-demo :deep(.arco-menu-item) {
+    background: transparent;
+}
+
+.menu-demo :deep(.arco-menu .arco-menu-item .arco-menu-icon) {
+    margin-right: 8px;
+}
+
+.menu-demo :deep(.arco-menu-item) {
+    padding: 0 0 0 10px;
+}
+
+.menu-demo :deep(.arco-menu-vertical .arco-menu-item.arco-menu-has-icon .arco-menu-title) {
+    font-family: Segoe UI Variable;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+.menu-demo :deep(.arco-menu-light .arco-menu-item.arco-menu-selected) {
+    font-weight: 600;
+}
+
+.menu-demo :deep(.arco-menu-light .arco-menu-inline-header.arco-menu-selected):hover,
+.menu-demo :deep(.arco-menu-light .arco-menu-item.arco-menu-selected),
+.menu-demo :deep(.arco-menu-light .arco-menu-item):hover,
+.menu-demo :deep(.arco-menu-light .arco-menu-inline-header):hover {
+    background: rgba(0, 28, 59, 0.1);
+    border-radius: 6px;
+    font-weight: 600;
+}

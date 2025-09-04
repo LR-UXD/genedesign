@@ -83,6 +83,47 @@
     margin: 0;
   }
 
+  .gene-layout-header,
+  .gene-layout-footer,
+  .gene-layout-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 16px;
+    font-stretch: condensed;
+    text-align: center;
+
+
+  }
+
+  .gene-layout-header,
+  .gene-layout-footer {
+    height: 64px;
+    background-color: var(--color-primary-light-4);
+  }
+
+  .gene-layout-sider {
+    width: 206px;
+    background-color: var(--color-primary-light-3);
+
+    .arco-layout-sider-children {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: var(--color-white);
+      font-size: 16px;
+      font-stretch: condensed;
+      text-align: center;
+    }
+
+  }
+
+  .gene-layout-content {
+    background-color: rgb(var(--g-plum-500));
+
+  }
+
   &-content {
     flex: 1;
   }

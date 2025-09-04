@@ -2,17 +2,11 @@
 
 @switch-prefix-cls: ~'@{prefix}-switch';
 
-@switch-size-default-gap: (
-  (@switch-size-default - @switch-size-dot-default) / 2
-);
+@switch-size-default-gap: ((@switch-size-default - @switch-size-dot-default) / 2);
 @switch-size-small-gap: ((@switch-size-small - @switch-size-dot-small) / 2);
 
-@switch-size-default-line-gap: (
-  (@switch-size-default - @switch-line-size-dot-default) / 2
-);
-@switch-size-small-line-gap: (
-  (@switch-size-small - @switch-line-size-dot-small) / 2
-);
+@switch-size-default-line-gap: ((@switch-size-default - @switch-line-size-dot-default) / 2);
+@switch-size-small-line-gap: ((@switch-size-small - @switch-line-size-dot-small) / 2);
 
 .switch-slide-text-enter-from {
   left: -100% !important;
@@ -52,8 +46,12 @@
   border-radius: (@switch-size-default / 2);
   outline: none;
   cursor: pointer;
-  transition: background-color @transition-duration-2
-    @transition-timing-function-standard;
+  transition: background-color @transition-duration-2 @transition-timing-function-standard;
+
+  &:focus-visible {
+    outline: 2px solid @color-primary-6;
+    outline-offset: 2px;
+  }
 
   &-handle {
     position: absolute;
@@ -123,6 +121,10 @@
   &[disabled] {
     background-color: @switch-color-bg_off_disabled;
     cursor: not-allowed;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   &[disabled] &-text {
@@ -228,8 +230,7 @@
       height: @switch-line-height-bg-line;
       background-color: @switch-color-bg_off;
       border-radius: (@switch-line-height-bg-line / 2);
-      transition: background-color @transition-duration-2
-        @transition-timing-function-standard;
+      transition: background-color @transition-duration-2 @transition-timing-function-standard;
       content: '';
     }
   }
@@ -325,8 +326,274 @@
   }
 
   &-type-line&-small&-checked &-handle {
-    left: calc(
-      100% - @switch-line-size-dot-small - @switch-size-small-line-gap
-    );
+    left: calc(100% - @switch-line-size-dot-small - @switch-size-small-line-gap );
+  }
+}
+
+
+
+
+
+// 高对比度
+@media (prefers-contrast: high),
+(-ms-high-contrast: active),
+(-ms-high-contrast: white-on-black) {
+  .@{switch-prefix-cls} {
+    border: 1px solid WindowText !important;
+    background-color: ButtonFace !important;
+    box-sizing: content-box;
+
+    &:hover:not([disabled]) {
+      border-color: Highlight !important;
+
+      .@{switch-prefix-cls}-handle {
+        background-color: Highlight !important;
+        border-color: Highlight !important;
+
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid Highlight !important;
+      outline-offset: 2px !important;
+    }
+
+
+    &-handle {
+      background-color: WindowText !important;
+      border: 1px solid ButtonText !important;
+      color: ButtonFace !important;
+      box-sizing: content-box;
+
+    }
+
+    &-checked {
+      background-color: Highlight !important;
+      border-color: HighlightText !important;
+
+      &:hover:not([disabled]) {
+        background-color: ButtonFace !important;
+        border-color: ButtonBorder !important;
+
+        .@{switch-prefix-cls}-handle {
+          background-color: ButtonText !important;
+        }
+      }
+
+      .@{switch-prefix-cls}-handle {
+        background-color: HighlightText !important;
+        color: Highlight !important;
+      }
+    }
+
+    &[disabled] {
+      background-color: ButtonFace !important;
+      border-color: GrayText !important;
+      opacity: 0.6 !important;
+
+      .@{switch-prefix-cls}-handle {
+        background-color: GrayText !important;
+        color: ButtonFace !important;
+      }
+    }
+
+    &-text {
+      color: WindowText !important;
+    }
+
+    &-checked &-text {
+      color: HighlightText !important;
+    }
+
+    &[disabled] &-text {
+      color: GrayText !important;
+    }
+
+    &-loading {
+      border-color: GrayText !important;
+
+      .@{switch-prefix-cls}-handle {
+        background-color: GrayText !important;
+      }
+    }
+
+    // Line
+    &-type-line {
+      background-color: transparent !important;
+      border: none !important;
+
+      &::after {
+        background-color: WindowText !important;
+      }
+
+      .@{switch-prefix-cls}-handle {
+        background-color: ButtonFace !important;
+      }
+
+      &.@{switch-prefix-cls}-checked {
+        &::after {
+          background-color: Highlight !important;
+        }
+
+        .@{switch-prefix-cls}-handle {
+          background-color: HighlightText !important;
+        }
+      }
+
+      &[disabled] {
+        &::after {
+          background-color: GrayText !important;
+          border-color: GrayText !important;
+        }
+
+        .@{switch-prefix-cls}-handle {
+          background-color: ButtonFace !important;
+          border-color: GrayText !important;
+        }
+      }
+    }
+
+    &-type-round {
+      border-radius: @radius-small !important;
+
+      .@{switch-prefix-cls}-handle {
+        border-radius: 2px !important;
+      }
+    }
+
+    &-small {
+      border-width: 1px !important;
+
+      .@{switch-prefix-cls}-handle {
+        border-width: 1px !important;
+      }
+    }
+  }
+}
+
+@media (-ms-high-contrast: active) {
+  .@{switch-prefix-cls} {
+    -ms-high-contrast-adjust: none;
+
+    &-handle {
+      -ms-high-contrast-adjust: none;
+    }
+
+    &-text {
+      -ms-high-contrast-adjust: none;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .@{switch-prefix-cls} {
+    forced-color-adjust: none;
+    border: 1px solid ButtonBorder !important;
+    background-color: ButtonFace !important;
+    box-sizing: content-box;
+
+    &:hover:not([disabled]) {
+      border-color: Highlight !important;
+
+      .@{switch-prefix-cls}-handle {
+        background-color: Highlight !important;
+        border-color: Highlight !important;
+
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid Highlight !important;
+      outline-offset: 2px !important;
+    }
+
+
+    &-handle {
+      background-color: ButtonText !important;
+      border: 1px solid ButtonText !important;
+      box-sizing: content-box;
+    }
+
+    &-checked {
+      background-color: Highlight !important;
+      border-color: Highlight !important;
+
+      &:hover:not([disabled]) {
+        background-color: ButtonFace !important;
+        border-color: ButtonBorder !important;
+
+        .@{switch-prefix-cls}-handle {
+          background-color: ButtonText !important;
+          border-color: ButtonText !important;
+
+        }
+      }
+
+      .@{switch-prefix-cls}-handle {
+        background-color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+    }
+
+    &[disabled] {
+      border-color: GrayText !important;
+      background-color: ButtonFace !important;
+
+      .@{switch-prefix-cls}-handle {
+        background-color: GrayText !important;
+      }
+    }
+
+    // Line
+    &-type-line {
+      background-color: transparent !important;
+      border: none !important;
+
+      &::after {
+        background-color: ButtonText !important;
+      }
+
+      &:hover:not([disabled]) {
+
+        &::after {
+          background-color: Highlight !important;
+        }
+      }
+
+      .@{switch-prefix-cls}-handle {
+        background-color: ButtonFace !important;
+      }
+
+      &.@{switch-prefix-cls}-checked {
+        &::after {
+          background-color: Highlight !important;
+        }
+
+        .@{switch-prefix-cls}-handle {
+          background-color: Highlight !important;
+          border-color: Highlight !important;
+
+        }
+
+        &:hover:not([disabled]) {
+
+          &::after {
+            background-color: ButtonText !important;
+          }
+        }
+      }
+
+      &[disabled] {
+        &::after {
+          background-color: GrayText !important;
+          border-color: GrayText !important;
+        }
+
+        .@{switch-prefix-cls}-handle {
+          background-color: ButtonFace !important;
+          border-color: GrayText !important;
+        }
+      }
+    }
   }
 }

@@ -2,67 +2,19 @@
   <div :class="cls">
     <div ref="trackRef" :class="trackCls" @click="handleClick">
       <div :class="`${prefixCls}-bar`" :style="getBarStyle(computedValue)" />
-      <slider-ticks
-        v-if="showTicks"
-        :value="computedValue"
-        :step="step"
-        :min="min"
-        :max="max"
-        :direction="direction"
-      />
-      <slider-dots
-        v-if="marks"
-        :data="markList"
-        :min="min"
-        :max="max"
-        :direction="direction"
-      />
-      <slider-marks
-        v-if="marks"
-        :data="markList"
-        :min="min"
-        :max="max"
-        :direction="direction"
-      />
-      <slider-button
-        v-if="range"
-        :style="getBtnStyle(computedValue[0])"
-        :value="computedValue[0]"
-        :direction="direction"
-        :disabled="mergedDisabled"
-        :min="min"
-        :max="max"
-        :format-tooltip="formatTooltip"
-        :show-tooltip="showTooltip"
-        @movestart="handleMoveStart"
-        @moving="handleStartMoving"
-        @moveend="handleMoveEnd"
-      />
-      <slider-button
-        :style="getBtnStyle(computedValue[1])"
-        :value="computedValue[1]"
-        :direction="direction"
-        :disabled="mergedDisabled"
-        :min="min"
-        :max="max"
-        :format-tooltip="formatTooltip"
-        :show-tooltip="showTooltip"
-        @movestart="handleMoveStart"
-        @moving="handleEndMoving"
-        @moveend="handleMoveEnd"
-      />
+      <slider-ticks v-if="showTicks" :value="computedValue" :step="step" :min="min" :max="max" :direction="direction" />
+      <slider-dots v-if="marks" :data="markList" :min="min" :max="max" :direction="direction" />
+      <slider-marks v-if="marks" :data="markList" :min="min" :max="max" :direction="direction" />
+      <slider-button v-if="range" :style="getBtnStyle(computedValue[0])" :value="computedValue[0]"
+        :direction="direction" :disabled="mergedDisabled" :min="min" :max="max" :format-tooltip="formatTooltip"
+        :show-tooltip="showTooltip" @movestart="handleMoveStart" @moving="handleStartMoving" @moveend="handleMoveEnd"
+        @keydown="handleStartKeyDown" />
+      <slider-button :style="getBtnStyle(computedValue[1])" :value="computedValue[1]" :direction="direction"
+        :disabled="mergedDisabled" :min="min" :max="max" :format-tooltip="formatTooltip" :show-tooltip="showTooltip"
+        @movestart="handleMoveStart" @moving="handleEndMoving" @moveend="handleMoveEnd" @keydown="handleEndKeyDown" />
     </div>
-    <slider-input
-      v-if="showInput"
-      :model-value="computedValue"
-      :min="min"
-      :max="max"
-      :step="step"
-      :range="range"
-      :disabled="disabled"
-      @start-change="handleStartChange"
-      @end-change="handleEndChange"
-    />
+    <slider-input v-if="showInput" :model-value="computedValue" :min="min" :max="max" :step="step" :range="range"
+      :disabled="disabled" @start-change="handleStartChange" @end-change="handleEndChange" />
   </div>
 </template>
 
@@ -188,6 +140,15 @@ export default defineComponent({
      * @version 2.42.0
      */
     showTooltip: {
+      type: Boolean,
+      default: true,
+    },
+
+    /**
+     * @zh 是否允许键盘控制（左右/上下等）
+     * @en Whether to allow keyboard control
+     */
+    keyboard: {
       type: Boolean,
       default: true,
     },
@@ -340,19 +301,19 @@ export default defineComponent({
       }
       return props.direction === 'vertical'
         ? {
-            bottom: getOffsetPercent(start, [props.min, props.max]),
-            top: getOffsetPercent(props.max + props.min - end, [
-              props.min,
-              props.max,
-            ]),
-          }
+          bottom: getOffsetPercent(start, [props.min, props.max]),
+          top: getOffsetPercent(props.max + props.min - end, [
+            props.min,
+            props.max,
+          ]),
+        }
         : {
-            left: getOffsetPercent(start, [props.min, props.max]),
-            right: getOffsetPercent(props.max + props.min - end, [
-              props.min,
-              props.max,
-            ]),
-          };
+          left: getOffsetPercent(start, [props.min, props.max]),
+          right: getOffsetPercent(props.max + props.min - end, [
+            props.min,
+            props.max,
+          ]),
+        };
     }
 
     const handleStartMoving = (x: number, y: number) => {
@@ -362,6 +323,47 @@ export default defineComponent({
 
     const handleMoveEnd = () => {
       isDragging.value = false;
+    };
+
+    // 键盘处理：左右/上下/Home/End/PageUp/PageDown   
+    const clamp = (v: number) => Math.min(props.max, Math.max(props.min, v));
+    function handleKey(e: KeyboardEvent, which: 'start' | 'end') {
+      if (mergedDisabled.value || !props.keyboard) return;
+      const { key } = e;
+      const step = props.step ?? 1;
+      let current = which === 'start' ? startValue.value : endValue.value;
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].includes(key)) {
+        return;
+      }
+      e.preventDefault();
+      if (key === 'Home') {
+        current = props.min;
+      } else if (key === 'End') {
+        current = props.max;
+      } else if (key === 'PageUp') {
+        current = NP.plus(current, NP.times(step, 2));
+      } else if (key === 'PageDown') {
+        current = NP.plus(current, NP.times(step, -2));
+      } else if (key === 'ArrowLeft' || key === 'ArrowDown') {
+        current = NP.plus(current, NP.times(step, -1));
+      } else if (key === 'ArrowRight' || key === 'ArrowUp') {
+        current = NP.plus(current, NP.times(step, 1));
+      }
+      current = clamp(current);
+      if (which === 'start') {
+        // 确保 start 不超过 end
+        startValue.value = Math.min(current, endValue.value);
+      } else {
+        // 确保 end 不低于 start
+        endValue.value = Math.max(current, startValue.value);
+      }
+      handleChange();
+    }
+    const handleStartKeyDown = (e: KeyboardEvent) => {
+      if (!props.range) return;
+      handleKey(e, 'start');
+    }; const handleEndKeyDown = (e: KeyboardEvent) => {
+      handleKey(e, 'end');
     };
 
     const cls = computed(() => [
@@ -397,6 +399,8 @@ export default defineComponent({
       handleStartMoving,
       handleStartChange,
       handleEndChange,
+      handleStartKeyDown,
+      handleEndKeyDown,
     };
   },
 });

@@ -577,8 +577,8 @@ export default defineComponent({
           isNumber(mergedValue) ||
           isString(mergedValue) ||
           isBoolean(mergedValue)
-        ? [mergedValue]
-        : [];
+          ? [mergedValue]
+          : [];
       return valueArray.map((value) => ({
         value,
         key: getKeyFromValue(value, props.valueKey),
@@ -822,6 +822,7 @@ export default defineComponent({
       optionInfoMap,
       validOptionInfos,
       enabledOptionKeys,
+      activeKey,
       handleKeyDown,
     } = useSelect({
       multiple,
@@ -843,6 +844,45 @@ export default defineComponent({
       onSelect: handleSelect,
       onPopupVisibleChange: handlePopupVisibleChange,
     });
+
+    // Accessibility: Live announcement for active option changes
+    const liveRegionRef = ref<HTMLElement>();
+    const activeOptionAnnouncement = ref<string>('');
+    const previousActiveKey = ref<string | undefined>();
+    const liveRegionToggle = ref<boolean>(false); // For ping-pong technique
+
+    // Use nextTick to ensure proper timing for screen reader announcements
+    watch(
+      [activeKey, computedPopupVisible],
+      ([newActiveKey, isVisible], [prevActiveKey, prevVisible]) => {
+        nextTick(() => {
+          if (
+            isVisible &&
+            newActiveKey &&
+            newActiveKey !== previousActiveKey.value
+          ) {
+            const optionInfo = optionInfoMap.get(newActiveKey);
+            if (optionInfo) {
+              const label = optionInfo.label || String(optionInfo.value);
+              const status = optionInfo.disabled ? ', 已禁用' : '';
+              const position = `第 ${
+                enabledOptionKeys.value.indexOf(newActiveKey) + 1
+              } 个，共 ${enabledOptionKeys.value.length} 个`;
+
+              // Use ping-pong technique to ensure change detection
+              liveRegionToggle.value = !liveRegionToggle.value;
+              activeOptionAnnouncement.value = `${label}${status}，${position}`;
+              previousActiveKey.value = newActiveKey;
+            }
+          } else if (!isVisible) {
+            activeOptionAnnouncement.value = '';
+            previousActiveKey.value = undefined;
+            liveRegionToggle.value = false;
+          }
+        });
+      },
+      { flush: 'post' }
+    );
 
     const selectViewValue = computed(() => {
       const result: SelectViewValue[] = [];
@@ -946,6 +986,7 @@ export default defineComponent({
           loading={props.loading}
           empty={validOptionInfos.value.length === 0}
           virtualList={Boolean(props.virtualListProps)}
+          multiple={props.multiple}
           scrollbar={props.scrollbar}
           showHeaderOnEmpty={props.showHeaderOnEmpty}
           showFooterOnEmpty={props.showFooterOnEmpty}
@@ -969,58 +1010,80 @@ export default defineComponent({
     };
 
     return () => (
-      <Trigger
-        v-slots={{ content: renderDropDown }}
-        trigger="click"
-        position="bl"
-        popupOffset={4}
-        animationName="slide-dynamic-origin"
-        hideEmpty
-        preventFocus
-        autoFitPopupWidth
-        autoFitTransformOrigin
-        disabled={mergedDisabled.value}
-        popupVisible={computedPopupVisible.value}
-        unmountOnClose={props.unmountOnClose}
-        clickToClose={!(props.allowSearch || props.allowCreate)}
-        popupContainer={props.popupContainer}
-        onPopupVisibleChange={handlePopupVisibleChange}
-        {...props.triggerProps}
-      >
-        {slots.trigger?.() ?? (
-          <SelectView
-            v-slots={{
-              'label': renderLabel,
-              'prefix': slots.prefix,
-              'arrow-icon': slots['arrow-icon'],
-              'loading-icon': slots['loading-icon'],
-              'search-icon': slots['search-icon'],
-            }}
-            class={prefixCls}
-            modelValue={selectViewValue.value}
-            inputValue={computedInputValue.value}
-            multiple={props.multiple}
-            disabled={mergedDisabled.value}
-            error={mergedError.value}
-            loading={props.loading}
-            allowClear={props.allowClear}
-            allowCreate={props.allowCreate}
-            allowSearch={Boolean(props.allowSearch)}
-            opened={computedPopupVisible.value}
-            maxTagCount={props.maxTagCount}
-            placeholder={props.placeholder}
-            bordered={props.bordered}
-            size={mergedSize.value}
-            tagNowrap={props.tagNowrap}
-            // @ts-ignore
-            onInputValueChange={handleInputValueChange}
-            onRemove={handleRemove}
-            onClear={handleClear}
-            onKeydown={handleKeyDown}
-            {...attrs}
-          />
-        )}
-      </Trigger>
+      <>
+        {/* Accessibility: Dual live regions for better screen reader support */}
+        <div
+          class="arco-sr-only"
+          aria-live="assertive"
+          aria-atomic="true"
+          role="status"
+          key={`select-live-region-${liveRegionToggle.value ? 'a' : 'b'}`}
+        >
+          {liveRegionToggle.value ? activeOptionAnnouncement.value : ''}
+        </div>
+        <div
+          class="arco-sr-only"
+          aria-live="assertive"
+          aria-atomic="true"
+          role="status"
+          key={`select-live-region-${liveRegionToggle.value ? 'b' : 'a'}`}
+        >
+          {!liveRegionToggle.value ? activeOptionAnnouncement.value : ''}
+        </div>
+        <Trigger
+          v-slots={{ content: renderDropDown }}
+          trigger="click"
+          position="bl"
+          popupOffset={4}
+          animationName="slide-dynamic-origin"
+          hideEmpty
+          preventFocus
+          autoFitPopupWidth
+          autoFitTransformOrigin
+          disabled={mergedDisabled.value}
+          popupVisible={computedPopupVisible.value}
+          unmountOnClose={props.unmountOnClose}
+          clickToClose={!(props.allowSearch || props.allowCreate)}
+          popupContainer={props.popupContainer}
+          onPopupVisibleChange={handlePopupVisibleChange}
+          {...props.triggerProps}
+        >
+          {slots.trigger?.() ?? (
+            <SelectView
+              v-slots={{
+                'label': renderLabel,
+                'prefix': slots.prefix,
+                'arrow-icon': slots['arrow-icon'],
+                'loading-icon': slots['loading-icon'],
+                'search-icon': slots['search-icon'],
+              }}
+              class={prefixCls}
+              modelValue={selectViewValue.value}
+              inputValue={computedInputValue.value}
+              multiple={props.multiple}
+              disabled={mergedDisabled.value}
+              error={mergedError.value}
+              loading={props.loading}
+              allowClear={props.allowClear}
+              allowCreate={props.allowCreate}
+              allowSearch={Boolean(props.allowSearch)}
+              opened={computedPopupVisible.value}
+              maxTagCount={props.maxTagCount}
+              placeholder={props.placeholder}
+              bordered={props.bordered}
+              size={mergedSize.value}
+              tagNowrap={props.tagNowrap}
+              activeKey={activeKey.value}
+              // @ts-ignore
+              onInputValueChange={handleInputValueChange}
+              onRemove={handleRemove}
+              onClear={handleClear}
+              onKeydown={handleKeyDown}
+              {...attrs}
+            />
+          )}
+        </Trigger>
+      </>
     );
   },
 });

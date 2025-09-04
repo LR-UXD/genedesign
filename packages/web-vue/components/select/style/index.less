@@ -3,6 +3,19 @@
 
 @select-prefix-cls: ~'@{prefix}-select';
 
+// Screen reader only utility class
+.arco-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .@{select-prefix-cls}-dropdown {
   box-sizing: border-box;
   padding: @select-popup-padding-vertical 0;
@@ -128,5 +141,270 @@
 
   &-footer {
     border-top: 1px solid @select-popup-color-border;
+  }
+}
+
+// 高对比度模式支持
+@media (prefers-contrast: high),
+(-ms-high-contrast: active),
+(-ms-high-contrast: white-on-black) {
+  .@{select-prefix-cls}-dropdown {
+    // 下拉框边框和背景
+    background-color: Canvas !important;
+    border: 2px solid WindowText !important;
+    box-shadow: none !important;
+
+    // 选项样式
+    .@{select-prefix-cls}-option {
+      color: WindowText !important;
+      background-color: Canvas !important;
+      border: 1px solid transparent !important;
+
+      // 悬停状态
+      &-active,
+      &:not(&-disabled):hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: Highlight !important;
+      }
+
+      // 选中状态
+      &-selected {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        font-weight: @select-popup-option-font-weight_selected;
+        border-color: Highlight !important;
+      }
+
+      // 禁用状态
+      &-disabled {
+        color: GrayText !important;
+        background-color: Canvas !important;
+        border-color: transparent !important;
+
+        // 禁用状态下的多选模式 checkbox 样式
+        &.@{select-prefix-cls}-option-multiple {
+          .@{prefix}-checkbox {
+            color: GrayText !important;
+
+            .@{prefix}-checkbox-label {
+              color: GrayText !important;
+            }
+
+            .@{prefix}-checkbox-icon {
+              border-color: GrayText !important;
+              background-color: Canvas !important;
+            }
+          }
+        }
+      }
+
+      // 多选模式下的 checkbox 样式调整
+      &-checkbox {
+        .@{prefix}-checkbox {
+          color: WindowText !important;
+
+          &-icon {
+            border-color: WindowText !important;
+            background-color: Canvas !important;
+          }
+
+          &-icon-checked {
+            background-color: Highlight !important;
+            border-color: Highlight !important;
+          }
+
+          &-label {
+            color: WindowText !important;
+          }
+
+          &-disabled {
+            color: GrayText !important;
+
+            .@{prefix}-checkbox-icon {
+              border-color: GrayText !important;
+              background-color: Canvas !important;
+            }
+
+            .@{prefix}-checkbox-label {
+              color: GrayText !important;
+            }
+          }
+        }
+      }
+
+      // 选中状态下的 checkbox 文本颜色
+      &-selected &-checkbox {
+        .@{prefix}-checkbox {
+          color: HighlightText !important;
+
+          .@{prefix}-checkbox-label {
+            color: HighlightText !important;
+          }
+        }
+      }
+
+      // 悬停状态下的 checkbox 文本颜色
+      &-active &-checkbox,
+      &:not(&-disabled):hover &-checkbox {
+        .@{prefix}-checkbox {
+          color: HighlightText !important;
+
+          .@{prefix}-checkbox-label {
+            color: HighlightText !important;
+          }
+        }
+      }
+    }
+
+    // 分组标题
+    .@{select-prefix-cls}-group-title {
+      color: WindowText !important;
+      border-bottom: 1px solid WindowText !important;
+    }
+
+    // 头部和底部边框
+    &-header {
+      border-bottom: 1px solid WindowText !important;
+    }
+
+    &-footer {
+      border-top: 1px solid WindowText !important;
+    }
+
+    // 空状态文本
+    &-empty {
+      color: WindowText !important;
+    }
+
+    // 加载状态
+    &-loading {
+      color: WindowText !important;
+    }
+  }
+}
+
+
+@media (forced-colors: active) {
+  .@{select-prefix-cls}-dropdown {
+    forced-color-adjust: none;
+    background-color: Canvas !important;
+    border: 1px solid CanvasText !important;
+
+    .@{select-prefix-cls}-option {
+      forced-color-adjust: none;
+      color: CanvasText !important;
+      background-color: Canvas !important;
+
+      &-active,
+      &:not(&-disabled):hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+
+      &-selected {
+        color: HighlightText !important;
+        background-color: Highlight !important;
+
+      }
+
+      &-disabled {
+        color: GrayText !important;
+
+        // 禁用状态下的多选模式 checkbox 样式
+        &.@{select-prefix-cls}-option-multiple {
+          .@{prefix}-checkbox {
+            color: GrayText !important;
+
+            .@{prefix}-checkbox-label {
+              color: GrayText !important;
+            }
+          }
+        }
+      }
+
+      // 多选模式下的 checkbox 样式
+      &-checkbox {
+        .@{prefix}-checkbox {
+          color: CanvasText !important;
+
+          &-label {
+            color: CanvasText !important;
+          }
+
+          &-disabled {
+            color: GrayText !important;
+
+            .@{prefix}-checkbox-icon {
+              border-color: GrayText !important;
+              background-color: Canvas !important;
+            }
+
+            .@{prefix}-checkbox-label {
+              color: GrayText !important;
+            }
+
+
+          }
+        }
+      }
+
+      // 选中状态下的 checkbox 文本颜色
+      &-selected &-checkbox {
+        .@{prefix}-checkbox {
+          color: HighlightText !important;
+
+          .@{prefix}-checkbox-label {
+            color: HighlightText !important;
+          }
+        }
+      }
+
+      // 悬停状态下的 checkbox 文本颜色
+      &-active &-checkbox,
+      &:not(&-disabled):hover &-checkbox {
+        .@{prefix}-checkbox {
+          color: HighlightText !important;
+
+          .@{prefix}-checkbox-label {
+            color: HighlightText !important;
+          }
+        }
+      }
+    }
+
+    .@{select-prefix-cls}-group-title {
+      color: CanvasText !important;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .@{select-prefix-cls}-option {
+
+    &-active,
+    &:not(&-disabled):hover {
+      transition: all @transition-duration-1 @transition-timing-function-linear;
+    }
+  }
+}
+
+.@{select-prefix-cls}-dropdown {
+  .@{select-prefix-cls}-option {
+    &:focus-visible {
+      outline: 2px solid var(~'@{arco-cssvars-prefix}-color-primary-6');
+      outline-offset: -2px;
+    }
+  }
+}
+
+@media (prefers-contrast: high) {
+  .@{select-prefix-cls}-dropdown {
+    .@{select-prefix-cls}-option {
+      &:focus-visible {
+        outline: 3px solid Highlight;
+        outline-offset: -3px;
+      }
+    }
   }
 }

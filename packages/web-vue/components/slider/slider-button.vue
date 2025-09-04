@@ -1,24 +1,8 @@
 <template>
-  <tooltip
-    :popup-visible="popupVisible"
-    :position="mergedTooltipPosition"
-    :content="tooltipContent"
-  >
-    <div
-      v-bind="$attrs"
-      tabindex="0"
-      role="slider"
-      :aria-disabled="disabled"
-      :aria-valuemax="max"
-      :aria-valuemin="min"
-      :aria-valuenow="value"
-      :aria-valuetext="tooltipContent"
-      :class="cls"
-      @mousedown="handleMouseDown"
-      @touchstart="handleMouseDown"
-      @contextmenu.prevent
-      @click.stop
-    />
+  <tooltip :popup-visible="popupVisible" :position="mergedTooltipPosition" :content="tooltipContent">
+    <div v-bind="$attrs" tabindex="0" role="slider" :aria-disabled="disabled" :aria-valuemax="max" :aria-valuemin="min"
+      :aria-valuenow="value" :aria-valuetext="tooltipContent" :class="cls" @mousedown="handleMouseDown"
+      @touchstart="handleMouseDown" @contextmenu.prevent @click.stop @keydown="handleKeyDown" />
   </tooltip>
 </template>
 
@@ -64,7 +48,7 @@ export default defineComponent({
       default: true,
     },
   },
-  emits: ['movestart', 'moving', 'moveend'],
+  emits: ['movestart', 'moving', 'moveend', 'keydown'],
   setup(props, { emit }) {
     const prefixCls = getPrefixCls('slider-btn');
     const isDragging = ref(false);
@@ -74,6 +58,11 @@ export default defineComponent({
         return;
       }
       e.preventDefault();
+
+      // 确保元素获取焦点以接收键盘事件
+      const target = (e.currentTarget || e.target) as HTMLElement | null;
+      if (target && typeof target.focus === 'function') target.focus();
+
 
       isDragging.value = true;
       on(window, 'mousemove', handleMouseMove);
@@ -119,6 +108,11 @@ export default defineComponent({
       props.showTooltip ? (isDragging.value ? true : undefined) : false
     );
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (props.disabled) return;
+      emit('keydown', e);
+    };
+
     return {
       prefixCls,
       cls,
@@ -126,6 +120,7 @@ export default defineComponent({
       mergedTooltipPosition,
       popupVisible,
       handleMouseDown,
+      handleKeyDown
     };
   },
 });

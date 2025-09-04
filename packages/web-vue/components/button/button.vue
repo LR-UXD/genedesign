@@ -1,13 +1,9 @@
 <template>
   <template v-if="href">
-    <a
-      :class="[
-        cls,
-        { [`${prefixCls}-only-icon`]: $slots.icon && !$slots.default },
-      ]"
-      :href="mergedDisabled || loading ? undefined : href"
-      @click="handleClick"
-    >
+    <a :class="[
+      cls,
+      { [`${prefixCls}-only-icon`]: $slots.icon && !$slots.default },
+    ]" :href="mergedDisabled || loading ? undefined : href" @click="handleClick">
       <span v-if="loading || $slots.icon" :class="`${prefixCls}-icon`">
         <icon-loading v-if="loading" spin />
         <slot v-else name="icon" />
@@ -16,16 +12,10 @@
     </a>
   </template>
   <template v-else>
-    <button
-      :class="[
-        cls,
-        { [`${prefixCls}-only-icon`]: $slots.icon && !$slots.default },
-      ]"
-      :type="htmlType"
-      :disabled="mergedDisabled"
-      :autofocus="autofocus"
-      @click="handleClick"
-    >
+    <button :class="[
+      cls,
+      { [`${prefixCls}-only-icon`]: $slots.icon && !$slots.default },
+    ]" :type="htmlType" :disabled="mergedDisabled" :autofocus="autofocus" @click="handleClick">
       <span v-if="loading || $slots.icon" :class="`${prefixCls}-icon`">
         <icon-loading v-if="loading" :spin="true" />
         <slot v-else name="icon" />
@@ -130,6 +120,25 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+ * @zh 按钮模糊效果，blur
+ * @en Blur effect of the button,blur
+ * @defaultValue '0px'
+ */
+    // blur: {
+    //   type: String,
+    //   default: '0',
+    // },
+
+    /**
+* @zh 按钮模糊效果,background
+* @en Blur effect of the button,background
+*/
+    background: String,
+
+
+
+
     /**
      * @zh 设置跳转链接。设置此属性时，按钮渲染为a标签。
      * @en Set up a jump link. When this property is set, the button is rendered as `<a>`

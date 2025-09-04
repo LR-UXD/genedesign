@@ -100,8 +100,7 @@
     position: relative;
     display: inline-block;
     white-space: nowrap;
-    transition: transform @transition-duration-2
-      @transition-timing-function-standard;
+    transition: transform @transition-duration-2 @transition-timing-function-standard;
   }
 
   &-nav-extra {
@@ -119,12 +118,9 @@
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
-    padding: .get-title-padding(
-        @tabs-size-default-header-height,
+    padding: .get-title-padding(@tabs-size-default-header-height,
         @tabs-size-default-font-size,
-        @tabs-padding-title-text-vertical
-      )
-      [] 0;
+        @tabs-padding-title-text-vertical ) [] 0;
     color: @tabs-color-title-text;
     font-size: @tabs-size-default-font-size;
     line-height: 1.5715;
@@ -181,6 +177,7 @@
 // card card-gutter 类型
 
 .@{tabs-prefix-cls} {
+
   // type = line
   &-nav-type-line &-nav-extra {
     line-height: @tabs-size-default-header-height_line;
@@ -188,12 +185,9 @@
 
   &-nav-type-line &-tab {
     margin: 0 (@tabs-line-margin-title-horizontal / 2);
-    padding: .get-title-padding(
-        @tabs-size-default-header-height_line,
+    padding: .get-title-padding(@tabs-size-default-header-height_line,
         @tabs-size-default-font-size,
-        @tabs-padding-title-text-vertical
-      )
-      [] 0;
+        @tabs-padding-title-text-vertical ) [] 0;
     line-height: 1.5715;
 
     &-title {
@@ -211,8 +205,7 @@
         background-color: @tabs-line-color-title-bg;
         border-radius: @tabs-line-border-radius;
         opacity: 1;
-        transition: background-color @transition-duration-2
-            @transition-timing-function-linear,
+        transition: background-color @transition-duration-2 @transition-timing-function-linear,
           opacity @transition-duration-2 @transition-timing-function-linear;
         content: '';
       }
@@ -245,15 +238,13 @@
     }
   }
 
-  &-nav-type-line&-nav-horizontal > &-tab:first-of-type {
+  &-nav-type-line&-nav-horizontal>&-tab:first-of-type {
     margin-left: @tabs-line-margin-title-horizontal_first;
   }
 
   // headerPadding=false & type === line/text & horizontal
-  &-nav-type-line&-nav-horizontal
-    &-nav-tab-list-no-padding
-    > &-tab:first-of-type,
-  &-nav-text&-nav-horizontal &-nav-tab-list-no-padding > &-tab:first-of-type {
+  &-nav-type-line&-nav-horizontal &-nav-tab-list-no-padding>&-tab:first-of-type,
+  &-nav-text&-nav-horizontal &-nav-tab-list-no-padding>&-tab:first-of-type {
     margin-left: 0;
   }
 
@@ -262,24 +253,19 @@
   &-nav-type-card-gutter {
     .@{tabs-prefix-cls}-tab {
       position: relative;
-      padding: .get-title-padding(
-          (@tabs-size-default-header-height - @tabs-card-border-width * 2),
+      padding: .get-title-padding((@tabs-size-default-header-height - @tabs-card-border-width * 2),
           @tabs-size-default-font-size_card,
-          0
-        )
-        [] @tabs-card-padding-title-horizontal;
+          0) [] @tabs-card-padding-title-horizontal;
       font-size: @tabs-size-default-font-size_card;
       border: @tabs-card-border-width solid @tabs-card-color-title-border;
-      transition: padding @transition-duration-2
-          @transition-timing-function-linear,
+      transition: padding @transition-duration-2 @transition-timing-function-linear,
         color @transition-duration-2 @transition-timing-function-linear;
 
       &-closable {
         padding-right: @tabs-card-padding-title-right_editable;
       }
 
-      &-closable:not(.@{tabs-prefix-cls}-tab-active):hover
-        .@{prefix}-icon-hover:hover::before {
+      &-closable:not(.@{tabs-prefix-cls}-tab-active):hover .@{prefix}-icon-hover:hover::before {
         background-color: @tabs-card-color-close-icon-bg_hover;
       }
 
@@ -369,25 +355,17 @@
 
     .@{tabs-prefix-cls}-tab {
       position: relative;
-      margin: 0
-        (
-          @tabs-text-margin-title-horizontal +
-            (@tabs-text-size-separator-width / 2)
-        );
-      padding: .get-title-padding(
-          @tabs-size-default-header-height_text,
+      margin: 0 (@tabs-text-margin-title-horizontal + (@tabs-text-size-separator-width / 2));
+      padding: .get-title-padding(@tabs-size-default-header-height_text,
           @tabs-size-default-font-size,
-          0
-        )
-        [] 0;
+          0) [] 0;
       font-size: @tabs-size-default-font-size_text;
       line-height: 1.5715;
 
       &:not(:first-of-type)::before {
         position: absolute;
         top: 50%;
-        left: -(@tabs-text-margin-title-horizontal +
-              (@tabs-text-size-separator-width / 2));
+        left: -(@tabs-text-margin-title-horizontal + (@tabs-text-size-separator-width / 2));
         display: block;
         width: @tabs-text-size-separator-width;
         height: @tabs-text-size-separator-height;
@@ -407,6 +385,7 @@
       }
 
       &-active {
+
         .@{tabs-prefix-cls}-tab-title,
         .@{tabs-prefix-cls}-tab-title:hover {
           background-color: @tabs-text-color-title-bg_active;
@@ -414,6 +393,7 @@
       }
 
       &-disabled {
+
         .@{tabs-prefix-cls}-tab-title,
         .@{tabs-prefix-cls}-tab-title:hover {
           background-color: @tabs-text-color-title-bg_disabled;
@@ -421,6 +401,7 @@
       }
 
       &-active&-disabled {
+
         .@{tabs-prefix-cls}-tab-title,
         .@{tabs-prefix-cls}-tab-title:hover {
           background-color: @tabs-text-color-title-bg_disabled_active;
@@ -443,12 +424,9 @@
 
     .@{tabs-prefix-cls}-tab {
       margin: 0 (@tabs-rounded-margin-title-horizontal / 2);
-      padding: .get-title-padding(
-          @tabs-size-default-header-height_rounded,
+      padding: .get-title-padding(@tabs-size-default-header-height_rounded,
           @tabs-size-default-font-size_rounded,
-          0
-        )
-        [] 0;
+          0) [] 0;
       padding-right: @tabs-rounded-padding-title-horizontal;
       padding-left: @tabs-rounded-padding-title-horizontal;
       font-size: @tabs-size-default-font-size_rounded;
@@ -484,8 +462,7 @@
     }
 
     .@{tabs-prefix-cls}-nav-tab-list {
-      padding: @tabs-capsule-padding-header-vertical
-        @tabs-capsule-padding-header-horizontal;
+      padding: @tabs-capsule-padding-header-vertical @tabs-capsule-padding-header-horizontal;
       line-height: 1;
       background-color: @tabs-capsule-color-header-bg;
       border-radius: @tabs-capsule-border-header-radius;
@@ -495,10 +472,7 @@
       position: relative;
       padding: 0 @tabs-capsule-padding-title-horizontal - 2;
       font-size: @tabs-size-default-font-size_capsule;
-      line-height: (
-        @tabs-size-default-header-height_capsule -
-          @tabs-capsule-padding-header-vertical * 2
-      );
+      line-height: (@tabs-size-default-header-height_capsule - @tabs-capsule-padding-header-vertical * 2);
       background-color: @tabs-capsule-color-title-bg;
 
       &:hover {
@@ -514,7 +488,7 @@
         background-color: @tabs-capsule-color-title-bg_active;
 
         &::before,
-        & + .@{tabs-prefix-cls}-tab::before {
+        &+.@{tabs-prefix-cls}-tab::before {
           opacity: 0;
         }
       }
@@ -524,23 +498,19 @@
       }
     }
 
-    &.@{tabs-prefix-cls}-nav-horizontal
-      .@{tabs-prefix-cls}-tab:not(:first-of-type) {
+    &.@{tabs-prefix-cls}-nav-horizontal .@{tabs-prefix-cls}-tab:not(:first-of-type) {
       margin-left: @tabs-capsule-margin-title-horizontal;
 
       &::before {
         position: absolute;
         top: 50%;
-        left: -(@tabs-capsule-margin-title-horizontal / 2) - (
-            @tabs-capsule-size-separator-width / 2
-          ) - 2;
+        left: -(@tabs-capsule-margin-title-horizontal / 2) - (@tabs-capsule-size-separator-width / 2) - 2;
         display: block;
         width: @tabs-capsule-size-separator-width;
         height: @tabs-capsule-size-separator-height;
         background-color: @tabs-capsule-color-separator-bg;
         transform: translateY(-50%);
-        transition: all @transition-duration-2
-          @transition-timing-function-linear;
+        transition: all @transition-duration-2 @transition-timing-function-linear;
         content: '';
       }
     }
@@ -586,9 +556,8 @@
 
   &-type-card,
   &-type-card-gutter {
-    > .@{tabs-prefix-cls}-content {
-      border: @tabs-card-border-content-width solid
-        @tabs-line-color-header-border;
+    >.@{tabs-prefix-cls}-content {
+      border: @tabs-card-border-content-width solid @tabs-line-color-header-border;
       border-top: none;
     }
   }
@@ -630,12 +599,9 @@
         padding-bottom: @padding;
         font-size: @@font-size;
 
-        @padding: .get-title-padding(
-            @@height,
+        @padding: .get-title-padding(@@height,
             @@font-size,
-            @tabs-padding-title-text-vertical
-          )
-          [];
+            @tabs-padding-title-text-vertical ) [];
       }
 
       .@{tabs-prefix-cls}-nav-extra {
@@ -650,12 +616,9 @@
       @card-height: ~'tabs-size-@{size}-header-height';
 
       .@{tabs-prefix-cls}-tab {
-        padding-top: .get-title-padding(
-            @@card-height - @tabs-card-border-width * 2,
+        padding-top: .get-title-padding(@@card-height - @tabs-card-border-width * 2,
             @@card-font-size,
-            @tabs-padding-title-text-vertical
-          )
-          [];
+            @tabs-padding-title-text-vertical ) [];
         padding-bottom: $padding-top;
         font-size: @@card-font-size;
       }
@@ -690,12 +653,9 @@
       @rounded-height: ~'tabs-size-@{size}-header-height_rounded';
 
       .@{tabs-prefix-cls}-tab {
-        padding-top: .get-title-padding(
-            @@rounded-height,
+        padding-top: .get-title-padding(@@rounded-height,
             @@rounded-font-size,
-            0
-          )
-          [];
+            0) [];
         padding-bottom: $padding-top;
         font-size: @@rounded-font-size;
       }
@@ -725,6 +685,280 @@
       &:hover {
         background-color: var(~'@{arco-cssvars-prefix}-color-fill-3');
       }
+    }
+  }
+}
+
+// 高对比度模式支持
+@media (prefers-contrast: high),
+(-ms-high-contrast: active),
+(-ms-high-contrast: white-on-black) {
+  .@{tabs-prefix-cls} {
+
+    // 导航边框
+    &-nav::before {
+      background-color: WindowText !important;
+    }
+
+    // Tab 基础样式
+    &-tab {
+      color: WindowText !important;
+      border: 1px solid ButtonBorder !important;
+      background-color: ButtonFace !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+
+      &:focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+      }
+
+      &-active,
+      &-active:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+
+      &-disabled,
+      &-disabled:hover {
+        background-color: ButtonFace !important;
+        color: GrayText !important;
+        border-color: GrayText !important;
+      }
+    }
+
+    // 下划线指示器
+    &-nav-ink {
+      background-color: Highlight !important;
+
+      &-disabled {
+        background-color: GrayText !important;
+      }
+    }
+
+    // Line 类型特殊处理
+    &-nav-type-line &-tab {
+      border: none !important;
+      background-color: transparent !important;
+
+      &:focus-visible {
+        .@{tabs-prefix-cls}-tab-title::before {
+          border: 2px solid Highlight !important;
+          background-color: transparent !important;
+        }
+      }
+
+      &:hover {
+        background-color: transparent !important;
+        color: Highlight !important;
+
+        .@{tabs-prefix-cls}-tab-title::before {
+          background-color: ButtonFace !important;
+        }
+      }
+
+      &-active,
+      &-active:hover {
+        color: Highlight !important;
+        background-color: transparent !important;
+
+        .@{tabs-prefix-cls}-tab-title::before {
+          background-color: transparent !important;
+        }
+      }
+    }
+
+    // Card 类型特殊处理
+    &-nav-type-card &-tab,
+    &-nav-type-card-gutter &-tab {
+      border: 1px solid ButtonBorder !important;
+      background-color: ButtonFace !important;
+
+      &:focus-visible::before {
+        border: 2px solid Highlight !important;
+      }
+
+      &-active,
+      &-active:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: HighlightText !important;
+      }
+    }
+
+    // 图标颜色
+    &-icon-hover,
+    &-dropdown-icon,
+    &-nav-button {
+      color: WindowText !important;
+
+      &-disabled {
+        color: GrayText !important;
+      }
+    }
+
+    // 关闭按钮
+    &-tab-close-btn {
+      color: WindowText !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+    }
+
+    // 添加按钮
+    &-nav-add-btn {
+      color: WindowText !important;
+      border: 1px solid ButtonBorder !important;
+      background-color: ButtonFace !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+    }
+  }
+}
+
+@media (-ms-high-contrast: active) {
+  .@{tabs-prefix-cls} {
+    -ms-high-contrast-adjust: none;
+
+    &-nav,
+    &-tab,
+    &-nav-ink,
+    &-icon-hover,
+    &-dropdown-icon,
+    &-nav-button,
+    &-tab-close-btn,
+    &-nav-add-btn {
+      -ms-high-contrast-adjust: none;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .@{tabs-prefix-cls} {
+    forced-color-adjust: none;
+
+    // 导航边框
+    &-nav::before {
+      background-color: CanvasText !important;
+    }
+
+    // Tab 基础样式
+    &-tab {
+      color: CanvasText !important;
+      border: 1px solid ButtonBorder !important;
+      background-color: Canvas !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+
+      &:focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+      }
+
+      &-active,
+      &-active:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: Highlight !important;
+      }
+
+      &-disabled,
+      &-disabled:hover {
+        background-color: Canvas !important;
+        color: GrayText !important;
+        border-color: GrayText !important;
+      }
+    }
+
+    &-nav-ink {
+      background-color: Highlight !important;
+
+      &-disabled {
+        background-color: GrayText !important;
+      }
+    }
+
+    &-nav-type-line &-tab {
+      border: none !important;
+      background-color: transparent !important;
+
+      &:focus-visible {
+        .@{tabs-prefix-cls}-tab-title::before {
+          border: 2px solid Highlight !important;
+          background-color: transparent !important;
+        }
+      }
+
+      &:hover {
+        background-color: transparent !important;
+        color: Highlight !important;
+
+        .@{tabs-prefix-cls}-tab-title::before {
+          background-color: Canvas !important;
+        }
+      }
+
+      &-active,
+      &-active:hover {
+        color: Highlight !important;
+        background-color: transparent !important;
+
+        .@{tabs-prefix-cls}-tab-title::before {
+          background-color: transparent !important;
+        }
+      }
+    }
+
+    &-nav-type-card &-tab,
+    &-nav-type-card-gutter &-tab {
+      border: 1px solid ButtonBorder !important;
+      background-color: Canvas !important;
+
+      &:focus-visible::before {
+        border: 2px solid Highlight !important;
+      }
+
+      &-active,
+      &-active:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: Highlight !important;
+      }
+    }
+
+    // 图标和按钮
+    &-icon-hover,
+    &-dropdown-icon,
+    &-nav-button,
+    &-tab-close-btn,
+    &-nav-add-btn {
+      color: CanvasText !important;
+
+      &:hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+
+      &-disabled {
+        color: GrayText !important;
+      }
+    }
+
+    &-nav-add-btn {
+      border: 1px solid ButtonBorder !important;
+      background-color: Canvas !important;
     }
   }
 }

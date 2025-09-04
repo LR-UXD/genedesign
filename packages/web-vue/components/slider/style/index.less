@@ -20,8 +20,7 @@
 
   &-with-marks {
     margin-bottom: @slider-spacing-margin-bottom_with-mark;
-    padding: @slider-spacing-padding_width-mark_vertical
-      @slider-spacing-padding_width-mark;
+    padding: @slider-spacing-padding_width-mark_vertical @slider-spacing-padding_width-mark;
   }
 
   &-vertical&-with-marks {
@@ -78,8 +77,16 @@
         background-color: @slider-color-bar-bg_disabled;
       }
 
-      .@{slider-prefix}-btn {
+      .@{slider-prefix}-btn,
+      .@{slider-prefix}-btn[disabled],
+      .@{slider-prefix}-btn[aria-disabled="true"] {
         cursor: not-allowed;
+        pointer-events: none;
+
+        &:focus,
+        &:focus-visible {
+          outline: none;
+        }
 
         &::after {
           border-color: @slider-color-button-border_disabled;
@@ -147,18 +154,29 @@
       background: @slider-color-button-bg;
       border: @slider-border-size-button solid @slider-color-button-border;
       border-radius: 50%;
-      transition: all @transition-duration-3
-        @transition-timing-function-overshoot;
+      transition: all @transition-duration-3 @transition-timing-function-overshoot;
       content: '';
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: @slider-border-size-button solid @slider-color-button-border;
+      outline-offset: 1px;
+      border-radius: 50%;
+    }
+
+    &:hover:focus,
+    &:hover:focus-visible,
+    &&-active:focus,
+    &&-active:focus-visible {
+      outline-offset: ((@slider-size-button-width_active - @slider-size-button-width) / 2) + 1px;
     }
 
     &&-active,
     &:hover {
       &::after {
         box-shadow: @slider-shadow-button_active;
-        transform: scale(
-          (unit(@slider-size-button-width_active / @slider-size-button-width))
-        );
+        transform: scale((unit(@slider-size-button-width_active / @slider-size-button-width)));
       }
     }
 
@@ -260,7 +278,7 @@
       margin-left: 0;
     }
 
-    > .@{prefix}-input-number {
+    >.@{prefix}-input-number {
       width: @slider-size-input-width;
       height: @slider-size-input-height;
       overflow: visible;
@@ -279,4 +297,32 @@
       background: @slider-color-input_range_content-bg;
     }
   }
+}
+
+@media (forced-colors: active) {
+  .@{slider-prefix} {
+    .@{slider-prefix}-track::before {
+      background-color: CanvasText;
+    }
+
+    .@{slider-prefix}-bar {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    &-track {
+      &&-disabled {
+        &::before {
+          background-color: HighlightText;
+        }
+
+        .@{slider-prefix}-bar {
+          background-color: CanvasText;
+        }
+      }
+    }
+
+  }
+
+
 }

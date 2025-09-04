@@ -1,5 +1,5 @@
 <template>
-  <li :class="`${prefixCls}-title`">
+  <li :class="`${prefixCls}-title`" role="group" :aria-label="label">
     <slot name="label">
       {{ label }}
     </slot>

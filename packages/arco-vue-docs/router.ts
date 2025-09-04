@@ -211,6 +211,41 @@ const AiChat = () =>
 const AiChatEn = () =>
   import('@web-vue/components/ai-chat/README.en-US.md');
 
+const GlassButton = () =>
+  import('@web-vue/components/glass-button/README.zh-CN.md');
+const GlassButtonEn = () =>
+  import('@web-vue/components/glass-button/README.en-US.md');
+
+const GlassCard = () =>
+  import('@web-vue/components/glass-card/README.zh-CN.md');
+const GlassCardEn = () =>
+  import('@web-vue/components/glass-card/README.en-US.md');
+
+const GlassMessage = () =>
+  import('@web-vue/components/glass-message/README.zh-CN.md');
+const GlassMessageEn = () =>
+  import('@web-vue/components/glass-message/README.en-US.md');
+
+const GlassTooltip = () =>
+  import('@web-vue/components/glass-tooltip/README.zh-CN.md');
+const GlassTooltipEn = () =>
+  import('@web-vue/components/glass-tooltip/README.en-US.md');
+
+const AiDemo = () =>
+  import('./components/aidemo/aidemo.vue');
+
+const Leforecast = () =>
+  import('./components/le-forecast/leforecast.vue');
+
+const Lsm = () =>
+  import('./components/lsm/lsm.vue');
+
+const Mopp = () =>
+  import('./components/mopp/mopp.vue');
+
+const Glass = () =>
+  import('./components/glass/glass.vue');
+
 
 const docs = [
   {
@@ -247,6 +282,51 @@ const docs = [
   //   component: Changelog,
   // },
 ];
+const demos = [
+  // {
+  //   name: 'aiDemo',
+  //   component: AiDemo,
+  // },
+
+  {
+    name: 'leforecast',
+    component: Leforecast,
+  },
+  {
+    name: 'lsm',
+    component: Lsm,
+  },
+  {
+    name: 'mopp',
+    component: Mopp,
+  },
+]
+const liquidGlass = [
+  {
+    name: 'effects',
+    component: Glass,
+  },
+  {
+    name: 'glassButton',
+    component: GlassButton,
+    componentEn: GlassButtonEn,
+  },
+  {
+    name: 'glassCard',
+    component: GlassCard,
+    componentEn: GlassCardEn,
+  },
+  {
+    name: 'glassMessage',
+    component: GlassMessage,
+    componentEn: GlassMessageEn,
+  },
+  {
+    name: 'glassTooltip',
+    component: GlassTooltip,
+    componentEn: GlassTooltipEn,
+  },
+]
 
 const proDocs = [
   {
@@ -739,7 +819,17 @@ const components = [
         component: AiIcon
       },
     ]
-  }
+  },
+  // {
+  //   name: 'Quantum',
+  //   list: [
+  //     {
+  //       name: 'aiDemo',
+  //       component: AiDemo
+  //     },
+  //   ]
+  // }
+
 ];
 
 function toKebabCase(string: string) {
@@ -771,13 +861,57 @@ for (const item of docs) {
       component: item.componentEn ?? item.component,
     }
   );
-  console.log('name1:' + item.name)
+  // console.log('name1:' + item.name)
 
   docsMenu.push({
     name: item.name,
     path,
   });
 }
+
+const demoMenu = [];
+for (const item of demos) {
+  const path = `/gene-dev/vue/docs/${toKebabCase(item.name)}`;
+  routes.push(
+    {
+      path,
+      component: item.component,
+    },
+    {
+      path: `/gene-dev/vue/en-US/docs/${toKebabCase(item.name)}`,
+      component: item.componentEn ?? item.component,
+    }
+  );
+  // console.log('name1:' + item.name)
+
+  demoMenu.push({
+    name: item.name,
+    path,
+  });
+}
+
+
+const glassMenu = [];
+for (const item of liquidGlass) {
+  const path = `/gene-dev/vue/docs/${toKebabCase(item.name)}`;
+  routes.push(
+    {
+      path,
+      component: item.component,
+    },
+    {
+      path: `/gene-dev/vue/en-US/docs/${toKebabCase(item.name)}`,
+      component: item.componentEn ?? item.component,
+    }
+  );
+  console.log('name1:' + item.name)
+
+  glassMenu.push({
+    name: item.name,
+    path,
+  });
+}
+
 
 const componentMenu: ComponentMenuGroup[] = [];
 for (const group of components) {
@@ -862,6 +996,19 @@ const docsMenuList = [
   //   menu: proDocsMenu,
   // },
 ];
+const demoMenuList = [
+  {
+    name: 'demo',
+    menu: demoMenu,
+  },
+];
 
-export { docsMenu, componentMenu, proDocsMenu, docsMenuList };
+const glassMenuList = [
+  {
+    name: 'liquid_glass',
+    menu: glassMenu,
+  },
+];
+
+export { docsMenu, demoMenu, componentMenu, proDocsMenu, docsMenuList, demoMenuList, glassMenu, glassMenuList };
 export default router;

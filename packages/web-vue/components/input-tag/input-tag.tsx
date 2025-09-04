@@ -169,6 +169,7 @@ export default defineComponent({
     focused: Boolean,
     disabledInput: Boolean,
     uninjectFormItemContext: Boolean,
+    activeKey: String,
   },
   emits: {
     'update:modelValue': (value: (string | number | TagData)[]) => true,
@@ -521,6 +522,13 @@ export default defineComponent({
     const render = () => (
       <span
         class={cls.value}
+        role="combobox"
+        tabindex={mergedDisabled.value ? -1 : 0}
+        aria-expanded={mergedFocused.value}
+        aria-haspopup="listbox"
+        aria-readonly={props.readonly || props.disabledInput}
+        aria-disabled={mergedDisabled.value}
+        aria-activedescendant={props.activeKey ? `arco-option-${props.activeKey}` : undefined}
         onMousedown={handleMousedown}
         {...wrapperAttrs.value}
       >
@@ -529,8 +537,8 @@ export default defineComponent({
             {tags.value.length > 0
               ? compositionValue.value || computedInputValue.value
               : compositionValue.value ||
-                computedInputValue.value ||
-                props.placeholder}
+              computedInputValue.value ||
+              props.placeholder}
           </span>
         </ResizeObserver>
         {slots.prefix && (
@@ -575,6 +583,8 @@ export default defineComponent({
             }
             disabled={mergedDisabled.value}
             readonly={props.readonly || props.disabledInput}
+            tabindex={-1}
+            aria-hidden="true"
             onInput={handleInput}
             onKeydown={handleKeyDown}
             onFocus={handleFocus}

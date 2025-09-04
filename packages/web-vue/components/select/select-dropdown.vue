@@ -1,9 +1,6 @@
 <template>
   <div :class="cls">
-    <div
-      v-if="$slots.header && (!empty || showHeaderOnEmpty)"
-      :class="`${prefixCls}-header`"
-    >
+    <div v-if="$slots.header && (!empty || showHeaderOnEmpty)" :class="`${prefixCls}-header`">
       <slot name="header" />
     </div>
     <spin v-if="loading" :class="`${prefixCls}-loading`" />
@@ -13,23 +10,13 @@
       </slot>
     </div>
     <slot v-if="virtualList && !loading && !empty" name="virtual-list" />
-    <component
-      :is="displayScrollbar ? 'ScrollbarComponent' : 'div'"
-      v-if="!virtualList"
-      v-show="!loading && !empty"
-      ref="wrapperComRef"
-      :class="`${prefixCls}-list-wrapper`"
-      v-bind="scrollbarProps"
-      @scroll="handleScroll"
-    >
-      <ul :class="`${prefixCls}-list`">
+    <component :is="displayScrollbar ? 'ScrollbarComponent' : 'div'" v-if="!virtualList" v-show="!loading && !empty"
+      ref="wrapperComRef" :class="`${prefixCls}-list-wrapper`" v-bind="scrollbarProps" @scroll="handleScroll">
+      <ul :class="`${prefixCls}-list`" role="listbox" :aria-multiselectable="multiple ? 'true' : 'false'">
         <slot />
       </ul>
     </component>
-    <div
-      v-if="$slots.footer && (!empty || showFooterOnEmpty)"
-      :class="`${prefixCls}-footer`"
-    >
+    <div v-if="$slots.footer && (!empty || showFooterOnEmpty)" :class="`${prefixCls}-footer`">
       <slot name="footer" />
     </div>
   </div>
@@ -58,6 +45,7 @@ export default defineComponent({
     loading: Boolean,
     empty: Boolean,
     virtualList: Boolean,
+    multiple: Boolean,
     bottomOffset: {
       type: Number,
       default: 0,

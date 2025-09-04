@@ -377,14 +377,14 @@ export default defineComponent({
 
       return (
         <ul class={`${prefixCls}-list`}>
-          {getPageItemElement('previous', { simple: true })}
+          {getPageItemElement('previous')}
           {pageList.value}
           {props.showMore &&
             getPageItemElement('more', {
               key: 'more',
               step: props.bufferSize * 2 + 1,
             })}
-          {getPageItemElement('next', { simple: true })}
+          {getPageItemElement('next')}
         </ul>
       );
     };

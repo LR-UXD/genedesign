@@ -19,6 +19,10 @@ export default defineComponent({
       type: Object as PropType<TableDataWithRaw>,
       default: () => ({}),
     },
+    tabIndex: {
+      type: Number,
+      default: undefined,
+    },
   },
   setup(props, { slots }) {
     const prefixCls = getPrefixCls('table');
@@ -38,7 +42,13 @@ export default defineComponent({
           rowIndex: props.rowIndex,
           record: props.record?.raw,
         })[0] ?? 'tr',
-        { class: cls.value },
+        {
+          class: cls.value,
+          tabindex: props.tabIndex,
+          'data-row-index': props.rowIndex,
+          'aria-rowindex': props.rowIndex != null ? props.rowIndex + 1 : undefined,
+          role: 'row',
+        },
         {
           default: slots.default,
         }

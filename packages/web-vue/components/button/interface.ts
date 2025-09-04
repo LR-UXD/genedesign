@@ -12,4 +12,6 @@ export interface ButtonProps {
   htmlType?: string;
   autofocus?: boolean;
   href?: string;
+  blur?: string;
+  background?: string;
 }

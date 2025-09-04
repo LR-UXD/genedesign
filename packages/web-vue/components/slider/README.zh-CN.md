@@ -41,6 +41,8 @@ description: 滑动型输入器，展示当前值和可选范围。
 |show-input|是否显示输入框|`boolean`|`false`||
 |range|是否开启范围选择|`boolean`|`false`||
 |show-tooltip|是否显示tooltip|`boolean`|`true`|2.42.0|
+|keyboard|是否启用键盘控制|`boolean`|`true`||
+
 ### `<slider>` Events
 
 |事件名|描述|参数|
