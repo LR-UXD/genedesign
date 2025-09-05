@@ -185,6 +185,16 @@ export default defineComponent({
       eventHandlers.value?.onBlur?.(ev);
     };
 
+    const handleKeyDown = (ev: KeyboardEvent) => {
+      // 当按下空格键或回车键时切换选中状态
+      if (ev.code === 'Space' || ev.code === 'Enter') {
+        ev.preventDefault();
+        if (!mergedDisabled.value && checkboxRef.value) {
+          checkboxRef.value.click();
+        }
+      }
+    };
+
     watch(modelValue, (value) => {
       if (isUndefined(value) || isNull(value)) {
         _checked.value = false;
@@ -219,22 +229,23 @@ export default defineComponent({
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onKeydown={handleKeyDown}
         />
         {(slots.checkbox ?? checkboxGroupCtx?.slots?.checkbox)?.({
           checked: computedChecked.value,
           disabled: mergedDisabled.value,
         }) ?? (
-          <IconHover
-            class={`${prefixCls}-icon-hover`}
-            disabled={mergedDisabled.value || computedChecked.value}
-          >
-            <div class={`${prefixCls}-icon`}>
-              {computedChecked.value && (
-                <IconCheck class={`${prefixCls}-icon-check`} />
-              )}
-            </div>
-          </IconHover>
-        )}
+            <IconHover
+              class={`${prefixCls}-icon-hover`}
+              disabled={mergedDisabled.value || computedChecked.value}
+            >
+              <div class={`${prefixCls}-icon`}>
+                {computedChecked.value && (
+                  <IconCheck class={`${prefixCls}-icon-check`} />
+                )}
+              </div>
+            </IconHover>
+          )}
         {slots.default && (
           <span class={`${prefixCls}-label`}>{slots.default()}</span>
         )}

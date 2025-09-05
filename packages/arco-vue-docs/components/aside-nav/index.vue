@@ -12,7 +12,7 @@
           <div class="aside-nav-group">
             <div class="aside-nav-group-name">{{
               t(`${group.name}.name`)
-            }}</div>
+              }}</div>
             <ul class="aside-nav-list">
               <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
                 ? item.path.replace('vue/', 'vue/en-US/')
@@ -62,7 +62,7 @@
           <div class="aside-nav-group">
             <div class="aside-nav-group-name">{{
               t(`${group.name}.name`)
-            }}</div>
+              }}</div>
             <ul class="aside-nav-list">
               <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
                 ? item.path.replace('vue/', 'vue/en-US/')
@@ -86,7 +86,7 @@
           <div class="aside-nav-group">
             <div class="aside-nav-group-name">{{
               t(`${group.name}.name`)
-            }}</div>
+              }}</div>
             <ul class="aside-nav-list">
               <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
                 ? item.path.replace('vue/', 'vue/en-US/')
