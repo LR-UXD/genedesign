@@ -65,4 +65,4 @@ app.mount('#app');
 
 # Useful Links
 
-* [Documentation website](https://uxd.lenovo.com/genedesign/)
+* [Documentation website](https://uxd.lenovo.com/gene-dev/)

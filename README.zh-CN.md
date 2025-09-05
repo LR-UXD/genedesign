@@ -66,7 +66,7 @@ app.mount('#app');
 
 # 相关链接
 
-* [官网](https://uxd.lenovo.com/genedesign/)
+* [官网](https://uxd.lenovo.com/gene-dev/)
 
 
 
