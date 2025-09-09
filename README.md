@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://uxd.lenovo.com/genedesign" target="_blank">
     <img alt="Gene Design Logo" width="200" src="https://uxd.lenovo.com/icon.svg"/>
-  </a>
 </div>
 <div align="center">
   <h1>Gene Design</h1>
@@ -9,7 +7,7 @@
 
 <div align="center">
 
-A comprehensive Vue UI components library based on the [Gene Design](https://uxd.lenovo.com/genedesign/) system.
+A comprehensive Vue UI components library based on the Gene Design system.
 
 </div>
 
@@ -62,7 +60,3 @@ app.mount('#app');
 2. Use `yarn install` to install the dependencies of each package in `workspaces` (If you encounter a `YN0018` error, you can use `YARN_CHECKSUM_BEHAVIOR=update yarn` to install)
 
 3. Use `npm run init` to initialize the project
-
-# Useful Links
-
-* [Documentation website](https://uxd.lenovo.com/gene-dev/)

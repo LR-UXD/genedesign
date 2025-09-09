@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://uxd.lenovo.com/genedesign" target="_blank">
     <img alt="Gene Design Logo" width="200" src="https://uxd.lenovo.com/icon.svg"/>
-  </a>
 </div>
 
 <div align="center">
@@ -10,7 +8,7 @@
 
 <div align="center">
 
-基于 [gene Design](https://uxd.lenovo.com/genedesign/) 的 Vue UI 组件库。
+基于 Gene Design 的 Vue UI 组件库。
 
 </div>
 
@@ -62,11 +60,6 @@ app.mount('#app');
 2. 使用 `yarn install` 安装 `workspaces` 中各个包的依赖（如果遇到 `YN0018` 错误，可以使用 `YARN_CHECKSUM_BEHAVIOR=update yarn` 进行安装）
 
 3. 使用 `npm run init` 初始化项目
-
-
-# 相关链接
-
-* [官网](https://uxd.lenovo.com/gene-dev/)
 
 
 

@@ -449,12 +449,15 @@ export default defineComponent({
         return;
       }
       const keyCode = e.key || e.code;
+      let eventHandled = false;
+
       if (
         !isComposition.value &&
         computedInputValue.value &&
         keyCode === Enter.key
       ) {
         handlePressEnter(e);
+        eventHandled = true;
       }
       if (
         !isComposition.value &&
@@ -465,7 +468,13 @@ export default defineComponent({
         const lastIndex = getLastClosableIndex();
         if (lastIndex >= 0) {
           handleRemove(valueData.value[lastIndex].value, lastIndex, e);
+          eventHandled = true;
         }
+      }
+
+      // 如果事件未被处理且不在组合输入状态，将其传播给父组件（如 select 组件）
+      if (!eventHandled && !isComposition.value && attrs.onKeydown) {
+        (attrs.onKeydown as (e: KeyboardEvent) => void)(e);
       }
     };
 
@@ -515,8 +524,8 @@ export default defineComponent({
         [`${prefixCls}-has-placeholder`]: !computedValue.value.length,
       },
     ]);
-
     const wrapperAttrs = computed(() => omit(attrs, INPUT_EVENTS));
+
     const inputAttrs = computed(() => pick(attrs, INPUT_EVENTS));
 
     const render = () => (
@@ -528,8 +537,12 @@ export default defineComponent({
         aria-haspopup="listbox"
         aria-readonly={props.readonly || props.disabledInput}
         aria-disabled={mergedDisabled.value}
-        aria-activedescendant={props.activeKey ? `arco-option-${props.activeKey}` : undefined}
+        aria-activedescendant={
+          props.activeKey ? `arco-option-${props.activeKey}` : undefined
+        }
         onMousedown={handleMousedown}
+        onKeydown={handleKeyDown}
+
         {...wrapperAttrs.value}
       >
         <ResizeObserver onResize={handleResize}>

@@ -138,6 +138,9 @@ export default defineComponent({
     const isActive = computed(
       () => (selectCtx?.activeKey === key.value) || false
     );
+    const isKeyboardActive = computed(
+      () => selectCtx?.activeKey === key.value && selectCtx?.isKeyboardNavigation
+    );
 
     let isValid = ref(true);
 
@@ -184,14 +187,16 @@ export default defineComponent({
     };
 
     const handleMouseEnter = () => {
+      // eslint-disable-next-line no-console
+      console.log('11')
       if (!props.disabled) {
-        selectCtx?.setActiveKey(key.value);
+        selectCtx?.setActiveKey(key.value, false); // false 表示非键盘导航
       }
     };
 
     const handleMouseLeave = () => {
       if (!props.disabled) {
-        selectCtx?.setActiveKey();
+        selectCtx?.setActiveKey(undefined, false); // false 表示非键盘导航
       }
     };
 
@@ -201,6 +206,7 @@ export default defineComponent({
         [`${prefixCls}-disabled`]: props.disabled,
         [`${prefixCls}-selected`]: isSelected.value,
         [`${prefixCls}-active`]: isActive.value,
+        [`${prefixCls}-keyboard-focus`]: isKeyboardActive.value,
         [`${prefixCls}-multiple`]: selectCtx?.multiple,
       },
     ]);
@@ -214,6 +220,7 @@ export default defineComponent({
       key,
       isSelected,
       isActive,
+      isKeyboardActive,
       isValid,
       handleClick,
       handleMouseEnter,

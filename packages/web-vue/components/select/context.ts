@@ -1,6 +1,8 @@
 import type { InjectionKey } from 'vue';
 import type { FilterOption, SelectOptionInfo } from './interface';
 
+export type ActiveType = 'hover' | 'keyboard' | 'focus' | undefined;
+
 export interface SelectContext {
   multiple?: boolean;
   valueKey?: string;
@@ -9,8 +11,10 @@ export interface SelectContext {
   component?: string;
   valueKeys: string[];
   activeKey: string | undefined;
+  activeType: ActiveType;
+  isKeyboardNavigation?: boolean;
   onSelect: (key: string, ev: Event) => void;
-  setActiveKey: (key?: string) => void;
+  setActiveKey: (key?: string, type?: ActiveType) => void;
   getNextSlotOptionIndex: () => number;
   addSlotOptionInfo: (id: number, optionInfo: SelectOptionInfo) => void;
   removeSlotOptionInfo: (id: number) => void;
@@ -18,3 +22,4 @@ export interface SelectContext {
 
 export const selectInjectionKey: InjectionKey<SelectContext> =
   Symbol('ArcoSelectContext');
+

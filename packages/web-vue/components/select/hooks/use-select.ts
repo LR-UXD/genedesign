@@ -67,6 +67,7 @@ export const useSelect = ({
   });
 
   const activeKey = ref<string | undefined>();
+  const isKeyboardNavigation = ref<boolean>(false);
 
   watch(enabledOptionKeys, (enabledKeys) => {
     if (!activeKey.value || !enabledKeys.includes(activeKey.value)) {
@@ -75,8 +76,9 @@ export const useSelect = ({
     }
   });
 
-  const setActiveKey = (key?: string) => {
+  const setActiveKey = (key?: string, fromKeyboard = false) => {
     activeKey.value = key;
+    isKeyboardNavigation.value = fromKeyboard;
   };
 
   const getNextActiveKey = (direction: 'up' | 'down') => {
@@ -167,6 +169,23 @@ export const useSelect = ({
         },
       ],
       [
+        KEYBOARD_KEY.SPACE,
+        (e: Event) => {
+          // @ts-ignore
+          if (!loading?.value && !e.isComposing) {
+            if (popupVisible.value) {
+              if (activeKey.value) {
+                onSelect(activeKey.value, e);
+                e.preventDefault();
+              }
+            } else if (enterToOpen) {
+              onPopupVisibleChange(true);
+              e.preventDefault();
+            }
+          }
+        },
+      ],
+      [
         KEYBOARD_KEY.ESC,
         (e: Event) => {
           if (popupVisible.value) {
@@ -182,6 +201,7 @@ export const useSelect = ({
             const next = getNextActiveKey('down');
             if (next) {
               activeKey.value = next;
+              isKeyboardNavigation.value = true;
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -195,6 +215,7 @@ export const useSelect = ({
             const next = getNextActiveKey('up');
             if (next) {
               activeKey.value = next;
+              isKeyboardNavigation.value = true;
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -208,6 +229,7 @@ export const useSelect = ({
             const next = getNextActiveKey('down');
             if (next) {
               activeKey.value = next;
+              isKeyboardNavigation.value = true;
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -221,6 +243,7 @@ export const useSelect = ({
             const next = getNextActiveKey('up');
             if (next) {
               activeKey.value = next;
+              isKeyboardNavigation.value = true;
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -240,6 +263,7 @@ export const useSelect = ({
       component,
       valueKeys,
       activeKey,
+      isKeyboardNavigation,
       setActiveKey,
       onSelect,
       getNextSlotOptionIndex,
@@ -254,6 +278,7 @@ export const useSelect = ({
     validOptionInfos,
     enabledOptionKeys,
     activeKey,
+    isKeyboardNavigation,
     setActiveKey,
     addSlotOptionInfo,
     removeSlotOptionInfo,

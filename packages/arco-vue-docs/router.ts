@@ -904,7 +904,7 @@ for (const item of liquidGlass) {
       component: item.componentEn ?? item.component,
     }
   );
-  console.log('name1:' + item.name)
+  // console.log('name1:' + item.name)
 
   glassMenu.push({
     name: item.name,

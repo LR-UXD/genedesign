@@ -60,6 +60,7 @@
     text-align: left;
     background-color: @select-popup-option-color-bg_default;
     cursor: pointer;
+    border: 1px solid transparent;
 
     &-content {
       .text-ellipsis();
@@ -85,11 +86,21 @@
     }
 
     // hover
-    &-active,
     &:not(&-disabled):hover {
       color: @select-popup-option-color-text_hover;
       background-color: @select-popup-option-color-bg_hover;
       transition: all @transition-duration-1 @transition-timing-function-linear;
+    }
+
+    &-active:not(&-keyboard-focus) {
+      color: @select-popup-option-color-text_hover;
+      background-color: @select-popup-option-color-bg_hover;
+      transition: all @transition-duration-1 @transition-timing-function-linear;
+    }
+
+    &-keyboard-focus {
+      background-color: transparent;
+      border: 1px solid @select-popup-option-color-border_focus;
     }
 
     // disabled
@@ -161,11 +172,26 @@
       border: 1px solid transparent !important;
 
       // 悬停状态
-      &-active,
       &:not(&-disabled):hover {
         background-color: Highlight !important;
         color: HighlightText !important;
         border-color: Highlight !important;
+      }
+
+      // 鼠标激活状态
+      &-active:not(&-keyboard-focus) {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: Highlight !important;
+      }
+
+      // 键盘焦点状态
+      &-keyboard-focus {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        border-color: Highlight !important;
+        outline: 3px solid HighlightText !important;
+        outline-offset: -3px !important;
       }
 
       // 选中状态
@@ -296,16 +322,26 @@
       color: CanvasText !important;
       background-color: Canvas !important;
 
-      &-active,
+      // &-selected {
+      //   color: HighlightText !important;
+      //   background-color: Highlight !important;
+      // }
+
       &:not(&-disabled):hover {
         background-color: Highlight !important;
         color: HighlightText !important;
       }
 
-      &-selected {
-        color: HighlightText !important;
-        background-color: Highlight !important;
 
+      &-active:not(&-keyboard-focus) {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+      }
+
+
+      &-keyboard-focus {
+        background-color: transparent;
+        border: 1px solid Highlight !important;
       }
 
       &-disabled {
@@ -375,36 +411,6 @@
 
     .@{select-prefix-cls}-group-title {
       color: CanvasText !important;
-    }
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .@{select-prefix-cls}-option {
-
-    &-active,
-    &:not(&-disabled):hover {
-      transition: all @transition-duration-1 @transition-timing-function-linear;
-    }
-  }
-}
-
-.@{select-prefix-cls}-dropdown {
-  .@{select-prefix-cls}-option {
-    &:focus-visible {
-      outline: 2px solid var(~'@{arco-cssvars-prefix}-color-primary-6');
-      outline-offset: -2px;
-    }
-  }
-}
-
-@media (prefers-contrast: high) {
-  .@{select-prefix-cls}-dropdown {
-    .@{select-prefix-cls}-option {
-      &:focus-visible {
-        outline: 3px solid Highlight;
-        outline-offset: -3px;
-      }
     }
   }
 }
