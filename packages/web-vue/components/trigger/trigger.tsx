@@ -218,9 +218,9 @@ export default defineComponent({
       type: [Number, Object] as PropType<
         | number
         | {
-            enter: number;
-            leave: number;
-          }
+          enter: number;
+          leave: number;
+        }
       >,
     },
     /**
@@ -438,17 +438,17 @@ export default defineComponent({
       const containerRect = containerRef.value.getBoundingClientRect();
       const triggerRect = props.alignPoint
         ? {
-            top: mousePosition.value.top,
-            bottom: mousePosition.value.top,
-            left: mousePosition.value.left,
-            right: mousePosition.value.left,
-            scrollTop: mousePosition.value.top,
-            scrollBottom: mousePosition.value.top,
-            scrollLeft: mousePosition.value.left,
-            scrollRight: mousePosition.value.left,
-            width: 0,
-            height: 0,
-          }
+          top: mousePosition.value.top,
+          bottom: mousePosition.value.top,
+          left: mousePosition.value.left,
+          right: mousePosition.value.left,
+          scrollTop: mousePosition.value.top,
+          scrollBottom: mousePosition.value.top,
+          scrollLeft: mousePosition.value.left,
+          scrollRight: mousePosition.value.left,
+          width: 0,
+          height: 0,
+        }
         : getElementScrollRect(firstElement.value, containerRect);
       const getPopupRect = () =>
         // @ts-ignore
@@ -579,13 +579,20 @@ export default defineComponent({
 
     const handleFocusout = (e: FocusEvent) => {
       (attrs as any).onFocusout?.(e);
-      if (props.disabled || !triggerMethods.value.includes('focus')) {
+      if (props.disabled) {
         return;
       }
-      if (!props.blurToClose) {
+      if (triggerMethods.value.includes('focus')) {
+        if (!props.blurToClose) {
+          return;
+        }
+        changeVisible(false);
         return;
       }
-      changeVisible(false);
+      // 如果触发方式包含 click 且当前弹出框可见，失焦时关闭
+      if (triggerMethods.value.includes('click') && computedVisible.value) {
+        changeVisible(false);
+      }
     };
 
     const handleContextmenu = (e: MouseEvent) => {

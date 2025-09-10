@@ -11,10 +11,18 @@
     left: 0;
     width: 0;
     height: 0;
-    opacity: 0;
 
     &:focus+.@{prefix}-radio-icon-hover::before {
       background-color: @icon-hover-color-bg;
+    }
+
+
+    &:focus-visible+.@{prefix}-radio-icon-hover::before,
+    &:focus-visible+.@{prefix}-radio-icon-hover-disabled::before {
+      opacity: 1;
+      outline: 2px solid @color-primary-6;
+      outline-offset: -2px;
+      background-color: transparent;
     }
   }
 }
@@ -25,10 +33,19 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding-left: (@radio-size-mask-height / 2) - (@radio-layout-height / 2);
+  padding-left: 0;
   font-size: @radio-font-text-size;
   line-height: unset;
   cursor: pointer;
+
+  &-icon-hover {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: @radio-size-mask-height;
+    height: @radio-size-mask-height;
+  }
 
   // radio circle
   &-label {
@@ -37,7 +54,9 @@
   }
 
   &-icon {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     display: block;
     box-sizing: border-box;
     width: @radio-layout-height;
@@ -45,6 +64,7 @@
     line-height: @radio-layout-height;
     border: @radio-border-width solid @radio-color-border;
     border-radius: @radio-border-radius;
+    transform: translate(-50%, -50%);
 
     &::after {
       position: absolute;
@@ -123,9 +143,17 @@
 
   &:hover {
     .@{prefix}-radio-icon-hover::before {
+      opacity: 1;
+
+      background-color: @radio-mask-bg-color-bg;
+    }
+
+    >input[type='radio']:focus-visible+.@{prefix}-radio-icon-hover::before {
       background-color: @radio-mask-bg-color-bg;
     }
   }
+
+
 }
 
 // group type
@@ -179,7 +207,6 @@
     content: '';
   }
 
-  // 被选中的按钮不需要左右的分割线
   &:hover::before,
   &:hover+&::before,
   &.@{radio-prefix-cls}-checked::before,
@@ -264,5 +291,180 @@
 
   .@{radio-prefix-cls}-button::after {
     background-color: var(~'@{arco-cssvars-prefix}-color-bg-3');
+  }
+}
+
+// 高对比度模式支持
+@media (forced-colors: active) {
+  .@{radio-prefix-cls} {
+    forced-color-adjust: none;
+
+    >input[type='radio']:focus-visible+.@{prefix}-radio-icon-hover::before {
+      opacity: 1 !important;
+      outline: 2px solid Highlight !important;
+      outline-offset: -2px !important;
+      background-color: transparent !important;
+    }
+
+    >input[type='radio']:focus+.@{prefix}-radio-icon-hover::before {
+      background-color: transparent !important;
+    }
+
+    // 选中状态下的焦点
+    &-checked>input[type='radio']:focus+.@{prefix}-radio-icon-hover::before {
+      background-color: transparent !important;
+    }
+
+    &-checked>input[type='radio']:focus-visible+.@{prefix}-radio-icon-hover::before {
+      background-color: transparent !important;
+      outline: 2px solid Highlight !important;
+      outline-offset: -2px !important;
+    }
+
+    &:hover>input[type='radio']:focus+.@{prefix}-radio-icon-hover::before {
+      background-color: transparent !important;
+    }
+
+    >input[type='radio']:not(:focus)+.@{prefix}-radio-icon-hover::before {
+      background-color: transparent !important;
+    }
+
+    &:hover {
+      .@{prefix}-radio-icon-hover::before {
+        background-color: transparent !important;
+      }
+    }
+
+    &-label {
+      color: CanvasText !important;
+    }
+
+    &-disabled &-label {
+      color: GrayText !important;
+    }
+
+    &-icon {
+      background-color: Canvas !important;
+      border: 2px solid ButtonText !important;
+      border-radius: 50% !important;
+
+      &::after {
+        background-color: Canvas !important;
+        border-radius: 50% !important;
+      }
+    }
+
+    &:hover &-icon {
+      border-color: Highlight !important;
+      background-color: Canvas !important;
+      transition: border-color 0.1s ease !important;
+    }
+
+    &-checked &-icon {
+      background-color: Highlight !important;
+      border-color: Highlight !important;
+
+      &::after {
+        background-color: HighlightText !important;
+        transform: scale(0.6) !important;
+      }
+    }
+
+    &-checked:hover &-icon {
+      background-color: ButtonText !important;
+      border-color: ButtonText !important;
+      transition: border-color 0.1s ease !important;
+
+      &::after {
+        background-color: HighlightText !important;
+      }
+    }
+
+    &-disabled &-icon {
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+
+      &::after {
+        background-color: GrayText !important;
+      }
+    }
+
+    &-disabled&-checked &-icon {
+      background-color: Canvas !important;
+      border-color: GrayText !important;
+
+      &::after {
+        background-color: GrayText !important;
+        transform: scale(0.6) !important;
+      }
+    }
+
+    &-disabled:hover &-icon,
+    &-disabled&-checked:hover &-icon {
+      border-color: GrayText !important;
+      background-color: Canvas !important;
+      transition: none !important;
+    }
+
+    &-disabled:hover .@{prefix}-radio-icon-hover::before,
+    &-disabled&-checked:hover .@{prefix}-radio-icon-hover::before {
+      background-color: transparent !important;
+    }
+  }
+
+  // Radio Button 样式
+  .@{radio-prefix-cls}-button {
+    forced-color-adjust: none;
+    color: CanvasText !important;
+    background-color: Canvas !important;
+    border: 1px solid ButtonBorder !important;
+
+    &:hover {
+      background-color: Highlight !important;
+      color: HighlightText !important;
+      border-color: Highlight !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid Highlight !important;
+      outline-offset: 2px !important;
+    }
+
+    &.@{radio-prefix-cls}-checked {
+      background-color: Highlight !important;
+      color: HighlightText !important;
+      border-color: Highlight !important;
+    }
+
+    &.@{radio-prefix-cls}-checked:hover {
+      background-color: ButtonText !important;
+      color: HighlightText !important;
+      border-color: ButtonText !important;
+    }
+
+    &.@{radio-prefix-cls}-disabled {
+      background-color: Canvas !important;
+      color: GrayText !important;
+      border-color: GrayText !important;
+      cursor: not-allowed !important;
+    }
+
+    &.@{radio-prefix-cls}-disabled.@{radio-prefix-cls}-checked {
+      background-color: Canvas !important;
+      color: GrayText !important;
+      border-color: GrayText !important;
+    }
+
+    // 分割线处理
+    &:not(:first-of-type)::before {
+      background-color: ButtonBorder !important;
+    }
+
+    &:hover::before,
+    &:hover+&::before,
+    &.@{radio-prefix-cls}-checked::before,
+    &.@{radio-prefix-cls}-checked+&::before {
+      opacity: 0 !important;
+    }
   }
 }

@@ -3,7 +3,7 @@ meta:
   type: 组件
   category: 数据展示
 title: 文字气泡 Tooltip
-description: 鼠标悬停、聚焦或点击在某个组件时，弹出的文字提示。
+description: 鼠标悬停、键盘聚焦或点击在某个组件时，弹出的文字提示。支持键盘导航，提高可访问性。
 ```
 
 @import ./__demo__/basic.md

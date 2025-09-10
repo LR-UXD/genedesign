@@ -3,7 +3,7 @@ meta:
   type: Component
   category: Data Display
 title: Tooltip
-description: A tooltip that popup when the mouse hovers, focus, or click on a component.
+description: A tooltip that popup when the mouse hovers, keyboard focus, or click on a component. Supports keyboard navigation for improved accessibility.
 ```
 
 *Auto translate by google.*

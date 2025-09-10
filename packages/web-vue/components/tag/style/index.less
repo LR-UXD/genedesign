@@ -15,8 +15,7 @@
   color: @tag-default-color-text;
   font-weight: @tag-text-font-weight;
   font-size: @tag-size-default-font-size;
-  line-height: @tag-size-default - @tag-border-width * 2 - @tag-padding-vertical *
-    2;
+  line-height: @tag-size-default - @tag-border-width * 2 - @tag-padding-vertical * 2;
   vertical-align: middle;
   border: @tag-border-width @tag-border-type transparent;
   border-radius: @tag-border-radius;
@@ -114,25 +113,25 @@
     }
   });
 
-  &&-custom-color {
-    color: @tag-custom-color-text;
+&&-custom-color {
+  color: @tag-custom-color-text;
 
-    .icon-hover-bg(@tag-prefix-cls, @tag-custom-color-icon-bg_hover);
+  .icon-hover-bg(@tag-prefix-cls, @tag-custom-color-icon-bg_hover);
+}
+
+& &-close-btn {
+  margin-left: 4px;
+  font-size: 12px;
+
+  >svg {
+    position: relative;
   }
+}
 
-  & &-close-btn {
-    margin-left: 4px;
-    font-size: 12px;
-
-    > svg {
-      position: relative;
-    }
-  }
-
-  & &-loading-icon {
-    margin-left: 4px;
-    font-size: 12px;
-  }
+& &-loading-icon {
+  margin-left: 4px;
+  font-size: 12px;
+}
 }
 
 @{arco-theme-tag}[gene-theme='dark'] {
@@ -168,4 +167,70 @@
       margin-left: 0;
     }
   }
+}
+
+// High contrast mode support
+@media (forced-colors: active) {
+  .@{tag-prefix-cls} {
+    forced-color-adjust: none;
+    background-color: ButtonFace;
+    border: 1px solid ButtonText;
+    color: ButtonText;
+
+    &:hover {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    &-checkable {
+      &:hover {
+        background-color: Highlight;
+        color: HighlightText;
+      }
+
+      &.@{tag-prefix-cls}-checked {
+        background-color: Highlight;
+        color: HighlightText;
+        border-color: HighlightText;
+
+        &:hover {
+          background-color: ButtonText;
+          color: ButtonFace;
+        }
+      }
+    }
+
+    &-close-btn {
+      color: ButtonText;
+
+      &:hover {
+        color: HighlightText;
+        background-color: Highlight;
+      }
+    }
+
+    // All color variants should have consistent high contrast styles
+    each(@colors, {
+      &-@{value} {
+        background-color: ButtonFace;
+        border-color: ButtonText;
+        color: ButtonText;
+
+        &:hover {
+          background-color: Highlight;
+          color: HighlightText;
+        }
+
+        &.@{tag-prefix-cls}-checkable.@{tag-prefix-cls}-checked {
+          background-color: Highlight;
+          color: HighlightText;
+
+          &:hover {
+            background-color: ButtonText;
+            color: ButtonFace;
+          }
+        }
+      }
+    });
+}
 }

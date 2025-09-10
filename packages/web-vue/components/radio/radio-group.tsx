@@ -191,8 +191,8 @@ export default defineComponent({
           {slots.label
             ? slots.label({ data: option })
             : isFunction(option.label)
-            ? option.label()
-            : option.label}
+              ? option.label()
+              : option.label}
         </Radio>
       ));
     };

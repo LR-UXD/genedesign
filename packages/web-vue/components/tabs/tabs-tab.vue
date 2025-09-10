@@ -45,7 +45,8 @@ export default defineComponent({
     };
 
     const onKeyDown = (ev: KeyboardEvent) => {
-      if (ev.key === 'Enter') {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
         handleClick(ev);
       }
     };

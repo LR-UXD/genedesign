@@ -54,4 +54,29 @@ describe('Tooltip', () => {
 
     expect(wrapper.emitted('popupVisibleChange')).toHaveLength(2);
   });
+
+  test('should show tooltip on focus and hide on blur', async () => {
+    const wrapper = mount(Tooltip, {
+      props: {
+        focusDelay: 0,
+        blurToClose: true,
+      },
+      slots: {
+        default: '<button>Button</button>',
+        content: 'Focus Content',
+      },
+    });
+
+    const button = wrapper.find('button');
+
+    // 测试焦点事件
+    await button.trigger('focusin');
+    expect(wrapper.emitted('popupVisibleChange')).toBeTruthy();
+    expect(wrapper.emitted('popupVisibleChange')![0]).toEqual([true]);
+
+    // 测试失焦事件  
+    await button.trigger('focusout');
+    expect(wrapper.emitted('popupVisibleChange')).toHaveLength(2);
+    expect(wrapper.emitted('popupVisibleChange')![1]).toEqual([false]);
+  });
 });

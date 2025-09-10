@@ -8,6 +8,7 @@ import {
   nextTick,
   toRef,
   toRefs,
+  getCurrentInstance,
 } from 'vue';
 import { getPrefixCls } from '../_utils/global-config';
 import IconHover from '../_components/icon-hover.vue';
@@ -102,6 +103,16 @@ export default defineComponent({
     const _checked = ref(props.defaultChecked);
 
     const isGroup = computed(() => radioGroupCtx?.name === 'ArcoRadioGroup');
+
+    // 为每个radio生成唯一的name，这样它们可以独立接收Tab焦点
+    const instance = getCurrentInstance();
+    const uniqueRadioName = computed(() => {
+      if (isGroup.value) {
+        return `${radioGroupCtx?.name || 'radio-group'}_${instance?.uid || Math.random()}`;
+      }
+      return `radio_${instance?.uid || Math.random()}`;
+    });
+
     const mergedType = computed(() => radioGroupCtx?.type ?? props.type);
     const mergedDisabled = computed(
       () => radioGroupCtx?.disabled || _mergedDisabled.value
@@ -172,6 +183,13 @@ export default defineComponent({
       });
     };
 
+    const handleKeyDown = (ev: KeyboardEvent) => {
+      if ((ev.key === 'Enter' || ev.key === ' ') && !mergedDisabled.value && !computedChecked.value) {
+        ev.preventDefault();
+        handleChange(ev);
+      }
+    };
+
     const cls = computed(() => [
       `${mergedType.value === 'button' ? `${prefixCls}-button` : prefixCls}`,
       {
@@ -199,14 +217,17 @@ export default defineComponent({
         <input
           ref={inputRef}
           type="radio"
+          name={uniqueRadioName.value}
           checked={computedChecked.value}
           value={props.value}
           class={`${prefixCls}-target`}
           disabled={mergedDisabled.value}
+          tabindex={mergedDisabled.value ? -1 : 0}
           onClick={handleClick}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onKeydown={handleKeyDown}
         />
         {mergedType.value === 'radio' ? (
           (slots.radio ?? radioGroupCtx?.slots?.radio)?.({
