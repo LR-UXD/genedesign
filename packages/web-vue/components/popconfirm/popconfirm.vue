@@ -1,52 +1,32 @@
 <template>
-  <trigger
-    :class="prefixCls"
-    trigger="click"
-    :position="position"
-    show-arrow
-    :popup-visible="computedPopupVisible"
-    :popup-offset="10"
-    :popup-container="popupContainer"
-    :content-class="contentCls"
-    :content-style="contentStyle"
-    :arrow-class="arrowCls"
-    :arrow-style="arrowStyle"
-    animation-name="zoom-in-fade-out"
-    auto-fit-transform-origin
-    @popup-visible-change="handlePopupVisibleChange"
-  >
+  <trigger :class="prefixCls" trigger="click" :position="position" show-arrow :popup-visible="computedPopupVisible"
+    :popup-offset="10" :popup-container="popupContainer" :content-class="contentCls" :content-style="contentStyle"
+    :arrow-class="arrowCls" :arrow-style="arrowStyle" animation-name="zoom-in-fade-out" auto-fit-transform-origin
+    @popup-visible-change="handlePopupVisibleChange">
     <slot />
     <template #content>
-      <div :class="`${prefixCls}-body`">
-        <span :class="`${prefixCls}-icon`">
-          <slot name="icon">
-            <icon-info-circle-fill v-if="type === 'info'" />
-            <icon-check-circle-fill v-else-if="type === 'success'" />
-            <icon-exclamation-circle-fill v-else-if="type === 'warning'" />
-            <icon-close-circle-fill v-else-if="type === 'error'" />
-          </slot>
-        </span>
-        <span :class="`${prefixCls}-content`">
-          <slot name="content">{{ content }}</slot>
-        </span>
-      </div>
-      <div :class="`${prefixCls}-footer`">
-        <arco-button
-          size="mini"
-          v-bind="cancelButtonProps"
-          @click="handleCancel"
-        >
-          {{ cancelText || t('popconfirm.cancelText') }}
-        </arco-button>
-        <arco-button
-          type="primary"
-          size="mini"
-          v-bind="okButtonProps"
-          :loading="mergedOkLoading"
-          @click="handleOk"
-        >
-          {{ okText || t('popconfirm.okText') }}
-        </arco-button>
+      <div ref="popupContentRef">
+        <div :class="`${prefixCls}-body`">
+          <span :class="`${prefixCls}-icon`">
+            <slot name="icon">
+              <icon-info-circle-fill v-if="type === 'info'" />
+              <icon-check-circle-fill v-else-if="type === 'success'" />
+              <icon-exclamation-circle-fill v-else-if="type === 'warning'" />
+              <icon-close-circle-fill v-else-if="type === 'error'" />
+            </slot>
+          </span>
+          <span :class="`${prefixCls}-content`">
+            <slot name="content">{{ content }}</slot>
+          </span>
+        </div>
+        <div :class="`${prefixCls}-footer`">
+          <arco-button size="mini" v-bind="cancelButtonProps" @click="handleCancel">
+            {{ cancelText || t('popconfirm.cancelText') }}
+          </arco-button>
+          <arco-button type="primary" size="mini" v-bind="okButtonProps" :loading="mergedOkLoading" @click="handleOk">
+            {{ okText || t('popconfirm.okText') }}
+          </arco-button>
+        </div>
       </div>
     </template>
   </trigger>
@@ -54,7 +34,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
-import { computed, CSSProperties, defineComponent, ref } from 'vue';
+import { computed, CSSProperties, defineComponent, ref, watch, nextTick, onUnmounted } from 'vue';
 import { getPrefixCls } from '../_utils/global-config';
 import type { MessageType, TriggerPosition } from '../_utils/constant';
 import IconInfoCircleFill from '../icon/icon-info-circle-fill';
@@ -244,7 +224,102 @@ export default defineComponent({
     const _okLoading = ref(false);
     const mergedOkLoading = computed(() => props.okLoading || _okLoading.value);
 
-    // Used to ignore closed Promises
+    // 焦点陷阱相关
+    const popupContentRef = ref<HTMLElement>();
+    let previousActiveElement: HTMLElement | null = null;
+
+    // 可聚焦元素选择器
+    const FOCUSABLE_SELECTOR = 'input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), a[href], [tabindex]:not([tabindex^="-"])';
+
+    // 获取可聚焦元素
+    const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
+      if (!container) return [];
+      const elements = container.querySelectorAll(FOCUSABLE_SELECTOR);
+      return Array.from(elements).filter((el) => {
+        const element = el as HTMLElement;
+        const style = window.getComputedStyle(element);
+        return (
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          element.offsetParent !== null
+        );
+      }) as HTMLElement[];
+    };
+
+    // 处理Tab 键导航
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!computedPopupVisible.value || !popupContentRef.value || event.key !== 'Tab') {
+        return;
+      }
+
+      const focusableElements = getFocusableElements(popupContentRef.value);
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement as HTMLElement;
+
+      // Shift + Tab (向前导航)
+      if (event.shiftKey) {
+        if (activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      }
+      // Tab (向后导航)
+      else if (activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    // 启用焦点陷阱
+    const enableFocusTrap = async () => {
+      if (!popupContentRef.value) return;
+      previousActiveElement = document.activeElement as HTMLElement;
+      await nextTick();
+      const focusableElements = getFocusableElements(popupContentRef.value);
+
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+
+      // 监听键盘事件
+      document.addEventListener('keydown', handleKeyDown, true);
+    };
+
+    // 禁用焦点陷阱
+    const disableFocusTrap = () => {
+      document.removeEventListener('keydown', handleKeyDown, true);
+
+      if (previousActiveElement) {
+        try {
+          previousActiveElement.focus();
+        } catch (error) {
+        }
+        previousActiveElement = null;
+      }
+    };
+
+    // 监听弹窗显示状态变化
+    watch(computedPopupVisible, (visible) => {
+      if (visible) {
+        setTimeout(() => {
+          enableFocusTrap();
+        }, 100);
+      } else {
+        disableFocusTrap();
+      }
+    });
+
+    onUnmounted(() => {
+      disableFocusTrap();
+    });
+
     let promiseNumber = 0;
 
     const close = () => {
@@ -335,6 +410,7 @@ export default defineComponent({
       handlePopupVisibleChange,
       handleOk,
       handleCancel,
+      popupContentRef,
       t,
     };
   },

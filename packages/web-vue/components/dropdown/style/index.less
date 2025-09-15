@@ -42,13 +42,14 @@
     cursor: pointer;
 
     // 键盘导航支持
-    &:focus,
+    // &:focus,
     &:focus-visible {
-      outline: 2px solid var(--color-primary-6);
+      outline: 2px solid @select-popup-option-color-border_focus;
       outline-offset: -2px;
-      background-color: @dropdown-option-color-bg_hover;
       color: @dropdown-option-color-text_hover;
+      // background-color: @dropdown-option-color-border_focus;
     }
+
 
     &-content {
       .text-ellipsis();
@@ -69,27 +70,43 @@
     @media (prefers-contrast: high) {
 
       &-active,
-      &:not(&-disabled):hover,
-      &:focus,
+      &:not(&-disabled):hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
+        forced-color-adjust: none;
+      }
+
       &:focus-visible {
-        outline: 2px solid currentColor;
+        outline: 2px solid Highlight !important;
         outline-offset: -2px;
-        background-color: HighlightText;
-        color: Highlight;
+      }
+
+      &-disabled {
+        color: GrayText !important;
       }
     }
 
     @media (forced-colors: active) {
 
       &-active,
-      &:not(&-disabled):hover,
-      &:focus,
-      &:focus-visible {
-        background-color: Highlight;
-        color: HighlightText;
+      &:not(&-disabled):hover {
+        background-color: Highlight !important;
+        color: HighlightText !important;
         forced-color-adjust: none;
       }
+
+      &:focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: -2px;
+      }
+
+      &-disabled {
+        color: GrayText !important;
+      }
     }
+
+
+
 
     // disabled
     &-disabled {

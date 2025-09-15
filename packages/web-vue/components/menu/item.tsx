@@ -136,7 +136,19 @@ export default defineComponent({
           },
         ]}
         {...this.$attrs}
+        tabindex={disabled ? -1 : 0}
+        role="menuitem"
+        aria-selected={isSelected}
+        aria-disabled={disabled}
         onClick={onClick}
+        onKeydown={(e: KeyboardEvent) => {
+          if (e.code === 'Enter' || e.code === 'Space') {
+            e.preventDefault();
+            if (!disabled) {
+              onClick(e as any);
+            }
+          }
+        }}
       >
         {/* 内容 */}
         {content}

@@ -9,24 +9,16 @@
 .icon-hover(@tree-node-prefix-cls, @tree-size-default-icon-size, @tree-size-expand-icon-bg_hover);
 
 .getLinePos(@size) {
-  top: (@size / 2) + (@tree-showline-size-switcher-icon / 2) +
-    @tree-showline-spacing-line-vertical;
-  bottom: min(
-    -((@size / 2) - (@tree-showline-size-switcher-icon / 2) -
-          @tree-showline-spacing-line-vertical),
-    0
-  );
+  top: (@size / 2) + (@tree-showline-size-switcher-icon / 2) + @tree-showline-spacing-line-vertical;
+  bottom: min(-((@size / 2) - (@tree-showline-size-switcher-icon / 2) - @tree-showline-spacing-line-vertical),
+      0);
 }
 
 .getIndentLinePos(@size) {
-  top: @tree-showline-spacing-line-vertical -
-    ((@size / 2) - (@tree-showline-size-switcher-icon / 2));
+  top: @tree-showline-spacing-line-vertical - ((@size / 2) - (@tree-showline-size-switcher-icon / 2));
   // 计算：距离上一节点的图标和下一节点的图标都是 @tree-showline-spacing-line-vertical
-  bottom: min(
-    -((@size / 2) - (@tree-showline-size-switcher-icon / 2) -
-          @tree-showline-spacing-line-vertical),
-    0
-  );
+  bottom: min(-((@size / 2) - (@tree-showline-size-switcher-icon / 2) - @tree-showline-spacing-line-vertical),
+      0);
 }
 
 .@{tree-node-prefix-cls} {
@@ -47,12 +39,23 @@
       position: relative;
       margin: 0 auto;
 
+      &:focus-visible {
+        outline: 2px solid @color-primary-6;
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+
       svg {
         position: relative;
         transform: rotate(-90deg);
-        transition: transform @transition-duration-2
-          @transition-timing-function-standard;
+        transition: transform @transition-duration-2 @transition-timing-function-standard;
       }
+    }
+
+    &-expanded:focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
+      z-index: 10;
     }
   }
 
@@ -89,6 +92,12 @@
     background: @tree-showline-color-plus-icon-bg;
     border-radius: @tree-showline-border-plus-icon-radius;
     cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
+      z-index: 10;
+    }
 
     &::after {
       position: absolute;
@@ -137,8 +146,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    padding-left: (@tree-size-expand-icon-bg_hover / 2) -
-      (@tree-size-default-icon-size / 2);
+    padding-left: (@tree-size-expand-icon-bg_hover / 2) - (@tree-size-default-icon-size / 2);
     color: @tree-color-title-text;
     line-height: @line-height-base;
     cursor: pointer;
@@ -146,12 +154,12 @@
     &-selected &-title,
     &-selected &-title:hover {
       color: @tree-color-title-text_active;
-      transition: color @transition-duration-2
-        @transition-timing-function-linear;
+      transition: color @transition-duration-2 @transition-timing-function-linear;
     }
 
     &-disabled-selectable,
     &-disabled {
+
       .@{tree-node-prefix-cls}-title,
       .@{tree-node-prefix-cls}-title:hover {
         color: @tree-color-title-text_disabled;
@@ -199,11 +207,7 @@
     display: flex;
     align-items: center;
     margin-left: -@tree-padding-title-horizontal;
-    padding: (
-        round((@tree-size-default-line-height - @line-height-base * $font-size)) /
-          2
-      )
-      0;
+    padding: (round((@tree-size-default-line-height - @line-height-base * $font-size)) / 2) 0;
     padding-right: @tree-padding-title-horizontal;
     padding-left: @tree-padding-title-horizontal;
     font-size: @tree-size-default-font-size;
@@ -217,6 +221,12 @@
       .@{tree-node-prefix-cls}-drag-icon {
         opacity: 1;
       }
+    }
+
+    &:focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
+      z-index: 10;
     }
 
     // &-draggable {
@@ -257,8 +267,7 @@
 
   // show line
   &-show-line {
-    padding-left: (@tree-size-expand-icon-bg_hover / 2) -
-      (@tree-showline-size-switcher-icon / 2);
+    padding-left: (@tree-size-expand-icon-bg_hover / 2) - (@tree-showline-size-switcher-icon / 2);
 
     .@{tree-prefix-cls}-node-switcher {
       width: @tree-showline-size-switcher-icon;
@@ -278,22 +287,19 @@
       left: 50%;
       box-sizing: border-box;
       width: @tree-showline-size-line-width;
-      border-left: @tree-showline-size-line-width @tree-showline-style-line
-        @tree-showline-color-line-bg;
+      border-left: @tree-showline-size-line-width @tree-showline-style-line @tree-showline-color-line-bg;
       transform: translateX(-50%);
       content: '';
 
       .getIndentLinePos(@tree-size-default-line-height);
     }
 
-    .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail)
-      .@{tree-prefix-cls}-node-indent::after {
+    .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail) .@{tree-prefix-cls}-node-indent::after {
       position: absolute;
       right: -(@tree-showline-size-switcher-icon / 2);
       box-sizing: border-box;
       width: @tree-showline-size-line-width;
-      border-left: @tree-showline-size-line-width @tree-showline-style-line
-        @tree-showline-color-line-bg;
+      border-left: @tree-showline-size-line-width @tree-showline-style-line @tree-showline-color-line-bg;
       transform: translateX(50%);
       content: '';
 
@@ -318,9 +324,7 @@
   }
 
   .@{tree-prefix-cls}-node-title {
-    padding-top: (
-      round((@tree-size-mini-line-height - $line-height * $font-size)) / 2
-    );
+    padding-top: (round((@tree-size-mini-line-height - $line-height * $font-size)) / 2);
     padding-bottom: $padding-top;
     font-size: @tree-size-mini-font-size;
     line-height: 1.667;
@@ -330,8 +334,7 @@
     .getLinePos(@tree-size-mini-line-height);
   }
 
-  .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail)
-    .@{tree-prefix-cls}-node-indent::before {
+  .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail) .@{tree-prefix-cls}-node-indent::before {
     .getIndentLinePos(@tree-size-mini-line-height);
   }
 }
@@ -346,9 +349,7 @@
   }
 
   .@{tree-prefix-cls}-node-title {
-    padding-top: (
-      round((@tree-size-small-line-height - @line-height-base * $font-size)) / 2
-    );
+    padding-top: (round((@tree-size-small-line-height - @line-height-base * $font-size)) / 2);
     padding-bottom: $padding-top;
     font-size: @tree-size-small-font-size;
   }
@@ -357,8 +358,7 @@
     .getLinePos(@tree-size-small-line-height);
   }
 
-  .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail)
-    .@{tree-prefix-cls}-node-indent::before {
+  .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail) .@{tree-prefix-cls}-node-indent::before {
     .getIndentLinePos(@tree-size-small-line-height);
   }
 }
@@ -373,9 +373,7 @@
   }
 
   .@{tree-prefix-cls}-node-title {
-    padding-top: (
-      round((@tree-size-large-line-height - @line-height-base * $font-size)) / 2
-    );
+    padding-top: (round((@tree-size-large-line-height - @line-height-base * $font-size)) / 2);
     padding-bottom: $padding-top;
     font-size: @tree-size-large-font-size;
   }
@@ -384,8 +382,7 @@
     .getLinePos(@tree-size-large-line-height);
   }
 
-  .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail)
-    .@{tree-prefix-cls}-node-indent::before {
+  .@{tree-prefix-cls}-node-is-leaf:not(.@{tree-prefix-cls}-node-is-tail) .@{tree-prefix-cls}-node-indent::before {
     .getIndentLinePos(@tree-size-large-line-height);
   }
 }

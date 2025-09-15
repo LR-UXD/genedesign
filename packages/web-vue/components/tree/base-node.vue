@@ -2,38 +2,25 @@
   <div :class="classNames" :data-level="level" :data-key="nodekey">
     <!-- 缩进 -->
     <span :class="`${prefixCls}-indent`">
-      <span
-        v-for="i in level"
-        :key="i"
-        :class="[
-          `${prefixCls}-indent-block`,
-          {
-            [`${prefixCls}-indent-block-lineless`]: lineless[i - 1],
-          },
-        ]"
-      />
+      <span v-for="i in level" :key="i" :class="[
+        `${prefixCls}-indent-block`,
+        {
+          [`${prefixCls}-indent-block-lineless`]: lineless[i - 1],
+        },
+      ]" />
     </span>
     <!-- switcher -->
-    <span
-      :class="[
-        `${prefixCls}-switcher`,
-        {
-          [`${prefixCls}-switcher-expanded`]: expanded,
-        },
-      ]"
-    >
-      <NodeSwitcher
-        :prefix-cls="prefixCls"
-        :loading="loading"
-        :show-line="showLine"
-        :tree-node-data="treeNodeData"
+    <span :class="[
+      `${prefixCls}-switcher`,
+      {
+        [`${prefixCls}-switcher-expanded`]: expanded,
+      },
+    ]">
+      <NodeSwitcher :prefix-cls="prefixCls" :loading="loading" :show-line="showLine" :tree-node-data="treeNodeData"
         :icons="{
           switcherIcon,
           loadingIcon,
-        }"
-        :node-status="nodeStatus"
-        @click="onSwitcherClick"
-      >
+        }" :node-status="nodeStatus" @click="onSwitcherClick">
         <template v-if="$slots['switcher-icon']" #switcher-icon>
           <!-- @slot 定制 switcher 图标，会覆盖 Tree 的配置 -->
           <slot name="switcher-icon" />
@@ -45,71 +32,31 @@
       </NodeSwitcher>
     </span>
     <!-- checkbox -->
-    <Checkbox
-      v-if="checkable"
-      :disabled="disableCheckbox || disabled"
-      :model-value="checked"
-      :indeterminate="indeterminate"
-      uninject-group-context
-      @change="onCheckboxChange"
-    />
+    <Checkbox v-if="checkable" :disabled="disableCheckbox || disabled" :model-value="checked"
+      :indeterminate="indeterminate" uninject-group-context @change="onCheckboxChange" />
 
     <!-- 内容 -->
-    <span
-      ref="refTitle"
-      :class="titleClassNames"
-      :draggable="draggable"
-      @dragstart="onDragStart"
-      @dragend="onDragEnd"
-      @dragover="onDragOver"
-      @dragleave="onDragLeave"
-      @drop="onDrop"
-      @click="onTitleClick"
-    >
-      <span
-        v-if="$slots.icon || icon || treeNodeIcon"
-        :class="[`${prefixCls}-icon`, `${prefixCls}-custom-icon`]"
-      >
+    <span ref="refTitle" :class="titleClassNames" :draggable="draggable" :tabindex="disabled ? -1 : 0" role="treeitem"
+      :aria-expanded="isLeaf ? undefined : expanded" :aria-selected="selected" :aria-disabled="disabled"
+      :aria-level="level + 1" @dragstart="onDragStart" @dragend="onDragEnd" @dragover="onDragOver"
+      @dragleave="onDragLeave" @drop="onDrop" @click="onTitleClick" @keydown="onKeyDown">
+      <span v-if="$slots.icon || icon || treeNodeIcon" :class="[`${prefixCls}-icon`, `${prefixCls}-custom-icon`]">
         <!-- 节点图标 -->
         <slot v-if="$slots.icon" name="icon" v-bind="nodeStatus" />
-        <RenderFunction
-          v-else-if="icon"
-          :render-func="icon"
-          v-bind="nodeStatus"
-        />
-        <RenderFunction
-          v-else-if="treeNodeIcon"
-          :render-func="treeNodeIcon"
-          :node="treeNodeData"
-          v-bind="nodeStatus"
-        />
+        <RenderFunction v-else-if="icon" :render-func="icon" v-bind="nodeStatus" />
+        <RenderFunction v-else-if="treeNodeIcon" :render-func="treeNodeIcon" :node="treeNodeData" v-bind="nodeStatus" />
       </span>
       <span :class="`${prefixCls}-title-text`">
         <RenderFunction v-if="treeTitle" :render-func="treeTitle" />
         <!-- 标题，treeTitle 优先级高于节点的 title -->
         <slot v-else name="title" :title="title">{{ title }}</slot>
 
-        <span
-          v-if="draggable"
-          :class="[`${prefixCls}-icon`, `${prefixCls}-drag-icon`]"
-        >
+        <span v-if="draggable" :class="[`${prefixCls}-icon`, `${prefixCls}-drag-icon`]">
           <!-- 拖拽图标 -->
-          <slot
-            v-if="$slots['drag-icon']"
-            name="drag-icon"
-            v-bind="nodeStatus"
-          />
-          <RenderFunction
-            v-else-if="dragIcon"
-            :render-func="dragIcon"
-            v-bind="nodeStatus"
-          />
-          <RenderFunction
-            v-else-if="treeDragIcon"
-            :render-func="treeDragIcon"
-            :node="treeNodeData"
-            v-bind="nodeStatus"
-          />
+          <slot v-if="$slots['drag-icon']" name="drag-icon" v-bind="nodeStatus" />
+          <RenderFunction v-else-if="dragIcon" :render-func="dragIcon" v-bind="nodeStatus" />
+          <RenderFunction v-else-if="treeDragIcon" :render-func="treeDragIcon" :node="treeNodeData"
+            v-bind="nodeStatus" />
           <IconDragDotVertical v-else />
         </span>
       </span>
@@ -347,6 +294,34 @@ export default defineComponent({
         }
         if (!selectable.value || disabled.value) return;
         treeContext.onSelect?.(key.value, e);
+      },
+      onKeyDown(e: KeyboardEvent) {
+        if (disabled.value) return;
+
+        switch (e.key) {
+          case 'Enter':
+          case ' ':
+            e.preventDefault();
+            if (selectable.value && !disabled.value) {
+              treeContext.onSelect?.(key.value, e);
+            }
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            if (!isLeaf.value && !expanded.value) {
+              onSwitcherClick(e);
+            }
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            if (!isLeaf.value && expanded.value) {
+              onSwitcherClick(e);
+            }
+            break;
+          default:
+            // Do nothing for other keys
+            break;
+        }
       },
       onSwitcherClick,
       onDragStart(e: DragEvent) {

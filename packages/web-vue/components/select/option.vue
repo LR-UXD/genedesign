@@ -187,8 +187,6 @@ export default defineComponent({
     };
 
     const handleMouseEnter = () => {
-      // eslint-disable-next-line no-console
-      console.log('11')
       if (!props.disabled) {
         selectCtx?.setActiveKey(key.value, false); // false 表示非键盘导航
       }

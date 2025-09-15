@@ -102,7 +102,7 @@ export default defineComponent({
       const href =
         props.customUrl?.(paths) ?? `#/${paths.join('/').replace(/^\//, '')}`;
 
-      return <a href={href}>{route.label}</a>;
+      return <a-link href={href}>{route.label}</a-link>;
     };
 
     const renderByRoutes = () => {

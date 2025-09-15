@@ -85,8 +85,8 @@ export default defineComponent({
     if (!isLeaf) {
       const defaultIcon = showLine
         ? h('span', {
-            class: `${prefixCls}-${expanded ? 'minus' : 'plus'}-icon`,
-          })
+          class: `${prefixCls}-${expanded ? 'minus' : 'plus'}-icon`,
+        })
         : h(IconCaretDown);
       icon = getSwitcherIcon() ?? defaultIcon;
       needIconHover = !showLine;
@@ -98,17 +98,30 @@ export default defineComponent({
 
     const content = h(
       'span',
-      { class: `${prefixCls}-switcher-icon`, onClick },
+      {
+        class: `${prefixCls}-switcher-icon`,
+        tabindex: isLeaf ? -1 : 0,
+        role: 'button',
+        'aria-expanded': isLeaf ? undefined : expanded,
+        'aria-label': isLeaf ? undefined : (expanded ? 'Collapse' : 'Expand'),
+        onClick,
+        onKeydown: (e: KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick(e);
+          }
+        }
+      },
       icon
     );
     return needIconHover
       ? h(
-          IconHover,
-          {
-            class: `${prefixCls}-icon-hover`,
-          },
-          () => content
-        )
+        IconHover,
+        {
+          class: `${prefixCls}-icon-hover`,
+        },
+        () => content
+      )
       : content;
   },
 });

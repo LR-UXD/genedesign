@@ -1,15 +1,13 @@
 <template>
   <div :class="classNames">
-    <div
-      :class="[
-        `${prefixCls}-header`,
-        {
-          [`${menuPrefixCls}-selected`]: isSelected,
-          [`${menuPrefixCls}-has-icon`]: $slots.icon,
-        },
-      ]"
-      @click="onHeaderClick"
-    >
+    <div :class="[
+      `${prefixCls}-header`,
+      {
+        [`${menuPrefixCls}-selected`]: isSelected,
+        [`${menuPrefixCls}-has-icon`]: $slots.icon,
+      },
+    ]" tabindex="0" role="menuitem" :aria-expanded="isOpen" :aria-selected="isSelected" @click="onHeaderClick"
+      @keydown="onKeydown">
       <MenuIndent :level="level" />
       <template v-if="$slots.icon">
         <span :class="`${menuPrefixCls}-icon`">
@@ -22,14 +20,12 @@
       <template v-else>
         <slot name="title">{{ title }}</slot>
       </template>
-      <span
-        :class="[
-          `${menuPrefixCls}-icon-suffix`,
-          {
-            [`is-open`]: isOpen,
-          },
-        ]"
-      >
+      <span :class="[
+        `${menuPrefixCls}-icon-suffix`,
+        {
+          [`is-open`]: isOpen,
+        },
+      ]">
         <slot name="expand-icon-down" />
       </span>
     </div>
@@ -87,6 +83,13 @@ export default defineComponent({
       onHeaderClick: () => {
         menuContext.onSubMenuClick &&
           menuContext.onSubMenuClick(key.value, level.value);
+      },
+      onKeydown: (e: KeyboardEvent) => {
+        if (e.code === 'Enter' || e.code === 'Space') {
+          e.preventDefault();
+          menuContext.onSubMenuClick &&
+            menuContext.onSubMenuClick(key.value, level.value);
+        }
       },
     };
   },

@@ -1,19 +1,9 @@
 <template>
   <div :class="cls">
-    <transfer-view
-      type="source"
-      :class="`${prefixCls}-view-source`"
-      :title="sourceTitle"
-      :data-info="dataInfo.sourceInfo"
-      :data="dataInfo.sourceInfo.data"
-      :disabled="mergedDisabled"
-      :selected="computedSelected"
-      :show-search="showSearch"
-      :show-select-all="showSelectAll"
-      :simple="simple"
-      :input-search-props="sourceInputSearchProps"
-      @search="handleSearch"
-    >
+    <transfer-view type="source" :class="`${prefixCls}-view-source`" :title="sourceTitle"
+      :data-info="dataInfo.sourceInfo" :data="dataInfo.sourceInfo.data" :disabled="mergedDisabled"
+      :selected="computedSelected" :show-search="showSearch" :show-select-all="showSelectAll" :simple="simple"
+      :input-search-props="sourceInputSearchProps" @search="handleSearch">
       <template v-if="$slots.source" #default="slotData">
         <slot name="source" v-bind="slotData" />
       </template>
@@ -22,47 +12,23 @@
       </template>
     </transfer-view>
     <div v-if="!simple" :class="[`${prefixCls}-operations`]">
-      <arco-button
-        tabindex="-1"
-        aria-label="Move selected right"
-        size="small"
-        shape="round"
-        :disabled="dataInfo.sourceInfo.validSelected.length === 0"
-        @click="handleClick('target')"
-      >
+      <arco-button aria-label="Move selected right" size="small" shape="round"
+        :disabled="dataInfo.sourceInfo.validSelected.length === 0" @click="handleClick('target')">
         <template #icon>
           <slot name="to-target-icon"> <icon-right /> </slot>
         </template>
       </arco-button>
-      <arco-button
-        v-if="!oneWay"
-        tabindex="-1"
-        aria-label="Move selected left"
-        size="small"
-        shape="round"
-        :disabled="dataInfo.targetInfo.validSelected.length === 0"
-        @click="handleClick('source')"
-      >
+      <arco-button v-if="!oneWay" aria-label="Move selected left" size="small" shape="round"
+        :disabled="dataInfo.targetInfo.validSelected.length === 0" @click="handleClick('source')">
         <template #icon>
           <slot name="to-source-icon"><icon-left /></slot>
         </template>
       </arco-button>
     </div>
-    <transfer-view
-      type="target"
-      :class="`${prefixCls}-view-target`"
-      :title="targetTitle"
-      :data-info="dataInfo.targetInfo"
-      :data="dataInfo.targetInfo.data"
-      :disabled="mergedDisabled"
-      :selected="computedSelected"
-      :allow-clear="oneWay"
-      :show-search="showSearch"
-      :show-select-all="showSelectAll"
-      :simple="simple"
-      :input-search-props="targetInputSearchProps"
-      @search="handleSearch"
-    >
+    <transfer-view type="target" :class="`${prefixCls}-view-target`" :title="targetTitle"
+      :data-info="dataInfo.targetInfo" :data="dataInfo.targetInfo.data" :disabled="mergedDisabled"
+      :selected="computedSelected" :allow-clear="oneWay" :show-search="showSearch" :show-select-all="showSelectAll"
+      :simple="simple" :input-search-props="targetInputSearchProps" @search="handleSearch">
       <template v-if="$slots.target" #default="slotData">
         <slot name="target" v-bind="slotData" />
       </template>

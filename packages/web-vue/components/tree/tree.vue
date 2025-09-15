@@ -1,24 +1,12 @@
 <template>
-  <div :class="classNames">
-    <VirtualList
-      v-if="virtualListProps"
-      ref="virtualListRef"
-      v-bind="virtualListProps"
-      :data="visibleTreeNodeList"
-    >
+  <div :class="classNames" role="tree" :aria-multiselectable="multiple">
+    <VirtualList v-if="virtualListProps" ref="virtualListRef" v-bind="virtualListProps" :data="visibleTreeNodeList">
       <template #item="{ item: node }">
-        <TreeNode
-          :key="`${searchValue}-${node.key}`"
-          v-bind="node.treeNodeProps"
-        />
+        <TreeNode :key="`${searchValue}-${node.key}`" v-bind="node.treeNodeProps" />
       </template>
     </VirtualList>
     <template v-else>
-      <TreeNode
-        v-for="node in visibleTreeNodeList"
-        :key="node.key"
-        v-bind="node.treeNodeProps"
-      />
+      <TreeNode v-for="node in visibleTreeNodeList" :key="node.key" v-bind="node.treeNodeProps" />
     </template>
   </div>
 </template>
@@ -103,12 +91,12 @@ export default defineComponent({
       type: [Boolean, String, Function] as PropType<
         | boolean
         | ((
-            node: TreeNodeData,
-            info: {
-              level: number;
-              isLeaf: boolean;
-            }
-          ) => boolean)
+          node: TreeNodeData,
+          info: {
+            level: number;
+            isLeaf: boolean;
+          }
+        ) => boolean)
       >,
       default: false,
     },
@@ -120,12 +108,12 @@ export default defineComponent({
       type: [Boolean, Function] as PropType<
         | boolean
         | ((
-            node: TreeNodeData,
-            info: {
-              level: number;
-              isLeaf: boolean;
-            }
-          ) => boolean)
+          node: TreeNodeData,
+          info: {
+            level: number;
+            isLeaf: boolean;
+          }
+        ) => boolean)
       >,
       default: true,
     },
@@ -880,28 +868,28 @@ export default defineComponent({
     const onLoadMore = computed(() =>
       loadMore?.value
         ? async (key: TreeNodeKey) => {
-            if (!isFunction(loadMore.value)) return;
+          if (!isFunction(loadMore.value)) return;
 
-            const node = key2TreeNode.value.get(key);
-            if (!node) return;
+          const node = key2TreeNode.value.get(key);
+          if (!node) return;
 
-            const { treeNodeData } = node;
+          const { treeNodeData } = node;
 
-            loadingKeys.value = [...new Set([...loadingKeys.value, key])];
+          loadingKeys.value = [...new Set([...loadingKeys.value, key])];
 
-            try {
-              await loadMore.value(treeNodeData);
-              loadingKeys.value = loadingKeys.value.filter((v) => v !== key);
-              onExpand(true, key);
-              if (checkedKeys.value.includes(key)) {
-                onCheck(true, key);
-              }
-            } catch (err) {
-              loadingKeys.value = loadingKeys.value.filter((v) => v !== key);
-              // eslint-disable-next-line no-console
-              console.error('[tree]load data error: ', err);
+          try {
+            await loadMore.value(treeNodeData);
+            loadingKeys.value = loadingKeys.value.filter((v) => v !== key);
+            onExpand(true, key);
+            if (checkedKeys.value.includes(key)) {
+              onCheck(true, key);
             }
+          } catch (err) {
+            loadingKeys.value = loadingKeys.value.filter((v) => v !== key);
+            // eslint-disable-next-line no-console
+            console.error('[tree]load data error: ', err);
           }
+        }
         : undefined
     );
 
@@ -1090,9 +1078,9 @@ export default defineComponent({
       const { key2TreeNode } = this.treeContext;
       const newKeys = checked
         ? [...key2TreeNode.keys()].filter((key) => {
-            const node = key2TreeNode.get(key);
-            return node && isNodeCheckable(node);
-          })
+          const node = key2TreeNode.get(key);
+          return node && isNodeCheckable(node);
+        })
         : [];
       this.internalSetCheckedKeys(newKeys);
     },
@@ -1134,9 +1122,9 @@ export default defineComponent({
       const { key2TreeNode } = this.treeContext;
       const newKeys = selected
         ? [...key2TreeNode.keys()].filter((key) => {
-            const node = key2TreeNode.get(key);
-            return node && isNodeSelectable(node);
-          })
+          const node = key2TreeNode.get(key);
+          return node && isNodeSelectable(node);
+        })
         : [];
 
       this.internalSetSelectedKeys(newKeys);
@@ -1169,9 +1157,9 @@ export default defineComponent({
       const { key2TreeNode } = this.treeContext;
       const newKeys = expanded
         ? [...key2TreeNode.keys()].filter((key) => {
-            const node = key2TreeNode.get(key);
-            return node && isNodeExpandable(node);
-          })
+          const node = key2TreeNode.get(key);
+          return node && isNodeExpandable(node);
+        })
         : [];
 
       this.internalSetExpandedKeys(newKeys);

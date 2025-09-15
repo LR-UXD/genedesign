@@ -17,8 +17,7 @@
   &-character {
     position: relative;
     color: @rate-color-bg_default;
-    transition: transform @transition-duration-2
-      @transition-timing-function-standard;
+    transition: transform @transition-duration-2 @transition-timing-function-standard;
 
     &:not(:last-child) {
       margin-right: @rate-gap-size;
@@ -29,7 +28,7 @@
       transition: inherit;
 
       // float 消除 inline-block 导致的父元素被多撑开几个像素
-      > * {
+      >* {
         float: left;
       }
     }
@@ -45,7 +44,7 @@
     }
 
     &-scale {
-      animation: ~'@{prefix}-rate-scale' @transition-duration-4 @transition-timing-function-standard;
+      animation:~'@{prefix}-rate-scale'@transition-duration-4 @transition-timing-function-standard;
     }
 
     &-full &-right {
@@ -68,6 +67,20 @@
     &:hover,
     &:focus {
       transform: scale(@rate-scale_active);
+    }
+
+    // 为每个星级添加焦点样式
+    &:focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
+      border-radius: @border-radius-circle;
+    }
+
+    &-left:focus-visible,
+    &-right:focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
+      border-radius: @border-radius-circle;
     }
   }
 }

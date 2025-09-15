@@ -19,7 +19,7 @@
     line-height: @breadcrumb-size-text-height;
     vertical-align: middle;
 
-    > .@{prefix}-icon {
+    >.@{prefix}-icon {
       color: @breadcrumb-color-icon;
     }
 
@@ -61,6 +61,13 @@
 
     &-with-dropdown {
       cursor: pointer;
+    }
+
+    &-with-dropdown:focus-visible {
+      outline: 2px solid @breadcrumb-color-border_focus;
+      outline-offset: 2px;
+      border-radius: @breadcrumb-border-text-radius_hover;
+
     }
 
     &-dropdown-icon {

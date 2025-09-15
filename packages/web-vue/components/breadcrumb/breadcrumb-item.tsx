@@ -98,25 +98,41 @@ export default defineComponent({
       );
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((props.droplist || slots.droplist) && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        handleVisibleChange(!dropdownVisible.value);
+      }
+    };
+
     const renderItem = () => {
+      const hasDropdown = props.droplist || slots.droplist;
+
       return (
         <div
           role="listitem"
           class={[
             prefixCls,
             {
-              [`${prefixCls}-with-dropdown`]: props.droplist || slots.droplist,
+              [`${prefixCls}-with-dropdown`]: hasDropdown,
             },
           ]}
           {...(displayMore.value
             ? { 'aria-label': 'ellipses of breadcrumb items' }
             : undefined)}
+          {...(hasDropdown ? {
+            tabindex: 0,
+            role: 'button',
+            'aria-expanded': dropdownVisible.value,
+            'aria-haspopup': 'true',
+            onKeydown: handleKeyDown
+          } : undefined)}
           {...attrs}
         >
           {displayMore.value
             ? breadcrumbCtx?.slots['more-icon']?.() ?? <IconMore />
             : slots.default?.()}
-          {(props.droplist || slots.droplist) && (
+          {hasDropdown && (
             <span
               aria-hidden
               class={[

@@ -36,6 +36,7 @@
     margin-bottom: 0;
     padding-left: 0;
     list-style: none;
+    padding: 0 2px;
 
     &-wrapper {
       max-height: @select-popup-max-height;
@@ -100,7 +101,9 @@
 
     &-keyboard-focus {
       background-color: transparent;
-      border: 1px solid @select-popup-option-color-border_focus;
+      // border: 2px solid @select-popup-option-color-border_focus;
+      outline: 2px solid @select-popup-option-color-border_focus;
+      outline-offset: -2px;
     }
 
     // disabled

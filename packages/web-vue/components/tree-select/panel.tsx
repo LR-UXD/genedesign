@@ -1,4 +1,12 @@
-import { computed, defineComponent, PropType, ref, toRefs, Slots } from 'vue';
+import {
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+  Slots,
+  nextTick,
+} from 'vue';
 import Tree from '../tree';
 import { TreeProps, TreeNodeKey } from '../tree/interface';
 import { useScrollbar } from '../_hooks/use-scrollbar';
@@ -59,6 +67,48 @@ export default defineComponent({
       emit('change', newVal);
     };
 
+    // 添加焦点管理方法
+    const focusToTree = () => {
+      nextTick(() => {
+        if (refTree.value?.$el) {
+          // 尝试多种方式找到可聚焦的元素
+          let focusableElement = null;
+
+          // 方法1：尝试找到树节点
+          focusableElement = refTree.value.$el.querySelector('[role="treeitem"]');
+
+          // 方法2：尝试找到有 tabindex 的元素
+          if (!focusableElement) {
+            focusableElement = refTree.value.$el.querySelector('[tabindex="0"], [tabindex="-1"]');
+          }
+
+          // 方法3：尝试找到树的根节点
+          if (!focusableElement) {
+            focusableElement = refTree.value.$el.querySelector('.arco-tree');
+          }
+
+          // 方法4：尝试找到任何可聚焦的元素
+          if (!focusableElement) {
+            focusableElement = refTree.value.$el.querySelector('div, span, ul, li');
+            // eslint-disable-next-line no-console
+            console.log('Method 4 - any element:', focusableElement);
+          }
+
+          if (focusableElement) {
+            // 确保元素有 tabindex
+            if (!focusableElement.getAttribute('tabindex')) {
+              focusableElement.setAttribute('tabindex', '0');
+            }
+            focusableElement.focus();
+          } else {
+            // 最后的备选方案：聚焦到整个树容器
+            refTree.value.$el.setAttribute('tabindex', '0');
+            refTree.value.$el.focus();
+          }
+        }
+      });
+    };
+
     const renderTree = () => {
       return (
         <Tree
@@ -72,18 +122,31 @@ export default defineComponent({
       );
     };
 
-    return () => {
-      if (displayScrollbar.value) {
-        return (
-          <Scrollbar
-            class={`${prefixCls}-tree-wrapper`}
-            {...scrollbarProps.value}
-          >
-            {renderTree()}
-          </Scrollbar>
-        );
-      }
-      return <div class={`${prefixCls}-tree-wrapper`}>{renderTree()}</div>;
+    return {
+      focusToTree,
+      render: () => {
+        if (displayScrollbar.value) {
+          return (
+            <Scrollbar
+              class={`${prefixCls}-tree-wrapper`}
+              {...scrollbarProps.value}
+            >
+              {renderTree()}
+            </Scrollbar>
+          );
+        }
+        return <div class={`${prefixCls}-tree-wrapper`}>{renderTree()}</div>;
+      },
     };
+  },
+  methods: {
+    focus() {
+      // @ts-ignore
+      this.focusToTree?.();
+    },
+  },
+  render() {
+    // @ts-ignore
+    return this.render();
   },
 });

@@ -591,6 +591,13 @@ export default defineComponent({
       }
       // 如果触发方式包含 click 且当前弹出框可见，失焦时关闭
       if (triggerMethods.value.includes('click') && computedVisible.value) {
+        const { relatedTarget } = e;
+        if (relatedTarget && popupRef.value?.contains(relatedTarget as HTMLElement)) {
+          return;
+        }
+        if (relatedTarget && firstElement.value?.contains(relatedTarget as HTMLElement)) {
+          return;
+        }
         changeVisible(false);
       }
     };

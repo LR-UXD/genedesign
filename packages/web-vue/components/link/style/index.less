@@ -21,6 +21,11 @@
     background-color: @link-color-bg_hover;
   }
 
+  &:focus-visible {
+    outline: 2px solid @color-primary-6;
+    outline-offset: 2px;
+  }
+
   &:active {
     color: @link-color-text_active;
     background-color: @link-color-bg_active;
@@ -117,4 +122,13 @@
     font-size: @link-size-icon;
     vertical-align: middle;
   }
+}
+
+@media (forced-colors: active) {
+  .@{link-prefix-cls} {
+    &:not(&-disabled) {
+      color: highLight !important;
+    }
+  }
+
 }

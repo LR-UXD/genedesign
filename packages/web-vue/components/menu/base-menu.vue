@@ -1,13 +1,11 @@
 <template>
-  <div :class="classNames" v-bind="$attrs" :style="computedStyle">
+  <div :class="classNames" v-bind="$attrs" :style="computedStyle" :role="isRoot ? 'menubar' : 'menu'">
     <div :class="`${computedPrefixCls}-inner`">
       <slot />
     </div>
-    <div
-      v-if="computedHasCollapseButton"
-      :class="`${computedPrefixCls}-collapse-button`"
-      @click="onCollapseBtnClick"
-    >
+    <div v-if="computedHasCollapseButton" :class="`${computedPrefixCls}-collapse-button`" tabindex="0" role="button"
+      :aria-label="computedCollapsed ? '展开菜单' : '收起菜单'" :aria-expanded="!computedCollapsed" @click="onCollapseBtnClick"
+      @keydown="onCollapseKeydown">
       <slot name="collapse-icon" :collapsed="computedCollapsed">
         <IconMenuUnfold v-if="computedCollapsed" />
         <IconMenuFold v-else />
@@ -425,6 +423,12 @@ export default defineComponent({
       computedCollapsed,
       computedHasCollapseButton,
       onCollapseBtnClick,
+      onCollapseKeydown: (e: KeyboardEvent) => {
+        if (e.code === 'Enter' || e.code === 'Space') {
+          e.preventDefault();
+          onCollapseBtnClick();
+        }
+      },
     };
   },
 });

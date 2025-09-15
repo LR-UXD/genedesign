@@ -60,10 +60,12 @@
     }
 
     &:focus-visible {
-      color: @pagination-color-item-text_hover;
-      background-color: @pagination-color-bg-item_hover;
-      border-color: @pagination-color-item-border_hover;
-      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
+      // color: @pagination-color-item-text_hover;
+      // background-color: @pagination-color-bg-item_hover;
+      // border-color: @pagination-color-item-border_hover;
+      // box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
     }
 
     &-active,
@@ -75,9 +77,9 @@
         background-color @transition-duration-2 @transition-timing-function-linear;
     }
 
-    &-active:focus-visible {
-      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-2');
-    }
+    // &-active:focus-visible {
+    //   box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-2');
+    // }
 
     &-disabled,
     &-disabled:hover {
@@ -110,7 +112,7 @@
     &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
       color: @pagination-color-icon-arrow-text_hover;
       background-color: @pagination-color-icon-arrow-bg_hover;
-      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
+      // box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
     }
 
     // 解决少数情况下出现的图标不垂直水平剧中的 bug
@@ -243,7 +245,7 @@
     &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
       color: @pagination-simple-color-icon-arrow-text_hover;
       background-color: @pagination-simple-color-icon-arrow-bg_hover;
-      box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
+      // box-shadow: 0 0 0 2px var(~'@{arco-cssvars-prefix}-color-primary-light-3');
     }
   }
 
@@ -477,23 +479,23 @@
       border: 1px solid ButtonBorder !important;
 
       &:hover {
-        background-color: Highlight !important;
-        color: HighlightText !important;
-        border-color: HighlightText !important;
+        border-color: Highlight !important;
       }
 
       &:focus-visible {
         outline: 2px solid Highlight !important;
         outline-offset: 2px !important;
+      }
+
+      &-active,
+      &-active:focus-visible {
         background-color: Highlight !important;
         color: HighlightText !important;
         border-color: HighlightText !important;
       }
 
-      &-active,
-      &-active:hover,
-      &-active:focus-visible {
-        background-color: Highlight !important;
+      &-active:hover {
+        background-color: ButtonBorder !important;
         color: HighlightText !important;
         border-color: HighlightText !important;
       }
@@ -514,17 +516,15 @@
       border: 1px solid ButtonBorder !important;
 
       &:not(.@{pagination-prefix-cls}-item-disabled):hover {
-        color: HighlightText !important;
-        background-color: Highlight !important;
-        border-color: HighlightText !important;
+        border-color: Highlight !important;
       }
 
       &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
         outline: 2px solid Highlight !important;
         outline-offset: 2px !important;
-        color: HighlightText !important;
-        background-color: Highlight !important;
-        border-color: HighlightText !important;
+        // color: HighlightText !important;
+        // background-color: Highlight !important;
+        // border-color: HighlightText !important;
       }
     }
 
@@ -573,15 +573,17 @@
       border: 1px solid ButtonBorder !important;
 
       &:not(.@{pagination-prefix-cls}-item-disabled):hover {
-        color: HighlightText !important;
-        background-color: Highlight !important;
-        border-color: HighlightText !important;
+        // color: HighlightText !important;
+        // background-color: Highlight !important;
+        // border-color: HighlightText !important;
+        border-color: Highlight !important;
+
       }
 
       &:not(.@{pagination-prefix-cls}-item-disabled):focus-visible {
-        color: HighlightText !important;
-        background-color: Highlight !important;
-        border-color: HighlightText !important;
+        // color: HighlightText !important;
+        // background-color: Highlight !important;
+        // border-color: HighlightText !important;
         outline: 2px solid Highlight !important;
         outline-offset: 2px !important;
       }

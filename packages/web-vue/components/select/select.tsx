@@ -294,8 +294,8 @@ export default defineComponent({
       type: [Boolean, Function] as PropType<
         | boolean
         | ((
-            value: string | number | boolean | Record<string, unknown>
-          ) => SelectOptionData)
+          value: string | number | boolean | Record<string, unknown>
+        ) => SelectOptionData)
       >,
       default: true,
     },
@@ -567,6 +567,11 @@ export default defineComponent({
       emit,
     });
 
+    // 添加弹窗可见性变化的调试信息
+    const debugHandlePopupVisibleChange = (visible: boolean) => {
+      handlePopupVisibleChange(visible);
+    };
+
     // value and key
     const _value = ref(props.defaultValue);
     const computedValueObjects = computed<OptionValueWithKey[]>(() => {
@@ -735,6 +740,12 @@ export default defineComponent({
 
     // events
     const handleSelect = (key: string, ev: Event) => {
+      // 防止重复处理同一个事件
+      if ((ev as any)._arcoSelectProcessed) {
+        return;
+      }
+      (ev as any)._arcoSelectProcessed = true;
+
       if (props.multiple) {
         if (!computedValueKeys.value.includes(key)) {
           if (enabledOptionKeys.value.includes(key)) {
@@ -842,7 +853,7 @@ export default defineComponent({
       virtualListRef,
       defaultActiveFirstOption,
       onSelect: handleSelect,
-      onPopupVisibleChange: handlePopupVisibleChange,
+      onPopupVisibleChange: debugHandlePopupVisibleChange,
     });
 
     // Accessibility: Live announcement for active option changes
@@ -865,9 +876,8 @@ export default defineComponent({
             if (optionInfo) {
               const label = optionInfo.label || String(optionInfo.value);
               const status = optionInfo.disabled ? ', 已禁用' : '';
-              const position = `第 ${
-                enabledOptionKeys.value.indexOf(newActiveKey) + 1
-              } 个，共 ${enabledOptionKeys.value.length} 个`;
+              const position = `第 ${enabledOptionKeys.value.indexOf(newActiveKey) + 1
+                } 个，共 ${enabledOptionKeys.value.length} 个`;
 
               // Use ping-pong technique to ensure change detection
               liveRegionToggle.value = !liveRegionToggle.value;
@@ -1045,7 +1055,7 @@ export default defineComponent({
           unmountOnClose={props.unmountOnClose}
           clickToClose={!(props.allowSearch || props.allowCreate)}
           popupContainer={props.popupContainer}
-          onPopupVisibleChange={handlePopupVisibleChange}
+          onPopupVisibleChange={debugHandlePopupVisibleChange}
           {...props.triggerProps}
         >
           {slots.trigger?.() ?? (

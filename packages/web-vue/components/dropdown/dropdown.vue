@@ -1,7 +1,8 @@
 <template>
-  <Trigger :popup-visible="computedPopupVisible" animation-name="slide-dynamic-origin" auto-fit-transform-origin
-    :trigger="trigger" :position="position" :popup-offset="4" :popup-container="popupContainer"
-    :opened-class="`${prefixCls}-open gene-dropdown-open`" @popup-visible-change="handlePopupVisibleChange">
+  <Trigger ref="triggerRef" :popup-visible="computedPopupVisible" animation-name="slide-dynamic-origin"
+    auto-fit-transform-origin :trigger="trigger" :position="position" :popup-offset="4"
+    :popup-container="popupContainer" :opened-class="`${prefixCls}-open gene-dropdown-open`"
+    @popup-visible-change="handlePopupVisibleChange">
     <slot />
     <template #content>
       <DropdownPanel ref="dropdownPanelRef">
@@ -126,6 +127,8 @@ export default defineComponent({
     const { defaultPopupVisible, popupVisible, popupMaxHeight } = toRefs(props);
     const prefixCls = getPrefixCls('dropdown');
     const dropdownPanelRef = ref();
+    const triggerRef = ref();
+    const previouslyFocusedElementRef = ref<HTMLElement | null>(null);
 
     const { computedPopupVisible, handlePopupVisibleChange } = useTrigger({
       defaultPopupVisible,
@@ -141,14 +144,22 @@ export default defineComponent({
       props.hideOnSelect && handlePopupVisibleChange(false);
     };
 
-    // 当下拉菜单打开时，聚焦到面板容器以启用键盘导航
-    watch(computedPopupVisible, (visible) => {
-      if (visible) {
+    watch(computedPopupVisible, (visible, prevVisible) => {
+      if (visible && !prevVisible) {
+        previouslyFocusedElementRef.value = document.activeElement as HTMLElement;
+
         nextTick(() => {
           const panelEl = dropdownPanelRef.value?.$el || dropdownPanelRef.value;
           if (panelEl && typeof panelEl.focus === 'function') {
             panelEl.focus();
           }
+        });
+      } else if (!visible && prevVisible) {
+        nextTick(() => {
+          if (previouslyFocusedElementRef.value && typeof previouslyFocusedElementRef.value.focus === 'function') {
+            previouslyFocusedElementRef.value.focus();
+          }
+          previouslyFocusedElementRef.value = null;
         });
       }
     });
@@ -166,6 +177,7 @@ export default defineComponent({
       computedPopupVisible,
       handlePopupVisibleChange,
       dropdownPanelRef,
+      triggerRef,
     };
   },
 });

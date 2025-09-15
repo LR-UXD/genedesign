@@ -33,9 +33,9 @@
   line-height: @menu-line-height;
   transition: width @transition-duration-2 @transition-timing-function-standard;
 
-  &:focus-visible {
-    outline: 3px solid var(~'@{arco-cssvars-prefix}-color-primary-light-2');
-  }
+
+
+
 
   // 设置菜单层级的缩进
   &-indent {
@@ -54,6 +54,12 @@
       box-sizing: border-box;
       border-radius: @menu-border-radius;
       cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid @menu-color-label-item-focus;
+        outline-offset: -2px;
+        border-radius: @menu-border-radius;
+      }
 
       &.@{menu-prefix-cls}-disabled {
         cursor: not-allowed;
@@ -431,6 +437,12 @@
     height: @menu-height-collapse-button;
     border-radius: @menu-border-radius-collapse-button;
     cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid @menu-color-label-item-focus;
+      outline-offset: -2px;
+      border-radius: @menu-border-radius;
+    }
   }
 
   // sub-menu-inline 的内容区域样式
@@ -466,6 +478,11 @@
         border-top: 1px solid @menu-color-border-popup;
         border-left: 1px solid @menu-color-border-popup;
       }
+    }
+
+    :focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: -2px;
     }
 
     &.@{prefix}-trigger-position-rt {
@@ -633,5 +650,15 @@
     .@{trigger-menu-prefix-cls}-group-title {
       color: @dropdown-dark-group-title-color-text;
     }
+  }
+}
+
+// 弹出子菜单wrapper的样式
+.arco-submenu-popup-wrapper {
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(~'@{arco-cssvars-prefix}-color-primary-light-2');
+    outline-offset: -1px;
   }
 }

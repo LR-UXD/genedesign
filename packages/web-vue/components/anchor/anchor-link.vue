@@ -1,6 +1,7 @@
 <template>
   <li ref="linkRef" :class="cls">
-    <a :class="linkCls" :href="href" @click="handleClick">
+    <a :class="linkCls" :href="href || '#'" tabindex="0" @click="handleClick" @keydown.enter="handleKeyDown"
+      @keydown.space.prevent="handleKeyDown">
       <slot>{{ title }}</slot>
     </a>
     <ul v-if="$slots.sublist" :class="`${prefixCls}-sublist`">
@@ -50,12 +51,20 @@ export default defineComponent({
 
     const handleClick = (e: MouseEvent) => context?.handleClick(e, props.href);
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        context?.handleClick(e as any, props.href);
+      }
+    };
+
     return {
       prefixCls,
       linkCls,
       cls,
       linkRef,
       handleClick,
+      handleKeyDown,
     };
   },
 });

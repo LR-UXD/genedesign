@@ -1,42 +1,14 @@
 <template>
-  <Trigger
-    :class="`${prefixCls}-trigger`"
-    auto-fit-popup-min-width
-    trigger="click"
-    position="bl"
-    :popup-offset="4"
-    animation-name="slide-dynamic-origin"
-    :prevent-focus="true"
-    v-bind="triggerProps"
-    :disabled="mergedDisabled"
-    :popup-visible="panelVisible"
-    :popup-container="popupContainer"
-    :click-to-close="!allowSearch"
-    auto-fit-transform-origin
-    @popupVisibleChange="onVisibleChange"
-  >
+  <Trigger :class="`${prefixCls}-trigger`" auto-fit-popup-min-width trigger="click" position="bl" :popup-offset="4"
+    animation-name="slide-dynamic-origin" :prevent-focus="true" v-bind="triggerProps" :disabled="mergedDisabled"
+    :popup-visible="panelVisible" :popup-container="popupContainer" :click-to-close="!allowSearch"
+    auto-fit-transform-origin @popupVisibleChange="onVisibleChange">
     <slot name="trigger">
-      <SelectView
-        ref="refSelectView"
-        :model-value="selectViewValue"
-        :input-value="searchValue"
-        :allow-search="Boolean(allowSearch)"
-        :allow-clear="allowClear"
-        :loading="loading"
-        :size="size"
-        :max-tag-count="maxTagCount"
-        :disabled="mergedDisabled"
-        :opened="panelVisible"
-        :error="error"
-        :bordered="border"
-        :placeholder="placeholder"
-        :multiple="isMultiple"
-        v-bind="$attrs"
-        @inputValueChange="onSearchValueChange"
-        @clear="onInnerClear"
-        @remove="onItemRemove"
-        @blur="onBlur"
-      >
+      <SelectView ref="refSelectView" :model-value="selectViewValue" :input-value="searchValue"
+        :allow-search="Boolean(allowSearch)" :allow-clear="allowClear" :loading="loading" :size="size"
+        :max-tag-count="maxTagCount" :disabled="mergedDisabled" :opened="panelVisible" :error="error" :bordered="border"
+        :placeholder="placeholder" :multiple="isMultiple" v-bind="$attrs" @inputValueChange="onSearchValueChange"
+        @clear="onInnerClear" @remove="onItemRemove" @blur="onBlur">
         <template v-if="$slots.prefix" #prefix>
           <slot name="prefix" />
         </template>
@@ -46,21 +18,15 @@
       </SelectView>
     </slot>
     <template #content>
-      <div
-        :class="[
-          `${prefixCls}-popup`,
-          {
-            [`${prefixCls}-has-header`]: Boolean($slots.header),
-            [`${prefixCls}-has-footer`]: Boolean($slots.footer),
-          },
-          dropdownClassName,
-        ]"
-        :style="computedDropdownStyle"
-      >
-        <div
-          v-if="$slots.header && (!isEmpty || showHeaderOnEmpty)"
-          :class="`${prefixCls}-header`"
-        >
+      <div :class="[
+        `${prefixCls}-popup`,
+        {
+          [`${prefixCls}-has-header`]: Boolean($slots.header),
+          [`${prefixCls}-has-footer`]: Boolean($slots.footer),
+        },
+        dropdownClassName,
+      ]" :style="computedDropdownStyle">
+        <div v-if="$slots.header && (!isEmpty || showHeaderOnEmpty)" :class="`${prefixCls}-header`">
           <slot name="header" />
         </div>
         <slot v-if="loading" name="loader">
@@ -69,12 +35,8 @@
         <slot v-else-if="isEmpty" name="empty">
           <component :is="TreeSelectEmpty ? TreeSelectEmpty : 'Empty'" />
         </slot>
-        <Panel
-          v-else
-          :selected-keys="selectedKeys"
-          :show-checkable="treeCheckable"
-          :scrollbar="scrollbar"
-          :tree-props="{
+        <Panel v-else ref="refPanel" :selected-keys="selectedKeys" :show-checkable="treeCheckable"
+          :scrollbar="scrollbar" :tree-props="{
             actionOnNodeClick: selectable === 'leaf' ? 'expand' : undefined,
             blockNode: true,
             ...treeProps,
@@ -88,15 +50,8 @@
             size,
             checkable: isCheckable,
             selectable: isSelectable,
-            searchValue: searchValue,
-          }"
-          :tree-slots="pickSubCompSlots($slots, 'tree')"
-          @change="onSelectChange"
-        />
-        <div
-          v-if="$slots.footer && (!isEmpty || showFooterOnEmpty)"
-          :class="`${prefixCls}-footer`"
-        >
+          }" :tree-slots="pickSubCompSlots($slots, 'tree')" @change="onSelectChange" />
+        <div v-if="$slots.footer && (!isEmpty || showFooterOnEmpty)" :class="`${prefixCls}-footer`">
           <slot name="footer" />
         </div>
       </div>
@@ -115,6 +70,9 @@ import {
   toRefs,
   StyleValue,
   inject,
+  onMounted,
+  onBeforeUnmount,
+  watch,
 } from 'vue';
 import useMergeState from '../_hooks/use-merge-state';
 import { LabelValue } from './interface';
@@ -147,6 +105,7 @@ import { isNodeSelectable } from '../tree/utils';
 import { Data } from '../_utils/types';
 import { ScrollbarProps } from '../scrollbar';
 import { SelectViewValue } from '../_components/select-view/interface';
+import { useTreeSelectKeyboard } from './hooks/use-tree-select-keyboard';
 
 export default defineComponent({
   name: 'TreeSelect',
@@ -394,9 +353,9 @@ export default defineComponent({
         | boolean
         | 'leaf'
         | ((
-            node: TreeNodeData,
-            info: { isLeaf: boolean; level: number }
-          ) => boolean)
+          node: TreeNodeData,
+          info: { isLeaf: boolean; level: number }
+        ) => boolean)
       >,
       default: true,
     },
@@ -703,6 +662,13 @@ export default defineComponent({
       }
 
       if (!visible) {
+        // 下拉框关闭时，将焦点返回到触发器
+        nextTick(() => {
+          if (refSelectView.value?.$el) {
+            refSelectView.value.$el.focus();
+          }
+        });
+
         refSelectView.value &&
           refSelectView.value.blur &&
           refSelectView.value.blur();
@@ -720,11 +686,103 @@ export default defineComponent({
         })
       );
 
+    // 添加键盘事件处理
+    const { handleKeyDown: originalHandleKeyDown } = useTreeSelectKeyboard({
+      popupVisible: panelVisible,
+      loading: ref(props.loading),
+      onPopupVisibleChange: setPanelVisible,
+      // 移除自动聚焦回调，改为只在Tab键时聚焦
+      enterToOpen: true,
+    });
+
+    // 可聚焦元素选择器
+    const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"]):not([aria-hidden="true"])';
+
+    // 键盘事件处理函数
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // 处理在SelectView上按Tab/Shift+Tab时进入面板
+      if (e.key === 'Tab' && panelVisible.value) {
+        e.preventDefault();
+        nextTick(() => {
+          if (refPanel.value?.$el) {
+            const focusables = refPanel.value.$el.querySelectorAll(FOCUSABLE_SELECTOR);
+            if (focusables.length > 0) {
+              const target = e.shiftKey ? focusables[focusables.length - 1] : focusables[0];
+              (target as HTMLElement).focus();
+            }
+          }
+        });
+        return;
+      }
+
+      originalHandleKeyDown(e);
+    };
+
+    // 处理下拉面板内的键盘事件
+    const handlePanelKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPanelVisible(false);
+        nextTick(() => {
+          refSelectView.value?.$el?.focus();
+        });
+        e.preventDefault();
+        e.stopPropagation();
+      } else if (e.key === 'Tab') {
+        // Tab键在面板内循环导航
+        const focusableElements = refPanel.value?.$el?.querySelectorAll(FOCUSABLE_SELECTOR);
+        if (!focusableElements || focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+        const currentElement = document.activeElement;
+
+        if (e.shiftKey) {
+          // Shift+Tab - 向前导航
+          if (currentElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } // Tab - 向后导航
+        else if (currentElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+
+        }
+      }
+    };
+
+    // 使用原生 DOM 事件监听器
+    onMounted(() => {
+      if (refSelectView.value?.$el) {
+        refSelectView.value.$el.addEventListener('keydown', handleKeyDown);
+      }
+    });
+
+    onBeforeUnmount(() => {
+      if (refSelectView.value?.$el) {
+        refSelectView.value.$el.removeEventListener('keydown', handleKeyDown);
+      }
+    });
+
+    // 为面板添加键盘事件监听
+    watch(panelVisible, (visible) => {
+      if (visible) {
+        nextTick(() => {
+          if (refPanel.value?.$el) {
+            refPanel.value.$el.addEventListener('keydown', handlePanelKeyDown);
+          }
+        });
+      } else if (refPanel.value?.$el) {
+        refPanel.value.$el.removeEventListener('keydown', handlePanelKeyDown);
+      }
+    });
+
     const isEmpty = computed(
       () => !flattenTreeData.value.length || isEmptyFilterResult.value
     );
 
     const refSelectView = ref();
+    const refPanel = ref();
 
     const computedDropdownStyle = computed<StyleValue[]>(() => [
       dropdownStyle?.value || {},
@@ -739,6 +797,7 @@ export default defineComponent({
 
     return {
       refSelectView,
+      refPanel,
       prefixCls,
       TreeSelectEmpty,
       selectedValue,

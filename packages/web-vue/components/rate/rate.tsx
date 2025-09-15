@@ -244,15 +244,15 @@ export default defineComponent({
       const leftProps = mergedDisabled.value
         ? {}
         : {
-            onMouseenter: () => handleMouseEnter(index, true),
-            onClick: () => handleClick(index, true),
-          };
+          onMouseenter: () => handleMouseEnter(index, true),
+          onClick: () => handleClick(index, true),
+        };
       const rightProps = mergedDisabled.value
         ? {}
         : {
-            onMouseenter: () => handleMouseEnter(index, false),
-            onClick: () => handleClick(index, false),
-          };
+          onMouseenter: () => handleMouseEnter(index, false),
+          onClick: () => handleClick(index, false),
+        };
 
       const style = animation.value
         ? { animationDelay: `${50 * index}ms` }
@@ -262,8 +262,8 @@ export default defineComponent({
 
       const leftStyle =
         customColor.value &&
-        props.allowHalf &&
-        index + 0.5 === displayIndex.value
+          props.allowHalf &&
+          index + 0.5 === displayIndex.value
           ? { color: customColor.value[parseDisplayIndex] }
           : undefined;
       const rightStyle =
@@ -282,18 +282,31 @@ export default defineComponent({
         },
       ];
 
+      // 为每个星级添加独立的 tabindex 和键盘事件处理
+      const characterProps = mergedDisabled.value
+        ? {}
+        : {
+          tabindex: 0,
+          onKeydown: (e: KeyboardEvent) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleClick(index, false);
+            }
+          },
+        };
+
       return (
         <div
           class={cls}
           style={style}
-          {...(!props.allowHalf ? getAriaProps(index) : undefined)}
+          {...getAriaProps(index)}
+          {...characterProps}
           onAnimationend={() => handleAnimationEnd(index)}
         >
           <div
             class={`${prefixCls}-character-left`}
             style={leftStyle}
             {...leftProps}
-            {...(props.allowHalf ? getAriaProps(index, true) : undefined)}
           >
             {renderElement(index)}
           </div>
@@ -301,7 +314,6 @@ export default defineComponent({
             class={`${prefixCls}-character-right`}
             style={rightStyle}
             {...rightProps}
-            {...(props.allowHalf ? getAriaProps(index) : undefined)}
           >
             {renderElement(index)}
           </div>
@@ -318,7 +330,12 @@ export default defineComponent({
     ]);
 
     return () => (
-      <div class={cls.value} onMouseleave={resetHoverIndex}>
+      <div
+        class={cls.value}
+        onMouseleave={resetHoverIndex}
+        role="radiogroup"
+        aria-label="评分"
+      >
         {indexArray.value.map((_, index) => renderCharacter(index))}
       </div>
     );
