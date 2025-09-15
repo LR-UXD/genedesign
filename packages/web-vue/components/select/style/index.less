@@ -344,7 +344,9 @@
 
       &-keyboard-focus {
         background-color: transparent;
-        border: 1px solid Highlight !important;
+        // border: 2px solid @select-popup-option-color-border_focus;
+        outline: 2px solid Highlight;
+        outline-offset: -2px;
       }
 
       &-disabled {

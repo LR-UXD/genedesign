@@ -21,7 +21,7 @@ method.
 
 ```vue
 <template>
-  <a-table :columns="columns" :data="data">
+  <a-table :columns="columns" :data="data" :row-selection="rowSelection">
     <template #optional="{ record }">
       <a-button @click="$modal.info({ title:'Name', content:record.name })">view</a-button>
     </template>
@@ -50,6 +50,13 @@ import { ref } from 'vue';
 export default {
   setup() {
     const show = ref(true)
+    const selectedKeys = ref([])
+
+    const rowSelection = {
+      type: 'checkbox',
+      showCheckedAll: true,
+      onlyCurrent: false,
+    }
 
     const columns = [{
       title: 'Name',
@@ -112,7 +119,9 @@ export default {
     return {
       columns,
       data,
-      show
+      show,
+      rowSelection,
+      selectedKeys
     }
   },
 }

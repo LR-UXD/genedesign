@@ -45,16 +45,24 @@ export const useSelectedPath = (
     activeKey.value = key;
   };
 
+  // 当前激活的列级别
+  const currentLevel = computed(() => {
+    if (!activeOption.value) return 0;
+    return activeOption.value.level;
+  });
+
+  // 当前级别的选项
+  const currentLevelOptions = computed(() => {
+    const columns = displayColumns.value;
+    const level = currentLevel.value;
+    return columns[level] || [];
+  });
+
   const enabledOptions = computed(() => {
     if (showSearchPanel?.value) {
       return filteredLeafOptions.value.filter((item) => !item.disabled);
     }
-    if (activeOption.value && activeOption.value.parent) {
-      return activeOption.value.parent.children?.filter(
-        (item) => !item.disabled
-      );
-    }
-    return options.value.filter((item) => !item.disabled);
+    return currentLevelOptions.value.filter((item) => !item.disabled);
   });
 
   const getTargetOption = (key?: string) => {
@@ -85,13 +93,56 @@ export const useSelectedPath = (
     return enabledOptions.value?.[0];
   };
 
+  // 进入下一级的函数
+  const enterNextLevel = () => {
+    if (activeOption.value && activeOption.value.children && activeOption.value.children.length > 0) {
+      setSelectedPath(activeOption.value.key);
+      const firstChildOption = activeOption.value.children.find(child => !child.disabled);
+      if (firstChildOption) {
+        setActiveKey(firstChildOption.key);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // 返回上一级的函数
+  const backToPreviousLevel = () => {
+    if (activeOption.value && activeOption.value.parent) {
+      const parentKey = activeOption.value.parent.parent?.key;
+      setSelectedPath(parentKey);
+      setActiveKey(activeOption.value.parent.key);
+      return true;
+    }
+
+    if (selectedPath.value.length > 0) {
+      const newPath = [...selectedPath.value];
+      newPath.pop();
+      selectedPath.value = newPath;
+      const lastKey = newPath[newPath.length - 1];
+      if (lastKey) {
+        setActiveKey(lastKey);
+      } else {
+        const firstOption = options.value.find(option => !option.disabled);
+        setActiveKey(firstOption?.key);
+      }
+      return true;
+    }
+
+    return false;
+  };
+
   return {
     activeKey,
     activeOption,
     selectedPath,
     displayColumns,
+    currentLevel,
+    currentLevelOptions,
     setActiveKey,
     setSelectedPath,
     getNextActiveNode,
+    enterNextLevel,
+    backToPreviousLevel,
   };
 };

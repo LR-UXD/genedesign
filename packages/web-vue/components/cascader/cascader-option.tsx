@@ -53,7 +53,13 @@ export default defineComponent({
 
     if (!props.option.disabled) {
       events.onMouseenter = [
-        () => cascaderCtx.setActiveKey?.(props.option.key),
+        () => {
+          // 鼠标进入时重置键盘导航状态
+          if (cascaderCtx.isKeyboardNavigation) {
+            cascaderCtx.isKeyboardNavigation.value = false;
+          }
+          cascaderCtx.setActiveKey?.(props.option.key);
+        },
       ];
       events.onMouseleave = () => cascaderCtx.setActiveKey?.();
       events.onClick = [];
@@ -70,13 +76,19 @@ export default defineComponent({
       }
     }
 
-    const cls = computed(() => [
-      prefixCls,
-      {
-        [`${prefixCls}-active`]: props.active,
-        [`${prefixCls}-disabled`]: props.option.disabled,
-      },
-    ]);
+    const cls = computed(() => {
+      const isCurrentKeyboardFocus =
+        cascaderCtx.isKeyboardNavigation?.value &&
+        cascaderCtx.activeKey?.value === props.option.key;
+      return [
+        prefixCls,
+        {
+          [`${prefixCls}-active`]: props.active,
+          [`${prefixCls}-disabled`]: props.option.disabled,
+          [`${prefixCls}-keyboard-focus`]: isCurrentKeyboardFocus,
+        },
+      ];
+    });
 
     const checkedStatus = computed(() => {
       if (props.checkStrictly) {

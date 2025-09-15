@@ -10,7 +10,7 @@
 import { TableDataWithRaw } from '../interface';
 
 const FOCUSABLE_SELECTOR =
-  'button, [href], input:not(.arco-checkbox-target):not(.arco-radio-target), select, textarea, [tabindex]:not([tabindex="-1"])';
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 const elementCache = new Map<HTMLElement, Element[]>();
 
@@ -66,10 +66,10 @@ export function useKeyboardNavigation({
   hasRowSelection,
   hasHeaderCheckbox,
 }: KeyboardNavigationOptions) {
+
   const FOCUS_TYPES = {
     HEADER_CHECKBOX: 'header-checkbox',
     HEADER_ROW: 'header-row',
-    CHECKBOX: 'checkbox',
     ROW: 'row',
     CELL: 'cell',
   } as const;
@@ -107,15 +107,9 @@ export function useKeyboardNavigation({
     ) {
       return false;
     }
-
-    if (focusType === FOCUS_TYPES.CHECKBOX && !hasRowSelection?.value) {
-      return false;
-    }
-
     if (rowIndex >= 0 && rowIndex >= flattenData.value.length) {
       return false;
     }
-
     return true;
   };
 
@@ -221,28 +215,21 @@ export function useKeyboardNavigation({
 
     let targetElement: HTMLElement | null = null;
 
-    if (focusType === FOCUS_TYPES.CHECKBOX) {
-      targetElement = tableRef.value.querySelector(
-        `[data-row-index="${index}"] .arco-checkbox input, [data-row-index="${index}"] .arco-radio input`
-      ) as HTMLElement;
-    }
 
-    if (!targetElement) {
-      const rowElement = tableRef.value.querySelector(
-        `[data-row-index="${index}"]`
-      ) as HTMLElement;
+    const rowElement = tableRef.value.querySelector(
+      `[data-row-index="${index}"]`
+    ) as HTMLElement;
 
-      if (!rowElement) return false;
+    if (!rowElement) return false;
 
-      const focusableElements = getRowFocusableElements(index);
+    const focusableElements = getRowFocusableElements(index);
 
-      if (focusType === FOCUS_TYPES.CELL && focusableElements.length > 0) {
-        const elementIndex = focusLast ? focusableElements.length - 1 : 0;
-        targetElement = focusableElements[elementIndex] as HTMLElement;
-      } else {
-        targetElement = rowElement;
-        updateFocusState(index, FOCUS_TYPES.ROW);
-      }
+    if (focusType === FOCUS_TYPES.CELL && focusableElements.length > 0) {
+      const elementIndex = focusLast ? focusableElements.length - 1 : 0;
+      targetElement = focusableElements[elementIndex] as HTMLElement;
+    } else {
+      targetElement = rowElement;
+      updateFocusState(index, FOCUS_TYPES.ROW);
     }
 
     if (targetElement) {
@@ -289,6 +276,7 @@ export function useKeyboardNavigation({
   const getNextTabTarget = (
     isShiftTab: boolean
   ): { type: FocusType; index: number; focusLast?: boolean } | null => {
+    // 表头区域
     if (isInHeader.value) {
       if (isShiftTab) {
         if (
@@ -303,95 +291,53 @@ export function useKeyboardNavigation({
         return { type: FOCUS_TYPES.HEADER_ROW, index: -1 };
       }
       if (currentFocusType.value === FOCUS_TYPES.HEADER_ROW) {
-        const firstRowElement = tableRef.value?.querySelector(
-          '[data-row-index="0"]'
-        );
-        const firstRowFocusableElements =
-          getVisibleFocusableElements(firstRowElement);
-
+        const firstRowElement = tableRef.value?.querySelector('[data-row-index="0"]');
+        const firstRowFocusableElements = getVisibleFocusableElements(firstRowElement);
         if (firstRowFocusableElements.length > 0) {
           return { type: FOCUS_TYPES.CELL, index: 0 };
-        }
-        if (hasRowSelection?.value) {
-          return { type: FOCUS_TYPES.CHECKBOX, index: 0 };
         }
         return { type: FOCUS_TYPES.ROW, index: 0 };
       }
     }
+    // 数据区
+    const focusableElements = getRowFocusableElements(currentRowIndex.value);
     if (isShiftTab) {
-      if (currentFocusType.value === FOCUS_TYPES.CHECKBOX) {
-        if (currentRowIndex.value > 0) {
-          return { type: FOCUS_TYPES.ROW, index: currentRowIndex.value - 1 };
-        }
-        return { type: FOCUS_TYPES.HEADER_ROW, index: -1 };
-      }
       if (currentFocusType.value === FOCUS_TYPES.CELL) {
-        if (hasRowSelection?.value) {
-          return { type: FOCUS_TYPES.CHECKBOX, index: currentRowIndex.value };
-        }
-        if (currentRowIndex.value > 0) {
-          return { type: FOCUS_TYPES.ROW, index: currentRowIndex.value - 1 };
-        }
-        return { type: FOCUS_TYPES.HEADER_ROW, index: -1 };
+        // CELL内反向，交给handleCellTabNavigation处理
+        // 如果在CELL第一个，跳到ROW
+        return { type: FOCUS_TYPES.ROW, index: currentRowIndex.value };
       }
       if (currentFocusType.value === FOCUS_TYPES.ROW) {
-        const currentRowElement = tableRef.value?.querySelector(
-          `[data-row-index="${currentRowIndex.value}"]`
-        );
-        const currentRowFocusableElements =
-          getVisibleFocusableElements(currentRowElement);
-
-        if (currentRowFocusableElements.length > 0) {
-          return {
-            type: FOCUS_TYPES.CELL,
-            index: currentRowIndex.value,
-            focusLast: true,
-          };
-        }
-        if (hasRowSelection?.value) {
-          return { type: FOCUS_TYPES.CHECKBOX, index: currentRowIndex.value };
-        }
+        // 跳到上一行最后一个CELL
         if (currentRowIndex.value > 0) {
-          return { type: FOCUS_TYPES.ROW, index: currentRowIndex.value - 1 };
+          const prevRowIndex = currentRowIndex.value - 1;
+          const prevRowElements = getRowFocusableElements(prevRowIndex);
+          if (prevRowElements.length > 0) {
+            return { type: FOCUS_TYPES.CELL, index: prevRowIndex, focusLast: true };
+          }
+          return { type: FOCUS_TYPES.ROW, index: prevRowIndex };
         }
         return { type: FOCUS_TYPES.HEADER_ROW, index: -1 };
       }
     } else {
-      if (currentFocusType.value === FOCUS_TYPES.CHECKBOX) {
-        const currentRowElement = tableRef.value?.querySelector(
-          `[data-row-index="${currentRowIndex.value}"]`
-        );
-        const currentRowFocusableElements =
-          getVisibleFocusableElements(currentRowElement);
-
-        if (currentRowFocusableElements.length > 0) {
-          return { type: FOCUS_TYPES.CELL, index: currentRowIndex.value };
-        }
-        return { type: FOCUS_TYPES.ROW, index: currentRowIndex.value };
-      }
       if (currentFocusType.value === FOCUS_TYPES.CELL) {
+        // CELL内正向，交给handleCellTabNavigation处理
+        // 如果在CELL最后一个，跳到ROW
         return { type: FOCUS_TYPES.ROW, index: currentRowIndex.value };
       }
       if (currentFocusType.value === FOCUS_TYPES.ROW) {
+        // 跳到下一行第一个CELL
         if (currentRowIndex.value < flattenData.value.length - 1) {
           const nextRowIndex = currentRowIndex.value + 1;
-          const nextRowElement = tableRef.value?.querySelector(
-            `[data-row-index="${nextRowIndex}"]`
-          );
-          const nextRowFocusableElements =
-            getVisibleFocusableElements(nextRowElement);
-          if (nextRowFocusableElements.length > 0) {
+          const nextRowElements = getRowFocusableElements(nextRowIndex);
+          if (nextRowElements.length > 0) {
             return { type: FOCUS_TYPES.CELL, index: nextRowIndex };
-          }
-          if (hasRowSelection?.value) {
-            return { type: FOCUS_TYPES.CHECKBOX, index: nextRowIndex };
           }
           return { type: FOCUS_TYPES.ROW, index: nextRowIndex };
         }
         return null; // 离开表格
       }
     }
-
     return null;
   };
 
@@ -633,7 +579,7 @@ export function useKeyboardNavigation({
               if (!tableElement.contains(nextElement)) {
                 hasTableFocus.value = false;
                 currentRowIndex.value = -1;
-                currentFocusType.value = FOCUS_TYPES.NONE;
+                currentFocusType.value = FOCUS_TYPES.ROW;
 
                 nextElement.focus();
                 event.preventDefault();
@@ -648,13 +594,7 @@ export function useKeyboardNavigation({
         event.preventDefault();
 
         if (isInHeader.value) {
-          const targetFocusType =
-            hasRowSelection?.value &&
-              currentFocusType.value === FOCUS_TYPES.HEADER_CHECKBOX
-              ? FOCUS_TYPES.CHECKBOX
-              : FOCUS_TYPES.ROW;
-
-          navigateToRow(0, targetFocusType);
+          navigateToRow(0, FOCUS_TYPES.ROW);
         } else {
           const nextIndex = Math.min(
             currentRowIndex.value + 1,
@@ -674,13 +614,7 @@ export function useKeyboardNavigation({
         }
 
         if (currentRowIndex.value === 0) {
-          const targetFocusType =
-            hasRowSelection?.value &&
-              currentFocusType.value === FOCUS_TYPES.CHECKBOX
-              ? FOCUS_TYPES.HEADER_CHECKBOX
-              : FOCUS_TYPES.HEADER_ROW;
-
-          navigateToRow(-1, targetFocusType);
+          navigateToRow(-1, FOCUS_TYPES.HEADER_ROW);
         } else {
           const prevIndex = Math.max(currentRowIndex.value - 1, 0);
           navigateToRow(prevIndex, currentFocusType.value);
@@ -765,8 +699,7 @@ export function useKeyboardNavigation({
     }
 
     return index === currentRowIndex.value &&
-      (currentFocusType.value === FOCUS_TYPES.CHECKBOX ||
-        currentFocusType.value === FOCUS_TYPES.CELL)
+      currentFocusType.value === FOCUS_TYPES.CELL
       ? 0
       : -1;
   });

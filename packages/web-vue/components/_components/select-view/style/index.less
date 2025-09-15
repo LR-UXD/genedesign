@@ -60,7 +60,6 @@
   &-single,
   &-multiple {
 
-    &:focus-within,
     &:focus-visible {
       outline: 2px solid @color-primary-6;
       outline-offset: -2px;
@@ -97,10 +96,14 @@
       // 聚焦状态
       &.@{select-view-prefix-cls}-focus,
       &:focus-visible {
-        border-color: Highlight !important;
-        box-shadow: 0 0 0 2px Highlight !important;
+        outline: 2px solid Highlight;
+        outline-offset: -2px;
+        border-radius: @radius-small;
+        box-shadow: none;
       }
     }
+
+
 
     // 图标颜色调整
     &-icon,

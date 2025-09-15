@@ -1,41 +1,13 @@
 <template>
-  <trigger
-    v-bind="triggerProps"
-    trigger="click"
-    animation-name="slide-dynamic-origin"
-    auto-fit-transform-origin
-    :popup-visible="computedPopupVisible"
-    position="bl"
-    :disabled="mergedDisabled"
-    :popup-offset="4"
-    :auto-fit-popup-width="showSearchPanel"
-    :popup-container="popupContainer"
-    :prevent-focus="true"
-    :click-to-close="!allowSearch"
-    @popup-visible-change="handlePopupVisibleChange"
-  >
-    <select-view
-      :model-value="selectViewValue"
-      :input-value="computedInputValue"
-      :disabled="mergedDisabled"
-      :error="error"
-      :multiple="multiple"
-      :allow-clear="allowClear"
-      :allow-search="allowSearch"
-      :size="size"
-      :opened="computedPopupVisible"
-      :placeholder="placeholder"
-      :loading="loading"
-      :max-tag-count="maxTagCount"
-      :tag-nowrap="tagNowrap"
-      v-bind="$attrs"
-      @input-value-change="handleInputValueChange"
-      @clear="handleClear"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @remove="handleRemove"
-      @keydown="handleKeyDown"
-    >
+  <trigger v-bind="triggerProps" trigger="click" animation-name="slide-dynamic-origin" auto-fit-transform-origin
+    :popup-visible="computedPopupVisible" position="bl" :disabled="mergedDisabled" :popup-offset="4"
+    :auto-fit-popup-width="showSearchPanel" :popup-container="popupContainer" :prevent-focus="true"
+    :click-to-close="!allowSearch" @popup-visible-change="handlePopupVisibleChange">
+    <select-view :model-value="selectViewValue" :input-value="computedInputValue" :disabled="mergedDisabled"
+      :error="error" :multiple="multiple" :allow-clear="allowClear" :allow-search="allowSearch" :size="size"
+      :opened="computedPopupVisible" :placeholder="placeholder" :loading="loading" :max-tag-count="maxTagCount"
+      :tag-nowrap="tagNowrap" v-bind="$attrs" @input-value-change="handleInputValueChange" @clear="handleClear"
+      @focus="handleFocus" @blur="handleBlur" @remove="handleRemove" @keydown="handleKeyDown">
       <template v-if="$slots.label" #label="data">
         <slot name="label" v-bind="data" />
       </template>
@@ -53,31 +25,15 @@
       </template>
     </select-view>
     <template #content>
-      <cascader-search-panel
-        v-if="showSearchPanel"
-        :options="filteredLeafOptions"
-        :active-key="activeKey"
-        :multiple="multiple"
-        :check-strictly="checkStrictly"
-        :loading="loading"
-        :path-label="!searchOptionOnlyLabel"
-      >
+      <cascader-search-panel v-if="showSearchPanel" :options="filteredLeafOptions" :active-key="activeKey"
+        :multiple="multiple" :check-strictly="checkStrictly" :loading="loading" :path-label="!searchOptionOnlyLabel">
         <template v-if="$slots.empty" #empty>
           <slot name="empty" />
         </template>
       </cascader-search-panel>
-      <base-cascader-panel
-        v-else
-        :display-columns="displayColumns"
-        :selected-path="selectedPath"
-        :active-key="activeKey"
-        :multiple="multiple"
-        :total-level="totalLevel"
-        :check-strictly="checkStrictly"
-        :loading="loading"
-        :virtual-list-props="virtualListProps"
-        dropdown
-      >
+      <base-cascader-panel v-else :display-columns="displayColumns" :selected-path="selectedPath"
+        :active-key="activeKey" :multiple="multiple" :total-level="totalLevel" :check-strictly="checkStrictly"
+        :loading="loading" :virtual-list-props="virtualListProps" dropdown>
         <template v-if="$slots.empty" #empty>
           <slot name="empty" />
         </template>
@@ -93,7 +49,9 @@ import {
   PropType,
   provide,
   reactive,
+  readonly,
   ref,
+  toRef,
   toRefs,
   watch,
 } from 'vue';
@@ -118,7 +76,7 @@ import {
 import { isArray, isFunction, isNull, isUndefined } from '../_utils/is';
 import { BaseType, Data, UnionType } from '../_utils/types';
 import { useSelectedPath } from './hooks/use-selected-path';
-import { KEYBOARD_KEY, getKeyDownHandler } from '../_utils/keyboard';
+import { KEYBOARD_KEY, getKeyDownHandler, CodeKey } from '../_utils/keyboard';
 import { cascaderInjectionKey } from './context';
 import { Size } from '../_utils/constant';
 import { debounce } from '../_utils/debounce';
@@ -161,11 +119,11 @@ export default defineComponent({
         | number
         | Record<string, any>
         | (
-            | string
-            | number
-            | Record<string, any>
-            | (string | number | Record<string, any>)[]
-          )[]
+          | string
+          | number
+          | Record<string, any>
+          | (string | number | Record<string, any>)[]
+        )[]
         | undefined
       >,
     },
@@ -180,11 +138,11 @@ export default defineComponent({
         | number
         | Record<string, any>
         | (
-            | string
-            | number
-            | Record<string, any>
-            | (string | number | Record<string, any>)[]
-          )[]
+          | string
+          | number
+          | Record<string, any>
+          | (string | number | Record<string, any>)[]
+        )[]
         | undefined
       >,
       default: (props: Data) =>
@@ -400,12 +358,12 @@ export default defineComponent({
       type: [Boolean, Function] as PropType<
         | boolean
         | ((
-            value:
-              | string
-              | number
-              | Record<string, unknown>
-              | (string | number | Record<string, unknown>)[]
-          ) => string)
+          value:
+            | string
+            | number
+            | Record<string, unknown>
+            | (string | number | Record<string, unknown>)[]
+        ) => string)
       >,
       default: true,
     },
@@ -444,11 +402,11 @@ export default defineComponent({
         | number
         | Record<string, any>
         | (
-            | string
-            | number
-            | Record<string, any>
-            | (string | number | Record<string, any>)[]
-          )[]
+          | string
+          | number
+          | Record<string, any>
+          | (string | number | Record<string, any>)[]
+        )[]
         | undefined
     ) => true,
     'update:popupVisible': (visible: boolean) => true,
@@ -463,11 +421,11 @@ export default defineComponent({
         | number
         | Record<string, any>
         | (
-            | string
-            | number
-            | Record<string, any>
-            | (string | number | Record<string, any>)[]
-          )[]
+          | string
+          | number
+          | Record<string, any>
+          | (string | number | Record<string, any>)[]
+        )[]
         | undefined
     ) => true,
     /**
@@ -567,6 +525,9 @@ export default defineComponent({
     const _value = ref(props.defaultValue);
     const _inputValue = ref(props.defaultInputValue);
     const _popupVisible = ref(props.defaultPopupVisible);
+
+    // 键盘导航状态
+    const isKeyboardNavigation = ref(false);
 
     const { mergedDisabled, eventHandlers } = useFormItem({ disabled });
 
@@ -848,9 +809,13 @@ export default defineComponent({
       activeOption,
       selectedPath,
       displayColumns,
+      currentLevel,
+      currentLevelOptions,
       setActiveKey,
       setSelectedPath,
       getNextActiveNode,
+      enterNextLevel,
+      backToPreviousLevel,
     } = useSelectedPath(optionInfos, {
       optionMap,
       filteredLeafOptions,
@@ -860,26 +825,60 @@ export default defineComponent({
 
     provide(
       cascaderInjectionKey,
-      reactive({
+      {
         onClickOption: handleClickOption,
         setActiveKey,
         setSelectedPath,
-        loadMore,
-        expandTrigger,
+        loadMore: loadMore.value,
+        expandTrigger: expandTrigger.value,
         addLazyLoadOptions,
-        formatLabel,
+        formatLabel: formatLabel.value,
         slots,
-        valueMap: computedValueMap,
-      })
+        valueMap: computedValueMap.value,
+        isKeyboardNavigation,
+        activeKey,
+      }
     );
 
     const handleKeyDown = getKeyDownHandler(
-      new Map([
+      new Map<CodeKey | string, (e: Event) => void>([
         [
           KEYBOARD_KEY.ENTER,
           (ev: Event) => {
             if (computedPopupVisible.value) {
               if (activeOption.value) {
+                if (activeOption.value.children && activeOption.value.children.length > 0) {
+                  ev.preventDefault();
+                  enterNextLevel();
+                  return;
+                }
+                let checked: boolean;
+                if (props.checkStrictly || activeOption.value.isLeaf) {
+                  checked = !computedValueMap.value.has(activeOption.value.key);
+                } else {
+                  checked = !getCheckedStatus(
+                    activeOption.value,
+                    computedValueMap.value
+                  ).checked;
+                }
+                setSelectedPath(activeOption.value.key);
+                handleClickOption(activeOption.value, checked);
+              }
+            } else {
+              handlePopupVisibleChange(true);
+            }
+          },
+        ],
+        [
+          KEYBOARD_KEY.SPACE,
+          (ev: Event) => {
+            ev.preventDefault();
+            if (computedPopupVisible.value) {
+              if (activeOption.value) {
+                if (activeOption.value.children && activeOption.value.children.length > 0) {
+                  enterNextLevel();
+                  return;
+                }
                 let checked: boolean;
                 if (props.checkStrictly || activeOption.value.isLeaf) {
                   checked = !computedValueMap.value.has(activeOption.value.key);
@@ -900,45 +899,56 @@ export default defineComponent({
         [
           KEYBOARD_KEY.ESC,
           (ev: Event) => {
-            handlePopupVisibleChange(false);
-          },
-        ],
-        [
-          KEYBOARD_KEY.ARROW_DOWN,
-          (ev: Event) => {
-            ev.preventDefault();
-            const activeNode = getNextActiveNode('next');
-            setActiveKey(activeNode?.key);
-          },
-        ],
-        [
-          KEYBOARD_KEY.ARROW_UP,
-          (ev: Event) => {
-            ev.preventDefault();
-            const activeNode = getNextActiveNode('preview');
-            setActiveKey(activeNode?.key);
-          },
-        ],
-        [
-          KEYBOARD_KEY.ARROW_RIGHT,
-          (ev: Event) => {
-            if (!showSearchPanel.value) {
-              ev.preventDefault();
-              if (activeOption.value?.children) {
-                setSelectedPath(activeOption.value.key);
-                setActiveKey(activeOption.value.children[0]?.key);
+            if (computedPopupVisible.value) {
+              // 如果不在第一级，返回上一级
+              if (selectedPath.value.length > 0) {
+                ev.preventDefault();
+                backToPreviousLevel();
+              } else {
+                // 在第一级时关闭下拉菜单
+                handlePopupVisibleChange(false);
               }
+            }
+          },
+        ],
+        [
+          KEYBOARD_KEY.TAB,
+          (ev: Event) => {
+            if (computedPopupVisible.value) {
+              ev.preventDefault();
+              isKeyboardNavigation.value = true;
+              const activeNode = getNextActiveNode('next');
+              setActiveKey(activeNode?.key);
+            }
+          },
+        ],
+        [
+          { key: KEYBOARD_KEY.TAB, shift: true },
+          (ev: Event) => {
+            if (computedPopupVisible.value) {
+              ev.preventDefault();
+              isKeyboardNavigation.value = true;
+              const activeNode = getNextActiveNode('preview');
+              setActiveKey(activeNode?.key);
             }
           },
         ],
         [
           KEYBOARD_KEY.ARROW_LEFT,
           (ev: Event) => {
-            if (!showSearchPanel.value) {
+            if (computedPopupVisible.value && !showSearchPanel.value) {
               ev.preventDefault();
-              if (activeOption.value?.parent) {
-                setSelectedPath(activeOption.value.parent.key);
-                setActiveKey(activeOption.value.parent.key);
+              backToPreviousLevel();
+            }
+          },
+        ],
+        [
+          KEYBOARD_KEY.ARROW_RIGHT,
+          (ev: Event) => {
+            if (computedPopupVisible.value && !showSearchPanel.value) {
+              ev.preventDefault();
+              if (activeOption.value?.children && activeOption.value.children.length > 0) {
+                enterNextLevel();
               }
             }
           },
@@ -963,8 +973,8 @@ export default defineComponent({
           const label = isFunction(props.fallback)
             ? props.fallback(value)
             : isArray(value)
-            ? value.join(' / ')
-            : String(value);
+              ? value.join(' / ')
+              : String(value);
           result.push({
             value: key,
             label,

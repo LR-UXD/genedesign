@@ -135,8 +135,7 @@
 
     &-label {
       flex-grow: 1;
-      padding-right: @cascader-padding-item-right + @cascader-size-item-icon +
-        @cascader-margin-item-icon-left;
+      padding-right: @cascader-padding-item-right + @cascader-size-item-icon + @cascader-margin-item-icon-left;
       padding-left: @cascader-padding-item-left;
     }
 
@@ -169,19 +168,25 @@
     color: @cascader-color-item-text_hover;
     background-color: @cascader-color-item-bg_hover;
 
-    .@{prefix}-checkbox:not(.@{prefix}-checkbox-disabled):not(.@{prefix}-checkbox-checked):hover
-      .@{prefix}-checkbox-icon-hover::before {
+    .@{prefix}-checkbox:not(.@{prefix}-checkbox-disabled):not(.@{prefix}-checkbox-checked):hover .@{prefix}-checkbox-icon-hover::before {
       background-color: @cascader-color-checkbox-bg_hover;
     }
 
-    .@{prefix}-radio:not(.@{prefix}-radio-disabled):not(.@{prefix}-radio-checked):hover
-      .@{prefix}-radio-icon-hover::before {
+    .@{prefix}-radio:not(.@{prefix}-radio-disabled):not(.@{prefix}-radio-checked):hover .@{prefix}-radio-icon-hover::before {
       background-color: @cascader-color-checkbox-bg_hover;
+    }
+
+    // 高对比度模式支持
+    @media (forced-colors: active) {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
     }
   }
 
   &-option,
   &-search-option {
+
     &-disabled,
     &-disabled:hover {
       color: @cascader-color-item-text_disabled;
@@ -202,11 +207,34 @@
     &-active {
       color: @cascader-color-item-text_active;
       background-color: @cascader-color-item-bg_active;
-      transition: all @transition-duration-2 @transition-timing-function-linear;
+      // transition: all @transition-duration-2 @transition-timing-function-linear;
 
       &:hover {
         color: @cascader-color-item-text_active;
         background-color: @cascader-color-item-bg_active;
+      }
+
+      // 高对比度模式支持
+      @media (forced-colors: active) {
+        background-color: Highlight;
+        color: HighlightText;
+        forced-color-adjust: none;
+      }
+    }
+
+    // 键盘导航焦点样式
+    &-keyboard-focus {
+      outline: 2px solid @select-popup-option-color-border_focus;
+      outline-offset: -2px;
+      background-color: transparent;
+
+      // 高对比度模式支持
+      @media (forced-colors: active) {
+        outline: 2px solid Highlight;
+        outline-offset: -2px;
+        forced-color-adjust: none;
+        background-color: transparent;
+        color: CanvasText;
       }
     }
 
@@ -220,7 +248,7 @@
 
 .cascader-slide-enter-active,
 .cascader-slide-leave-active {
-  transition: margin @transition-duration-3 @transition-timing-function-standard;
+  // transition: margin @transition-duration-3 @transition-timing-function-standard;
 }
 
 .cascader-slide-enter-from,
