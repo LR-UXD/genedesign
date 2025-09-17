@@ -127,6 +127,14 @@
     color: @modal-color-header-text;
     font-size: @modal-font-size-close-icon;
     cursor: pointer;
+
+    &:focus-visible {
+      .@{prefix}-icon-hover {
+        outline: 2px solid @color-primary-6;
+        outline-offset: 2px;
+        border-radius: 50%;
+      }
+    }
   }
 
   &-title {

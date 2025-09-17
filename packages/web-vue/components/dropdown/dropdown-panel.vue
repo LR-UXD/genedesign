@@ -146,6 +146,8 @@ export default defineComponent({
           options[options.length - 1]?.focus();
           break;
         case 'Escape':
+          e.preventDefault();
+          dropdownCtx.onClose?.();
           break;
         default:
           break;

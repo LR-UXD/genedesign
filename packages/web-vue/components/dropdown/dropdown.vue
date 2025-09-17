@@ -169,6 +169,7 @@ export default defineComponent({
       reactive({
         popupMaxHeight,
         onOptionClick: handleOptionClick,
+        onClose: () => handlePopupVisibleChange(false),
       })
     );
 

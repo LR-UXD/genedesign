@@ -98,6 +98,7 @@ const open = (config: ModalConfig, appContext?: AppContext) => {
     }
   );
 
+
   if (appContext ?? Modal._context) {
     vm.appContext = appContext ?? Modal._context;
   }

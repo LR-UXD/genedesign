@@ -6,6 +6,7 @@ export interface DropdownContext {
     value: string | number | Record<string, unknown> | undefined,
     ev: Event
   ) => void;
+  onClose?: () => void;
 }
 
 export const dropdownInjectionKey: InjectionKey<DropdownContext> =

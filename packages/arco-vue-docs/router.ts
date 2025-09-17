@@ -931,7 +931,6 @@ for (const group of components) {
         component: item.componentEn ?? item.component,
       }
     );
-    console.log('name2:' + item.name)
     menuGroup.list.push({
       name: item.name,
       path,
@@ -953,7 +952,6 @@ proDocs.forEach((item) => {
       component: item.componentEn ?? item.component,
     }
   );
-  console.log('name3:' + item.name)
 
   proDocsMenu.push({
     name: item.name,

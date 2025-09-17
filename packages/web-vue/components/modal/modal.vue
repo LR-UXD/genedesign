@@ -1,70 +1,30 @@
 <template>
   <client-only>
     <teleport :to="teleportContainer" :disabled="!renderToBody">
-      <div
-        v-if="!unmountOnClose || computedVisible || mounted"
-        v-show="computedVisible || mounted"
-        :class="`${prefixCls}-container`"
-        :style="{ zIndex }"
-        v-bind="$attrs"
-      >
+      <div v-if="!unmountOnClose || computedVisible || mounted" v-show="computedVisible || mounted"
+        :class="`${prefixCls}-container`" :style="{ zIndex }" v-bind="$attrs">
         <transition :name="maskAnimationName" appear>
-          <div
-            v-if="mask"
-            v-show="computedVisible"
-            ref="maskRef"
-            :class="`${prefixCls}-mask`"
-            :style="maskStyle"
-          />
+          <div v-if="mask" v-show="computedVisible" ref="maskRef" :class="`${prefixCls}-mask`" :style="maskStyle" />
         </transition>
-        <div
-          ref="wrapperRef"
-          :class="wrapperCls"
-          @click.self="handleMaskClick"
-          @mousedown.self="handleMaskMouseDown"
-        >
-          <transition
-            :name="modalAnimationName"
-            appear
-            @after-enter="handleOpen"
-            @after-leave="handleClose"
-          >
-            <div
-              v-show="computedVisible"
-              ref="modalRef"
-              :class="modalCls"
-              :style="mergedModalStyle"
-            >
-              <div
-                v-if="!hideTitle && ($slots.title || title || closable)"
-                :class="`${prefixCls}-header`"
-                @mousedown="handleMoveDown"
-              >
-                <div
-                  v-if="$slots.title || title"
-                  :class="[
-                    `${prefixCls}-title`,
-                    `${prefixCls}-title-align-${titleAlign}`,
-                  ]"
-                >
+        <div ref="wrapperRef" :class="wrapperCls" @click.self="handleMaskClick" @mousedown.self="handleMaskMouseDown">
+          <transition :name="modalAnimationName" appear @after-enter="handleOpen" @after-leave="handleClose">
+            <div v-show="computedVisible" ref="modalRef" :class="modalCls" :style="mergedModalStyle" tabindex="-1">
+              <div v-if="!hideTitle && ($slots.title || title || closable)" :class="`${prefixCls}-header`"
+                @mousedown="handleMoveDown">
+                <div v-if="$slots.title || title" :class="[
+                  `${prefixCls}-title`,
+                  `${prefixCls}-title-align-${titleAlign}`,
+                ]">
                   <div v-if="messageType" :class="`${prefixCls}-title-icon`">
                     <icon-info-circle-fill v-if="messageType === 'info'" />
                     <icon-check-circle-fill v-if="messageType === 'success'" />
-                    <icon-exclamation-circle-fill
-                      v-if="messageType === 'warning'"
-                    />
+                    <icon-exclamation-circle-fill v-if="messageType === 'warning'" />
                     <icon-close-circle-fill v-if="messageType === 'error'" />
                   </div>
                   <slot name="title">{{ title }}</slot>
                 </div>
-                <div
-                  v-if="!simple && closable"
-                  tabindex="-1"
-                  role="button"
-                  aria-label="Close"
-                  :class="`${prefixCls}-close-btn`"
-                  @click="handleCancel"
-                >
+                <div v-if="!simple && closable" tabindex="0" role="button" aria-label="Close"
+                  :class="`${prefixCls}-close-btn`" @click="handleCancel" @keydown="handleCloseKeyDown">
                   <icon-hover>
                     <icon-close />
                   </icon-hover>
@@ -75,19 +35,10 @@
               </div>
               <div v-if="footer" :class="`${prefixCls}-footer`">
                 <slot name="footer">
-                  <arco-button
-                    v-if="!hideCancel"
-                    v-bind="cancelButtonProps"
-                    @click="handleCancel"
-                  >
+                  <arco-button v-if="!hideCancel" v-bind="cancelButtonProps" @click="handleCancel">
                     {{ cancelDisplayText }}
                   </arco-button>
-                  <arco-button
-                    type="primary"
-                    v-bind="okButtonProps"
-                    :loading="mergedOkLoading"
-                    @click="handleOk"
-                  >
+                  <arco-button type="primary" v-bind="okButtonProps" :loading="mergedOkLoading" @click="handleOk">
                     {{ okDisplayText }}
                   </arco-button>
                 </slot>
@@ -110,6 +61,7 @@ import {
   onMounted,
   onBeforeUnmount,
   toRefs,
+  nextTick,
 } from 'vue';
 import { getPrefixCls } from '../_utils/global-config';
 import { MessageType } from '../_utils/constant';
@@ -489,6 +441,7 @@ export default defineComponent({
 
     const _visible = ref(props.defaultVisible);
     const computedVisible = computed(() => props.visible ?? _visible.value);
+
     const _okLoading = ref(false);
     const mergedOkLoading = computed(() => props.okLoading || _okLoading.value);
     const mergedDraggable = computed(
@@ -599,6 +552,13 @@ export default defineComponent({
       }
     };
 
+    const handleCloseKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleCancel(e);
+      }
+    };
+
     const currentIsMask = ref(false);
 
     const handleMaskMouseDown = (ev: Event) => {
@@ -613,15 +573,107 @@ export default defineComponent({
       }
     };
 
+    // 焦点陷阱相关
+    let previousActiveElement: HTMLElement | null = null;
+    let focusTrapEnabled = false;
+
+    // 可聚焦元素选择器
+    const FOCUSABLE_SELECTOR = 'input:not([disabled]):not([readonly]), select:not([disabled]), textarea:not([disabled]):not([readonly]), button:not([disabled]), a[href], [tabindex]:not([tabindex^="-"]), [contenteditable="true"]';
+
+    // 获取可聚焦元素
+    const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
+      if (!container) return [];
+      const elements = container.querySelectorAll(FOCUSABLE_SELECTOR);
+      return Array.from(elements).filter((el) => {
+        const element = el as HTMLElement;
+        const style = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return (
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          element.offsetParent !== null &&
+          rect.width > 0 &&
+          rect.height > 0 &&
+          !element.hasAttribute('inert')
+        );
+      }) as HTMLElement[];
+    };
+
+    // 处理Tab键导航的焦点陷阱
+    const handleModalKeyDown = (event: KeyboardEvent) => {
+      if (!computedVisible.value || !modalRef.value || event.key !== 'Tab') {
+        return;
+      }
+
+      const focusableElements = getFocusableElements(modalRef.value);
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement as HTMLElement;
+
+      // Shift + Tab (向前导航)
+      if (event.shiftKey) {
+        if (activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      }
+      // Tab (向后导航)
+      else if (activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    // 启用焦点陷阱
+    const enableFocusTrap = () => {
+      if (!modalRef.value || focusTrapEnabled) return;
+      if (!previousActiveElement) {
+        previousActiveElement = document.activeElement as HTMLElement;
+      }
+
+      focusTrapEnabled = true;
+
+      nextTick(() => {
+        if (!modalRef.value) return;
+        const focusableElements = getFocusableElements(modalRef.value);
+
+        if (focusableElements.length > 0) {
+          focusableElements[0].focus();
+        } else {
+          modalRef.value.focus();
+        }
+      });
+
+      document.addEventListener('keydown', handleModalKeyDown, true);
+    };    // 禁用焦点陷阱
+    const disableFocusTrap = () => {
+      if (!focusTrapEnabled) return;
+
+      focusTrapEnabled = false;
+      document.removeEventListener('keydown', handleModalKeyDown, true);
+
+      // 恢复之前的焦点
+      if (previousActiveElement) {
+        try {
+          previousActiveElement.focus();
+        } catch (error) {
+        }
+        previousActiveElement = null;
+      }
+    };
+
     const handleOpen = () => {
       if (computedVisible.value) {
-        if (
-          !contains(wrapperRef.value, document.activeElement) &&
-          document.activeElement instanceof HTMLElement
-        ) {
-          document.activeElement.blur();
-        }
         emit('open');
+        setTimeout(() => {
+          enableFocusTrap();
+        }, 100);
       }
     };
 
@@ -633,6 +685,8 @@ export default defineComponent({
 
         mounted.value = false;
         resetOverflow();
+        // 禁用焦点陷阱
+        disableFocusTrap();
         emit('close');
       }
     };
@@ -652,6 +706,7 @@ export default defineComponent({
     onBeforeUnmount(() => {
       resetOverflow();
       removeGlobalKeyDownListener();
+      disableFocusTrap();
     });
 
     watch(computedVisible, (value: boolean) => {
@@ -664,13 +719,15 @@ export default defineComponent({
         currentIsMask.value = false;
         setOverflowHidden();
         addGlobalKeyDownListener();
+
+        setTimeout(() => {
+          enableFocusTrap();
+        }, 100);
       } else {
         emit('beforeClose');
         removeGlobalKeyDownListener();
       }
-    });
-
-    watch(fullscreen, () => {
+    }); watch(fullscreen, () => {
       if (position.value) {
         position.value = undefined;
       }
@@ -725,6 +782,7 @@ export default defineComponent({
       zIndex,
       handleOk,
       handleCancel,
+      handleCloseKeyDown,
       handleMaskClick,
       handleMaskMouseDown,
       handleOpen,
