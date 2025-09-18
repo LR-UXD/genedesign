@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split组件测试</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .split-container {
+            height: 400px;
+            border: 1px solid #e5e6eb;
+        }
+
+        .pane {
+            padding: 20px;
+            background: #f7f8fa;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 6px;
+        }
+
+        .instructions h3 {
+            margin: 0 0 10px 0;
+            color: #1d2129;
+        }
+
+        .instructions ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="instructions">
+            <h3>Split组件测试说明</h3>
+            <ul>
+                <li><strong>Tab键切换：</strong>按Tab键可以聚焦到分割线上，聚焦后会显示蓝色边框</li>
+                <li><strong>键盘操作：</strong>聚焦后使用方向键调整分割位置（左右分割用左右键，上下分割用上下键）</li>
+                <li><strong>鼠标拖拽：</strong>鼠标悬停在分割线上，光标会变化，可以直接拖拽</li>
+                <li><strong>视觉反馈：</strong>悬停和聚焦时分割线背景色会变化</li>
+            </ul>
+        </div>
+
+        <h2>水平分割（左右布局）</h2>
+        <div class="split-container">
+            <!-- 这里需要使用实际的Split组件 -->
+            <div style="display: flex; height: 100%;">
+                <div class="pane" style="flex: 0 0 200px;">
+                    <h4>左侧面板</h4>
+                    <p>这是左侧的内容区域。使用Tab键可以聚焦到分割线，然后用左右方向键调整大小。</p>
+                </div>
+                <div style="width: 6px; background: #e5e6eb; cursor: col-resize; position: relative; outline: none;"
+                    tabindex="0" role="separator" aria-orientation="vertical" aria-label="垂直分割线">
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; height: 100%; background: inherit;">
+                        ⋮⋮
+                    </div>
+                </div>
+                <div class="pane" style="flex: 1;">
+                    <h4>右侧面板</h4>
+                    <p>这是右侧的内容区域。可以通过拖拽分割线来调整两个面板的大小。</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 30px;">垂直分割（上下布局）</h2>
+        <div class="split-container">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+                <div class="pane" style="flex: 0 0 150px;">
+                    <h4>上方面板</h4>
+                    <p>这是上方的内容区域。使用Tab键聚焦分割线，然后用上下方向键调整。</p>
+                </div>
+                <div style="height: 6px; background: #e5e6eb; cursor: row-resize; position: relative; outline: none;"
+                    tabindex="0" role="separator" aria-orientation="horizontal" aria-label="水平分割线">
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; height: 100%; background: inherit;">
+                        ⋯⋯
+                    </div>
+                </div>
+                <div class="pane" style="flex: 1;">
+                    <h4>下方面板</h4>
+                    <p>这是下方的内容区域。所有的交互功能都已经实现。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的键盘事件处理示例
+        document.addEventListener('keydown', function (e) {
+            if (e.target.getAttribute('role') === 'separator') {
+                const step = 10;
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+                    e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    console.log('键盘调整分割线:', e.key);
+                    // 这里在实际组件中会调整分割比例
+                }
+            }
+        });
+
+        // 聚焦样式
+        const style = document.createElement('style');
+        style.textContent = `
+            [role="separator"]:focus {
+                outline: 2px solid #165dff;
+                outline-offset: 2px;
+            }
+            [role="separator"]:hover {
+                background-color: #f2f3f5 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

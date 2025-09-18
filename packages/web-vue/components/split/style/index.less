@@ -25,6 +25,14 @@
 
 // 伸缩触发杆
 .@{split-trigger-prefix-cls} {
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid @color-primary-6;
+    outline-offset: 2px;
+    z-index: 2;
+  }
+
   &-icon-wrapper {
     display: flex;
     align-items: center;
@@ -34,6 +42,15 @@
     font-size: @split-trigger-font-size-icon;
     line-height: 1;
     background-color: @split-trigger-color-background;
+    transition: background-color @transition-duration-1 @transition-timing-function-linear;
+  }
+
+  &:hover &-icon-wrapper {
+    background-color: @split-trigger-color-background-hover;
+  }
+
+  &:focus-visible &-icon-wrapper {
+    background-color: @split-trigger-color-background-hover;
   }
 
   &-icon {

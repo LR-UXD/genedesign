@@ -1,18 +1,11 @@
 <template>
   <component :is="component" ref="wrapperRef" :class="classNames">
-    <div
-      :class="[`${prefixCls}-pane`, `${prefixCls}-pane-first`]"
-      :style="firstPaneStyles"
-    >
+    <div :class="[`${prefixCls}-pane`, `${prefixCls}-pane-first`]" :style="firstPaneStyles">
       <slot name="first" />
     </div>
-    <ResizeTrigger
-      v-if="!disabled"
-      :prefix-cls="`${prefixCls}-trigger`"
-      :direction="isHorizontal ? 'vertical' : 'horizontal'"
-      @mousedown="onMoveStart"
-      @resize="onTriggerResize"
-    >
+    <ResizeTrigger v-if="!disabled" :prefix-cls="`${prefixCls}-trigger`"
+      :direction="isHorizontal ? 'vertical' : 'horizontal'" @mousedown="onMoveStart" @keydown="onKeyDown"
+      @resize="onTriggerResize">
       <template #default>
         <slot name="resize-trigger" />
       </template>
@@ -226,7 +219,7 @@ export default defineComponent({
           : wrapperRef.value?.clientHeight || 0;
       };
 
-      if (!wrapperRef.value || getSize()) {
+      if (!wrapperRef.value || !getSize()) {
         await nextTick();
       }
 
@@ -297,17 +290,17 @@ export default defineComponent({
 
       const newPxSize = isHorizontal.value
         ? getNewPxSize({
-            startContainerSize: record.startContainerSize,
-            startSize: record.startSize,
-            startPosition: record.startPageX,
-            endPosition: e.pageX,
-          })
+          startContainerSize: record.startContainerSize,
+          startSize: record.startSize,
+          startPosition: record.startPageX,
+          endPosition: e.pageX,
+        })
         : getNewPxSize({
-            startContainerSize: record.startContainerSize,
-            startSize: record.startSize,
-            startPosition: record.startPageY,
-            endPosition: e.pageY,
-          });
+          startContainerSize: record.startContainerSize,
+          startSize: record.startSize,
+          startPosition: record.startPageY,
+          endPosition: e.pageY,
+        });
 
       updateSize(newPxSize, record.startContainerSize);
     }
@@ -345,10 +338,50 @@ export default defineComponent({
       triggerSize.value = isHorizontal.value ? width : height;
     }
 
+    async function onKeyDown(e: KeyboardEvent) {
+      const step = 10; // 每次移动的像素数
+      const containerSize = await getContainerSize();
+
+      if (!containerSize) {
+        return;
+      }
+
+      const currentPxSize = getPxSize({
+        size: size.value,
+        containerSize,
+      });
+
+      let newPxSize = currentPxSize;
+
+      if (isHorizontal.value) {
+        // 水平分割时，左右箭头键控制
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          newPxSize = currentPxSize - step;
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          newPxSize = currentPxSize + step;
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        newPxSize = currentPxSize - step;
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        newPxSize = currentPxSize + step;
+      }
+
+      if (newPxSize !== currentPxSize) {
+        const legalPxSize = getLegalPxSize(newPxSize, containerSize);
+        updateSize(legalPxSize, containerSize);
+      }
+    }
+
     onMounted(async () => {
       const containerSize = await getContainerSize();
-      const fixedPxSize = getLegalPxSize(size.value, containerSize);
-      updateSize(fixedPxSize, containerSize);
+      if (containerSize) {
+        const fixedPxSize = getLegalPxSize(size.value, containerSize);
+        updateSize(fixedPxSize, containerSize);
+      }
     });
 
     return {
@@ -357,6 +390,7 @@ export default defineComponent({
       isHorizontal,
       wrapperRef,
       onMoveStart,
+      onKeyDown,
       onTriggerResize,
       firstPaneStyles,
     };
