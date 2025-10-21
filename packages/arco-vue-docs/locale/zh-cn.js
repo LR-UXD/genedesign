@@ -1,3 +1,5 @@
+import { effect } from "vue";
+
 export default {
   docs: {
     name: '开发指南',
@@ -28,11 +30,14 @@ export default {
   },
   liquid_glass: {
     name: '液态玻璃',
+    effect: '快速上手',
     effects: '效果预览',
+    glass: '案例',
     glassButton: '液态玻璃按钮',
     glassCard: '液态玻璃卡片',
     glassMessage: '液态玻璃消息提示',
-    glassTooltip: '液态玻璃文字气泡'
+    glassTooltip: '液态玻璃文字气泡',
+    glassDrawer: '液态玻璃抽屉',
 
   },
   component: {

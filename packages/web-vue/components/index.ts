@@ -29,6 +29,8 @@ export type { GlassMessageInstance, GlassMessageProps } from './glass-message';
 export { default as GlassTooltip } from './glass-tooltip';
 export type { GlassTooltipInstance, GlassTooltipProps } from './glass-tooltip';
 
+export { default as GlassDrawer } from './glass-drawer';
+export type { GlassDrawerInstance, GlassDrawerProps } from './glass-drawer';
 
 export { default as AutoComplete } from './auto-complete';
 export type { AutoCompleteInstance } from './auto-complete';

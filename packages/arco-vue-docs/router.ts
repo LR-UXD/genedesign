@@ -9,6 +9,8 @@ const Theme = () => import('./docs/theme.zh-CN.md');
 const ThemeEn = () => import('./docs/theme.en-US.md');
 const I18n = () => import('./docs/i18n.zh-CN.md');
 const I18nEn = () => import('./docs/i18n.en-US.md');
+const Effect = () => import('./docs/effect.zh-CN.md');
+const EffectEn = () => import('./docs/effect.en-US.md');
 const Changelog = () => import('./pages/changelog/changelog.vue');
 const Button = () => import('@web-vue/components/button/README.zh-CN.md');
 const ButtonEn = () => import('@web-vue/components/button/README.en-US.md');
@@ -231,6 +233,11 @@ const GlassTooltip = () =>
 const GlassTooltipEn = () =>
   import('@web-vue/components/glass-tooltip/README.en-US.md');
 
+const GlassDrawer = () =>
+  import('@web-vue/components/glass-drawer/README.zh-CN.md');
+const GlassDrawerEn = () =>
+  import('@web-vue/components/glass-drawer/README.en-US.md');
+
 const AiDemo = () =>
   import('./components/aidemo/aidemo.vue');
 
@@ -303,29 +310,44 @@ const demos = [
 ]
 const liquidGlass = [
   {
+    name: 'effect',
+    component: Effect,
+    componentEn: EffectEn,
+  },
+  {
     name: 'effects',
     component: Glass,
   },
-  {
-    name: 'glassButton',
-    component: GlassButton,
-    componentEn: GlassButtonEn,
-  },
-  {
-    name: 'glassCard',
-    component: GlassCard,
-    componentEn: GlassCardEn,
-  },
-  {
-    name: 'glassMessage',
-    component: GlassMessage,
-    componentEn: GlassMessageEn,
-  },
-  {
-    name: 'glassTooltip',
-    component: GlassTooltip,
-    componentEn: GlassTooltipEn,
-  },
+  // {
+  //   name: 'glassButton',
+  //   type: 'glass',
+  //   component: GlassButton,
+  //   componentEn: GlassButtonEn,
+  // },
+  // {
+  //   name: 'glassCard',
+  //   type: 'glass',
+  //   component: GlassCard,
+  //   componentEn: GlassCardEn,
+  // },
+  // {
+  //   name: 'glassMessage',
+  //   type: 'glass',
+  //   component: GlassMessage,
+  //   componentEn: GlassMessageEn,
+  // },
+  // {
+  //   name: 'glassTooltip',
+  //   type: 'glass',
+  //   component: GlassTooltip,
+  //   componentEn: GlassTooltipEn,
+  // },
+  // {
+  //   name: 'glassDrawer',
+  //   type: 'glass',
+  //   component: GlassDrawer,
+  //   componentEn: GlassDrawerEn,
+  // }
 ]
 
 const proDocs = [
@@ -909,6 +931,7 @@ for (const item of liquidGlass) {
   glassMenu.push({
     name: item.name,
     path,
+    type: item.type ? item.type : '',
   });
 }
 

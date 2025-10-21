@@ -33486,9 +33486,7 @@ function NavbarLogo(props) {
       localStorage.setItem = originalSetItem;
     };
   }, []);
-  console.log(localStorage.getItem('gene-theme'))
   const currentLogo = themeLogos[currentTheme] || themeLogos.default;
-  console.log('currentLogo', currentLogo)
   const { logoHref = "/", logo = null } = props;
 
   return React.createElement(

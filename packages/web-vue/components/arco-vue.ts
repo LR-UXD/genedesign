@@ -45,6 +45,7 @@ import GlassButton from './glass-button';
 import GlassCard from './glass-card';
 import GlassMessage from './glass-message';
 import GlassTooltip from './glass-tooltip';
+import GlassDrawer from './glass-drawer';
 import Icon from './icon-component';
 import Image, {
   ImagePreview,
@@ -190,7 +191,8 @@ const components: Record<string, Plugin> = {
   GlassButton,
   GlassCard,
   GlassMessage,
-  GlassTooltip
+  GlassTooltip,
+  GlassDrawer,
 };
 
 const install = (app: App, options?: ArcoOptions) => {

@@ -66,6 +66,11 @@
       border-radius: @radius-small;
       box-shadow: none;
     }
+
+    &.@{select-view-prefix-cls}-opened:focus-visible {
+      outline: 1px solid @color-primary-6;
+      outline-offset: -1px;
+    }
   }
 }
 
@@ -100,6 +105,11 @@
         outline-offset: -2px;
         border-radius: @radius-small;
         box-shadow: none;
+      }
+
+      // 打开时的聚焦偏移调整
+      &.@{select-view-prefix-cls}-opened:focus-visible {
+        outline-offset: -1px;
       }
     }
 
@@ -162,6 +172,11 @@
         border-color: Highlight !important;
         outline: 2px solid Highlight !important;
         outline-offset: -2px !important;
+      }
+
+      &.@{select-view-prefix-cls}-opened:focus-visible {
+        outline: 1px solid Highlight !important;
+        outline-offset: -1px !important;
       }
 
       &.@{select-view-prefix-cls}-disabled {

@@ -5,6 +5,8 @@ import { VirtualListRef } from '../../_components/virtual-list-v2/interface';
 import { getRelativeRect } from '../../_utils/dom';
 import { useOptions } from './use-options';
 import { KEYBOARD_KEY, getKeyDownHandler } from '../../_utils/keyboard';
+import type { CodeKey } from '../../_utils/keyboard';
+import type { ActiveType } from '../context';
 import { selectInjectionKey } from '../context';
 
 export const useSelect = ({
@@ -68,6 +70,7 @@ export const useSelect = ({
 
   const activeKey = ref<string | undefined>();
   const isKeyboardNavigation = ref<boolean>(false);
+  const activeType = ref<ActiveType>(undefined);
 
   watch(enabledOptionKeys, (enabledKeys) => {
     if (!activeKey.value || !enabledKeys.includes(activeKey.value)) {
@@ -76,9 +79,15 @@ export const useSelect = ({
     }
   });
 
-  const setActiveKey = (key?: string, fromKeyboard = false) => {
+  const setActiveKey = (key?: string, type?: ActiveType | boolean) => {
     activeKey.value = key;
-    isKeyboardNavigation.value = fromKeyboard;
+    if (typeof type === 'boolean') {
+      isKeyboardNavigation.value = type;
+      activeType.value = type ? 'keyboard' : 'hover';
+    } else {
+      isKeyboardNavigation.value = type === 'keyboard';
+      activeType.value = type;
+    }
   };
 
   const getNextActiveKey = (direction: 'up' | 'down') => {
@@ -146,11 +155,14 @@ export const useSelect = ({
           scrollIntoView(activeKey.value);
         }
       });
+    } else {
+      isKeyboardNavigation.value = false;
+      activeType.value = undefined;
     }
   });
 
   const handleKeyDown = getKeyDownHandler(
-    new Map([
+    new Map<CodeKey | string, (e: Event) => void>([
       [
         KEYBOARD_KEY.ENTER,
         (e: Event) => {
@@ -162,6 +174,8 @@ export const useSelect = ({
                 e.preventDefault();
               }
             } else if (enterToOpen) {
+              isKeyboardNavigation.value = true;
+              activeType.value = 'keyboard';
               onPopupVisibleChange(true);
               e.preventDefault();
             }
@@ -179,6 +193,8 @@ export const useSelect = ({
                 e.preventDefault();
               }
             } else if (enterToOpen) {
+              isKeyboardNavigation.value = true;
+              activeType.value = 'keyboard';
               onPopupVisibleChange(true);
               e.preventDefault();
             }
@@ -202,6 +218,7 @@ export const useSelect = ({
             if (next) {
               activeKey.value = next;
               isKeyboardNavigation.value = true;
+              activeType.value = 'keyboard';
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -216,6 +233,7 @@ export const useSelect = ({
             if (next) {
               activeKey.value = next;
               isKeyboardNavigation.value = true;
+              activeType.value = 'keyboard';
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -230,6 +248,7 @@ export const useSelect = ({
             if (next) {
               activeKey.value = next;
               isKeyboardNavigation.value = true;
+              activeType.value = 'keyboard';
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -244,6 +263,7 @@ export const useSelect = ({
             if (next) {
               activeKey.value = next;
               isKeyboardNavigation.value = true;
+              activeType.value = 'keyboard';
               scrollIntoView(next);
             }
             e.preventDefault();
@@ -263,6 +283,7 @@ export const useSelect = ({
       component,
       valueKeys,
       activeKey,
+      activeType,
       isKeyboardNavigation,
       setActiveKey,
       onSelect,

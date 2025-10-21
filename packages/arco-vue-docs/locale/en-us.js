@@ -28,12 +28,14 @@ export default {
   },
   liquid_glass: {
     name: 'Liquid Glass',
+    effect: 'Quick Start',
     effects: 'Effects',
+    glass: 'Glass',
     glassButton: 'GlassButton',
     glassCard: 'GlassCard',
     glassMessage: 'GlassMessage',
-    glassTooltip: 'GlassTooltip'
-
+    glassTooltip: 'GlassTooltip',
+    glassDrawer: 'GlassDrawer',
 
   },
   component: {

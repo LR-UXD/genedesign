@@ -1,8 +1,8 @@
 <template>
-  <Trigger :class="prefixCls" :trigger="['hover', 'click']" :position="position" :popup-visible="computedPopupVisible"
-    :popup-offset="10" show-arrow :content-class="contentCls" :content-style="computedContentStyle"
-    :arrow-class="arrowCls" :arrow-style="computedArrowStyle" :popup-container="popupContainer"
-    animation-name="zoom-in-fade-out" auto-fit-transform-origin role="tooltip"
+  <Trigger :class="prefixCls" :trigger="['hover', 'click', 'focus']" :position="position"
+    :popup-visible="computedPopupVisible" :popup-offset="10" show-arrow :content-class="contentCls"
+    :content-style="computedContentStyle" :arrow-class="arrowCls" :arrow-style="computedArrowStyle"
+    :popup-container="popupContainer" animation-name="zoom-in-fade-out" auto-fit-transform-origin role="tooltip"
     @popup-visible-change="handlePopupVisibleChange">
     <slot />
     <template #content>

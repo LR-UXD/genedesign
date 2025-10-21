@@ -59,6 +59,7 @@ declare module 'vue' {
     AGlassCard: typeof import('genedesign')['GlassCard'];
     AGlassMessage: typeof import('genedesign')['GlassMessage'];
     AGlassTooltip: typeof import('genedesign')['GlassTooltip'];
+    AGlassDrawer: typeof import('genedesign')['GlassDrawer'];
     AGridItem: typeof import('genedesign')['GridItem'];
     ACol: typeof import('genedesign')['Col'];
     ARow: typeof import('genedesign')['Row'];

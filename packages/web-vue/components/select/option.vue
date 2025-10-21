@@ -188,13 +188,13 @@ export default defineComponent({
 
     const handleMouseEnter = () => {
       if (!props.disabled) {
-        selectCtx?.setActiveKey(key.value, false); // false 表示非键盘导航
+        selectCtx?.setActiveKey(key.value, 'hover'); // 鼠标悬停，标记为 hover
       }
     };
 
     const handleMouseLeave = () => {
       if (!props.disabled) {
-        selectCtx?.setActiveKey(undefined, false); // false 表示非键盘导航
+        selectCtx?.setActiveKey(undefined); // 清除激活项
       }
     };
 

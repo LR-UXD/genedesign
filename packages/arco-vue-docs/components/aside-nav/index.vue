@@ -84,25 +84,26 @@
 
         <template v-for="group in glassMenuList" :key="group.name">
           <div class="aside-nav-group">
-            <div class="aside-nav-group-name">{{
-              t(`${group.name}.name`)
-              }}</div>
-            <ul class="aside-nav-list">
-              <router-link v-for="item of group.menu" :key="item.name" v-slot="{ href, navigate, isActive }" :to="locale === 'en-US'
-                ? item.path.replace('vue/', 'vue/en-US/')
-                : item.path
-                " custom>
-                <li :class="[
-                  'aside-nav-item',
-                  { 'aside-nav-item-active': isActive },
-                ]">
-                  <a :href="locale === 'en-US' ? href.replace('#', '#/en-US') : href
-                    " class="aside-nav-item-link" @click="navigate">
-                    {{ t(`${group.name}.${item.name}`) }}
-                  </a>
-                </li>
-              </router-link>
-            </ul>
+            <div class="aside-nav-group-name">{{ t(`${group.name}.name`) }}</div>
+            <div v-for="(items, type) in groupedGlassMenu(group.menu)" :key="type || 'no-type'">
+              <div v-if="type">
+                <h4 class="aside-nav-component-group-name">{{ t(`${group.name}.${type}`) }}</h4>
+              </div>
+              <ul class="aside-nav-list">
+                <router-link v-for="item of items" :key="item.name" v-slot="{ href, navigate, isActive }"
+                  :to="locale === 'en-US' ? item.path.replace('vue/', 'vue/en-US/') : item.path" custom>
+                  <li :class="[
+                    'aside-nav-item',
+                    { 'aside-nav-item-active': isActive },
+                  ]">
+                    <a :href="locale === 'en-US' ? href.replace('#', '#/en-US') : href" class="aside-nav-item-link"
+                      @click="navigate">
+                      {{ t(`${group.name}.${item.name}`) }}
+                    </a>
+                  </li>
+                </router-link>
+              </ul>
+            </div>
           </div>
         </template>
 
@@ -131,7 +132,6 @@ export default defineComponent({
   },
   emits: ['buttonClick'],
   setup(props) {
-    console.log('demoMenu', demoMenuList);
     const { t, locale } = useI18n();
     const showNav = ref(true);
 
@@ -154,6 +154,16 @@ export default defineComponent({
       },
     ]);
 
+    const groupedGlassMenu = (menu = []) => {
+      const map = {};
+      menu.forEach((item) => {
+        const key = item.type || '';
+        if (!map[key]) map[key] = [];
+        map[key].push(item);
+      });
+      return map;
+    };
+
     return {
       showNav,
       componentMenu,
@@ -165,6 +175,7 @@ export default defineComponent({
       cls,
       handleTranslationStart,
       handleTranslationEnd,
+      groupedGlassMenu,
     };
   },
 });
