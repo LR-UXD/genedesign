@@ -62,7 +62,7 @@
   display: inline-flex;
   width: 100%;
 
-  > .@{input-prefix-cls}-wrapper {
+  >.@{input-prefix-cls}-wrapper {
     border-radius: 0;
   }
 
@@ -95,21 +95,19 @@
   background-color: @input-color-addon-bg;
   border: 1px solid @input-color-addon-border_default;
 
-  > svg {
+  >svg {
     font-size: @input-size-default-icon-addon-size;
   }
 }
 
 .@{input-prefix-cls}-prepend {
-  border-right: @input-border-addon-separator-width solid
-    @input-color-addon-border;
+  border-right: @input-border-addon-separator-width solid @input-color-addon-border;
 
   .addon(before, @input-size-default-height, @input-size-default-font-size);
 }
 
 .@{input-prefix-cls}-append {
-  border-left: @input-border-addon-separator-width solid
-    @input-color-addon-border;
+  border-left: @input-border-addon-separator-width solid @input-color-addon-border;
 
   .addon(after, @input-size-default-height, @input-size-default-font-size);
 }
@@ -119,3 +117,4 @@
 @import './textarea.less';
 @import './search.less';
 @import './password.less';
+@import './high-contrast.less';

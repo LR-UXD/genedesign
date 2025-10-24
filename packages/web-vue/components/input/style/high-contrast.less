@@ -1,0 +1,104 @@
+@import './token.less';
+
+
+@media (forced-colors: active),
+(-ms-high-contrast: active) {
+
+
+    .hc-placeholder(@color) {
+        &::-webkit-input-placeholder {
+            color: @color !important;
+        }
+
+        &::-moz-placeholder {
+            color: @color !important;
+        }
+
+        &:-ms-input-placeholder {
+            color: @color !important;
+        }
+
+        &::-ms-input-placeholder {
+            color: @color !important;
+        }
+
+        &::placeholder {
+            color: @color !important;
+        }
+    }
+
+
+    .@{input-prefix-cls} {
+        border-color: Highlight;
+        .hc-placeholder(CanvasText);
+    }
+
+    .@{input-prefix-cls}-wrapper,
+    .@{input-prefix-cls}-outer {
+        color: ButtonText !important;
+        border-color: ButtonBorder !important;
+
+        &:hover:not(.@{input-prefix-cls}-disabled) {
+            border-color: Highlight !important;
+        }
+    }
+
+
+    .@{input-prefix-cls}-focus {
+        border-color: Highlight !important;
+
+        .@{input-prefix-cls} {
+            .hc-placeholder(ButtonText)
+        }
+    }
+
+    .@{input-prefix-cls}-prefix,
+    .@{input-prefix-cls}-suffix {
+        color: ButtonText !important;
+
+    }
+
+    .arco-icon-hover:hover:not(.@{input-prefix-cls}-disabled) {
+        color: Highlight !important;
+
+        &::before {
+            display: none;
+        }
+    }
+
+
+
+    .@{textarea-prefix-cls} {
+        border-color: Highlight;
+        .hc-placeholder(CanvasText);
+    }
+
+    .@{textarea-prefix-cls}-wrapper,
+    .@{textarea-prefix-cls}-outer {
+        color: ButtonText !important;
+        border-color: ButtonBorder !important;
+
+        &:hover:not(.@{textarea-prefix-cls}-disabled) {
+            border-color: Highlight !important;
+        }
+    }
+
+
+    .@{textarea-prefix-cls}-focus {
+        border-color: Highlight !important;
+
+        .@{textarea-prefix-cls} {
+            .hc-placeholder(ButtonText)
+        }
+    }
+
+    .@{textarea-prefix-cls}-prefix,
+    .@{textarea-prefix-cls}-suffix {
+        color: ButtonText !important;
+
+    }
+
+    .@{textarea-prefix-cls}-hover:hover:not(.@{textarea-prefix-cls}-disabled) {
+        border-color: Highlight !important;
+    }
+}

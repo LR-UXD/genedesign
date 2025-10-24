@@ -662,3 +662,100 @@
     outline-offset: -1px;
   }
 }
+
+
+
+@media (forced-colors: active) {
+  .@{menu-prefix-cls} {
+    forced-color-adjust: none;
+
+    &-light {
+      background-color: Canvas !important;
+    }
+
+    &-dark {
+      background-color: Canvas !important;
+    }
+
+    &-pop-header,
+    &-inline-header {
+      color: ButtonText !important;
+      background-color: ButtonFace !important;
+
+      &:focus-visible {
+        outline-color: CanvasText !important;
+      }
+
+    }
+
+    &-item {
+      color: ButtonText !important;
+      background-color: transparent !important;
+
+      &:focus-visible {
+        outline-color: CanvasText !important;
+      }
+
+    }
+
+    &-disabled {
+      color: GrayText !important;
+    }
+
+    &-icon-suffix {
+      .arco-icon {
+        color: ButtonText !important;
+      }
+    }
+
+    &-pop-header:hover,
+    &-inline-header:hover,
+    &-item:hover,
+    &-selected {
+      background-color: Highlight !important;
+      color: HighlightText !important;
+
+      .arco-icon {
+        color: HighlightText !important;
+      }
+    }
+
+    &-selected-label {
+      background-color: Highlight !important;
+    }
+
+  }
+
+  .@{trigger-menu-prefix-cls} {
+    forced-color-adjust: none;
+
+    &-light {
+      background-color: Canvas !important;
+    }
+
+    &-dark {
+      background-color: Canvas !important;
+    }
+
+    &-item {
+      color: ButtonText !important;
+      background-color: transparent !important;
+
+      &:focus-visible {
+        outline-color: CanvasText !important;
+      }
+    }
+
+    &-item:hover,
+    &-selected {
+      background-color: Highlight !important;
+      color: HighlightText !important;
+
+      .arco-icon {
+        color: HighlightText !important;
+      }
+    }
+
+
+  }
+}

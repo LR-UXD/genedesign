@@ -853,7 +853,7 @@
 
     // Tab 基础样式
     &-tab {
-      color: CanvasText !important;
+      color: ButtonText !important;
       border: 1px solid ButtonBorder !important;
       background-color: Canvas !important;
 
@@ -862,17 +862,18 @@
         color: HighlightText !important;
       }
 
-      &:focus-visible {
-        outline: 2px solid Highlight !important;
-        outline-offset: 2px !important;
-      }
 
-      &-active,
-      &-active:hover {
+      &-active {
         background-color: Highlight !important;
         color: HighlightText !important;
         border-color: Highlight !important;
+
+        &:hover {
+          background-color: ButtonFace !important;
+          color: ButtonText !important;
+        }
       }
+
 
       &-disabled,
       &-disabled:hover {
@@ -880,6 +881,12 @@
         color: GrayText !important;
         border-color: GrayText !important;
       }
+    }
+
+    &-tab-active:hover~&-nav-ink {
+      background-color: ButtonText !important;
+      color: ButtonText !important;
+
     }
 
     &-nav-ink {
@@ -896,7 +903,7 @@
 
       &:focus-visible {
         .@{tabs-prefix-cls}-tab-title::before {
-          border: 2px solid Highlight !important;
+          border: 2px solid CanvasText !important;
           background-color: transparent !important;
         }
       }
@@ -910,13 +917,21 @@
         }
       }
 
-      &-active,
-      &-active:hover {
+      &-active {
         color: Highlight !important;
         background-color: transparent !important;
 
         .@{tabs-prefix-cls}-tab-title::before {
           background-color: transparent !important;
+        }
+
+        &:hover {
+          color: ButtonText !important;
+          background-color: transparent !important;
+
+          .@{tabs-prefix-cls}-tab-title::before {
+            background-color: transparent !important;
+          }
         }
       }
     }
@@ -926,16 +941,32 @@
       border: 1px solid ButtonBorder !important;
       background-color: Canvas !important;
 
+      &:hover {
+        color: Highlight !important;
+        border-color: Highlight !important;
+
+      }
+
       &:focus-visible::before {
         border: 2px solid Highlight !important;
       }
 
-      &-active,
-      &-active:hover {
+      &-active:focus-visible::before {
+        border: 2px solid ButtonBorder !important;
+      }
+
+      &-active {
         background-color: Highlight !important;
         color: HighlightText !important;
         border-color: Highlight !important;
+
+        &:hover {
+          background-color: ButtonFace !important;
+          color: ButtonText !important;
+          border-color: ButtonBorder !important;
+        }
       }
+
     }
 
     // 图标和按钮

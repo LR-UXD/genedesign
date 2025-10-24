@@ -318,36 +318,36 @@ const liquidGlass = [
     name: 'effects',
     component: Glass,
   },
-  // {
-  //   name: 'glassButton',
-  //   type: 'glass',
-  //   component: GlassButton,
-  //   componentEn: GlassButtonEn,
-  // },
-  // {
-  //   name: 'glassCard',
-  //   type: 'glass',
-  //   component: GlassCard,
-  //   componentEn: GlassCardEn,
-  // },
-  // {
-  //   name: 'glassMessage',
-  //   type: 'glass',
-  //   component: GlassMessage,
-  //   componentEn: GlassMessageEn,
-  // },
-  // {
-  //   name: 'glassTooltip',
-  //   type: 'glass',
-  //   component: GlassTooltip,
-  //   componentEn: GlassTooltipEn,
-  // },
-  // {
-  //   name: 'glassDrawer',
-  //   type: 'glass',
-  //   component: GlassDrawer,
-  //   componentEn: GlassDrawerEn,
-  // }
+  {
+    name: 'glassButton',
+    type: 'glass',
+    component: GlassButton,
+    componentEn: GlassButtonEn,
+  },
+  {
+    name: 'glassCard',
+    type: 'glass',
+    component: GlassCard,
+    componentEn: GlassCardEn,
+  },
+  {
+    name: 'glassMessage',
+    type: 'glass',
+    component: GlassMessage,
+    componentEn: GlassMessageEn,
+  },
+  {
+    name: 'glassTooltip',
+    type: 'glass',
+    component: GlassTooltip,
+    componentEn: GlassTooltipEn,
+  },
+  {
+    name: 'glassDrawer',
+    type: 'glass',
+    component: GlassDrawer,
+    componentEn: GlassDrawerEn,
+  }
 ]
 
 const proDocs = [

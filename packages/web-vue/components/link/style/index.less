@@ -127,7 +127,15 @@
 @media (forced-colors: active) {
   .@{link-prefix-cls} {
     &:not(&-disabled) {
-      color: highLight !important;
+      color: LinkText !important;
+    }
+
+    &:hover:not(&-disabled) {
+      color: CanvasText !important;
+    }
+
+    &:focus-visible:not(&-disabled) {
+      outline-color: CanvasText !important;
     }
   }
 

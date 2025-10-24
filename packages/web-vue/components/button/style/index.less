@@ -318,6 +318,25 @@ body[gene-theme='dark'] {
 
 
 @media (forced-colors: active) {
+  .arco-btn {
+    transition: none !important;
+  }
+
+  .arco-btn:focus,
+  .arco-btn:focus-visible {
+    border-color: ButtonBorder !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: none !important;
+    background-color: ButtonFace !important;
+    color: ButtonText !important;
+  }
+
+  .arco-btn:hover {
+    color: Highlight !important;
+    border-color: Highlight !important;
+  }
+
   .btn-type(@type) {
 
     .@{btn-prefix-cls}-@{type},
@@ -325,7 +344,7 @@ body[gene-theme='dark'] {
     .@{btn-prefix-cls}-@{type}[type='submit'] {
       &:focus-visible {
         z-index: 1;
-        outline: 2px solid Highlight !important;
+        outline: 2px solid CanvasText !important;
         outline-offset: 2px;
       }
     }

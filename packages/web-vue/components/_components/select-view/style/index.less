@@ -158,14 +158,39 @@
 
 // forced-colors 模式支持
 @media (forced-colors: active) {
+
+
+  .hc-placeholder(@color) {
+    &::-webkit-input-placeholder {
+      color: @color !important;
+    }
+
+    &::-moz-placeholder {
+      color: @color !important;
+    }
+
+    &:-ms-input-placeholder {
+      color: @color !important;
+    }
+
+    &::-ms-input-placeholder {
+      color: @color !important;
+    }
+
+    &::placeholder {
+      color: @color !important;
+    }
+  }
+
+
   .@{select-view-prefix-cls} {
 
     &-single,
     &-multiple {
       forced-color-adjust: none;
       background-color: Canvas !important;
-      border-color: CanvasText !important;
-      color: CanvasText !important;
+      border-color: ButtonBorder !important;
+      color: ButtonText !important;
 
       &.@{select-view-prefix-cls}-focus,
       &:focus-visible {
@@ -185,10 +210,20 @@
       }
     }
 
+    &-input {
+      .hc-placeholder(ButtonText);
+    }
+
+
+    &-single:hover:not(.@{select-view-prefix-cls}-disabled),
+    &-multiple:hover:not(.@{select-view-prefix-cls}-disabled) {
+      border-color: Highlight !important;
+    }
+
     &-icon,
     &-arrow-icon,
     &-clear-btn {
-      color: CanvasText !important;
+      color: ButtonText !important;
     }
 
     &-disabled &-icon,

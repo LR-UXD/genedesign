@@ -32,7 +32,7 @@ Button is divided into three shapes: `square` - **rectangular (default)**, `circ
   </a-space>
 </template>
 <script>
-import { IconPlus } from '@arco-design/web-vue/es/icon';
+import { IconPlus } from 'genedesign/es/icon';
 
 export default {
   components: { IconPlus }
