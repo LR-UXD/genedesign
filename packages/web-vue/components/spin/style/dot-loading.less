@@ -19,8 +19,7 @@
     background-color: @spin-dot-color-icon_default;
     border-radius: @radius-circle;
     transform: translateX(-50%) scale(0);
-    animation: @dot-prefix-cls 2s @transition-timing-function-linear infinite
-      forwards;
+    animation: @dot-prefix-cls 2s @transition-timing-function-linear infinite forwards;
 
     &:nth-child(2) {
       background-color: @spin-dot-color-icon_second;
@@ -46,19 +45,30 @@
 
 /* prettier-ignore */
 @keyframes @dot-prefix-cls {
-/* prettier-ignore */
-each(range(36), {
-  @percent: round(percentage(((@value - 1) / 36)), 3);
 
-  // 半径
-  @radius: 280%;
-  @xOffset: round(sin((pi() / 180 * @value * 10)) * @radius, 3) * -1;
-  @zOffset: round(cos((pi() / 180 * @value * 10)), 3) * -1px;
+  /* prettier-ignore */
+  each(range(36), {
+    @percent: round(percentage(((@value - 1) / 36)), 3);
 
-  @scaleOffset: round((1 - cos((pi() / 180) * @value * 10)) * 0.75 + 0.5, 3);
+    // 半径
+    @radius: 280%;
+    @xOffset: round(sin((pi() / 180 * @value * 10)) * @radius, 3) * -1;
+    @zOffset: round(cos((pi() / 180 * @value * 10)), 3) * -1px;
 
-  @{percent} {
-    transform: ~'translate3D(@{xOffset}, 0, @{zOffset}) scale(@{scaleOffset})'
+    @scaleOffset: round((1 - cos((pi() / 180) * @value * 10)) * 0.75 + 0.5, 3);
+
+    @{percent} {
+      transform: ~'translate3D(@{xOffset}, 0, @{zOffset}) scale(@{scaleOffset})'
+    }
+  });
+}
+
+@media (forced-colors: active),
+(-ms-high-contrast: active) {
+  .@{dot-prefix-cls} {
+    &-item {
+      background-color: Highlight !important;
+      forced-color-adjust: none;
+    }
   }
-});
 }

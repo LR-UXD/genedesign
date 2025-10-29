@@ -1,1 +1,0 @@
-import{o as e,i as t}from"./index.2d41f1b2.js";const s={src:"https://uxd.lenovo.com/glass/effects/index.html",style:{width:"100%",height:"100vh",border:"none"}},a={__name:"glass",setup(o){return(r,c)=>(e(),t("iframe",s))}};export{a as default};

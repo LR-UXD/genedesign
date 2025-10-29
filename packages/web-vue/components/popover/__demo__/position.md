@@ -19,84 +19,84 @@ title:
 ```vue
 <template>
   <div :style="{position: 'relative', width: '440px', height: '280px'}">
-    <a-popover position="tl">
+    <a-popover position="tl" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'0',left:'70px'}">TL</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="top">
+    <a-popover position="top" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'0',left:'180px'}">TOP</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="tr">
+    <a-popover position="tr" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'0',left:'290px'}">TR</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="bl">
+    <a-popover position="bl" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'240px',left:'70px'}">BL</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="bottom">
+    <a-popover position="bottom" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'240px',left:'180px'}">BOTTOM</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="br">
+    <a-popover position="br" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'240px',left:'290px'}">BR</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="lt">
+    <a-popover position="lt" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'60px',left:'10px'}">LT</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="left">
+    <a-popover position="left" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'120px',left:'10px'}">LEFT</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="lb">
+    <a-popover position="lb" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'180px',left:'10px'}">LB</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="rt">
+    <a-popover position="rt" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'60px',left:'350px'}">RT</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="right">
+    <a-popover position="right" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'120px',left:'350px'}">RIGHT</a-button>
       <template #content>
         <p>Here is the text content</p>
         <p>Here is the text content</p>
       </template>
     </a-popover>
-    <a-popover position="rb">
+    <a-popover position="rb" :trigger="['hover', 'focus', 'click']">
       <a-button class="button" :style="{position: 'absolute',top:'180px',left:'350px'}">RB</a-button>
       <template #content>
         <p>Here is the text content</p>

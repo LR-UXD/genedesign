@@ -22,3 +22,18 @@
     background-color: @tooltip-color-bg;
   }
 }
+
+
+
+@media (forced-colors: active) {
+  .@{prefix}-tooltip {
+    &-content {
+      background-color: Canvas !important;
+      border: 1px solid CanvasText !important;
+    }
+
+    &-popup-arrow {
+      background-color: CanvasText !important;
+    }
+  }
+}
