@@ -31,8 +31,7 @@
     z-index: 11;
     text-align: center;
     background-color: var(~'@{arco-cssvars-prefix}-color-spin-layer-bg');
-    transition: opacity @transition-duration-1
-      @transition-timing-function-linear;
+    transition: opacity @transition-duration-1 @transition-timing-function-linear;
     user-select: none;
   }
 
@@ -52,5 +51,18 @@
   &-loading &-children::after {
     opacity: 1;
     pointer-events: auto;
+  }
+}
+
+@media (forced-colors: active),
+(-ms-high-contrast: active) {
+  .@{spin-prefix-cls} {
+
+    &-icon,
+    &-mask-icon,
+    &-tip {
+      color: Highlight !important;
+      forced-color-adjust: none;
+    }
   }
 }

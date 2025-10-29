@@ -13,8 +13,7 @@
 .@{result-prefix-cls} {
   box-sizing: border-box;
   width: 100%;
-  padding: @result-padding-top_icon @result-padding-horizontal
-    @result-padding-bottom;
+  padding: @result-padding-top_icon @result-padding-horizontal @result-padding-bottom;
 
   &-icon {
     margin-bottom: @result-margin-icon-bottom;
@@ -29,6 +28,8 @@
       justify-content: center;
       border-radius: 50%;
       margin: 0 auto;
+      forced-color-adjust: none;
+      -ms-high-contrast-adjust: none;
     }
 
     // status = null
@@ -90,5 +91,31 @@
 
   &-content {
     margin-top: @result-margin-content-top;
+  }
+}
+
+@media (forced-colors: active) {
+  .@{result-prefix-cls} {
+    &-icon {
+      &-tip {
+        color: ButtonText !important;
+        background-color: transparent !important;
+        border: 1px solid ButtonBorder !important;
+        forced-color-adjust: none;
+      }
+    }
+  }
+}
+
+/* 老旧 Edge/IE 特性支持 */
+@media screen and (-ms-high-contrast: active) {
+  .@{result-prefix-cls} {
+    &-icon {
+      &-tip {
+        color: ButtonText !important;
+        background-color: transparent !important;
+        border: 1px solid ButtonBorder !important;
+      }
+    }
   }
 }

@@ -24,9 +24,14 @@
   &-content {
     text-align: left;
     word-wrap: break-word;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
   }
 
-  &-title + &-content {
+  &-title+&-content {
     margin-top: @popup-margin-content-top;
   }
 
@@ -34,5 +39,21 @@
     z-index: 1;
     background-color: @popup-color-content-bg;
     border: @border-1 solid @popup-color-border;
+  }
+}
+
+
+
+@media (forced-colors: active) {
+  .@{popover-prefix-cls} {
+    &-popup-content {
+      background-color: Canvas !important;
+      border: 1px solid CanvasText !important;
+    }
+
+    &-popup-arrow {
+      z-index: -1 !important;
+      background-color: CanvasText !important;
+    }
   }
 }

@@ -19,7 +19,7 @@ By setting `trigger`, you can specify different trigger methods.
 ```vue
 <template>
   <a-space>
-    <a-popover title="Title">
+    <a-popover title="Title" :trigger="['hover', 'focus']">
       <a-button>Hover Me</a-button>
       <template #content>
         <p>Here is the text content</p>

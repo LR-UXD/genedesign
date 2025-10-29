@@ -18,7 +18,7 @@ Move the mouse in or click to pop up bubbles, which can operate on the elements 
 
 ```vue
 <template>
-  <a-popover title="Title">
+  <a-popover title="Title" :trigger="['hover', 'focus']" >
     <a-button>Hover</a-button>
     <template #content>
       <p>Here is the text content</p>
