@@ -1,10 +1,6 @@
 {
   "name": "genedesign",
-<<<<<<< HEAD
-  "version": "1.1.16",
-=======
   "version": "1.1.17",
->>>>>>> 0f73bf2 (feat:popover、tooltip组件：气泡样式更新)
   "description": "Gene Design Vue 2.0: A Vue.js 3 UI Library",
   "keywords": [
     "genedesign",

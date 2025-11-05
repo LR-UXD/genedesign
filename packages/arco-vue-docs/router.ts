@@ -18,6 +18,7 @@ const Icon = () => import('./pages/icon/icon-demo.vue');
 const AiIcon = () => import('./pages/aiicon/icon-demo.vue');
 const Link = () => import('@web-vue/components/link/README.zh-CN.md');
 const LinkEn = () => import('@web-vue/components/link/README.en-US.md');
+
 const Typography = () =>
   import('@web-vue/components/typography/README.zh-CN.md');
 const TypographyEn = () =>
