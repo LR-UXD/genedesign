@@ -14,6 +14,9 @@ export type { AnimeInstance } from './anime';
 export { default as AiInput } from './ai-input';
 export type { AiInputInstance } from './ai-input';
 
+export { default as AiToolbar } from './ai-toolbar';
+export type { AiToolbarInstance } from './ai-toolbar';
+
 export { default as AiChat } from './ai-chat';
 export type { AiChatInstance } from './ai-chat';
 
@@ -152,7 +155,6 @@ export type {
   ResponsiveValue,
   RowProps,
 } from './grid';
-
 
 export { default as Icon } from './icon-component';
 export type { IconInstance, IconProps } from './icon-component';
@@ -368,4 +370,4 @@ export type { WatermarkInstance } from './watermark';
 // hooks
 export { useFormItem } from './_hooks/use-form-item';
 // components.d.ts
-export type { } from './components';
+export type {} from './components';

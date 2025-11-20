@@ -1,0 +1,386 @@
+@import './token.less';
+
+@ai-toolbar-prefix-cls: ~'@{prefix}-ai-toolbar';
+
+.ai-toolbar-container {
+  display: flex;
+  width: 468px;
+  min-height: 48px;
+
+  .ai-toolbar-main {
+    position: relative;
+    display: block;
+    flex: auto;
+    border-radius: @ai-toolbar-radius;
+    transition: none;
+
+    .ai-toolbar-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 0;
+      background-color: @ai-toolbar-inner-bg;
+      border-radius: calc(@ai-toolbar-radius - 2px);
+
+      .arco-btn {
+        transition: none;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          box-shadow: none;
+          transition: none;
+        }
+      }
+
+      .ai-toolbar-content {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        border-radius: calc(@ai-toolbar-radius - 2px);
+
+        .ai-toolbar-left {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+
+          .arco-btn-shape-circle {
+            width: 40px;
+            height: 40px;
+            background-color: @ai-toolbar-bg;
+
+            &:hover:not(.arco-btn-disabled) {
+              background-color: @ai-toolbar-hover-bg;
+            }
+
+            &:active:not(.arco-btn-disabled) {
+              background-color: @ai-toolbar-active-bg;
+            }
+
+            &.arco-btn-disabled {
+              background-color: @ai-toolbar-disable-bg;
+
+              .arco-icon {
+                color: @ai-toolbar-disable-icon-bg;
+              }
+            }
+          }
+        }
+
+        .ai-toolbar-center {
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          min-height: 48px;
+
+          .arco-textarea-wrapper {
+            width: 100%;
+            margin: 8px 0;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            box-shadow: none;
+
+            textarea,
+            .arco-textarea {
+              box-sizing: border-box;
+              width: 100%;
+              -ms-overflow-style: -ms-autohiding-scrollbar;
+
+              &::-webkit-scrollbar {
+                width: 4px;
+                height: 4px;
+              }
+
+              &::-webkit-scrollbar-button {
+                display: none;
+                width: 0;
+                height: 0;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+              }
+
+              &::-webkit-scrollbar-track {
+                background: transparent;
+              }
+            }
+          }
+        }
+
+        .ai-toolbar-right {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+
+          .arco-btn-shape-circle {
+            width: 40px;
+            height: 40px;
+            background-color: @ai-toolbar-bg;
+
+            &:hover:not(.arco-btn-disabled) {
+              background-color: @ai-toolbar-hover-bg;
+            }
+
+            &:active:not(.arco-btn-disabled) {
+              background-color: @ai-toolbar-active-bg;
+            }
+
+            &.arco-btn-disabled {
+              background-color: @ai-toolbar-disable-bg;
+
+              .arco-icon {
+                color: @ai-toolbar-disable-icon-bg;
+              }
+            }
+          }
+
+          .voice-active {
+            &.arco-btn-shape-circle {
+              background-color: @ai-toolbar-voice-active-bg;
+            }
+          }
+        }
+      }
+
+      .ai-toolbar-upload {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 12px 12px 12px;
+        row-gap: 8px;
+
+        .file-pill {
+          display: inline-flex;
+          gap: 8px;
+          align-items: center;
+          padding: 7px 12px 7px 8px;
+          font-size: 12px;
+          background: @ai-toolbar-upload-fill-color;
+          border: 1px solid @ai-toolbar-upload-border-color;
+          border-radius: 24px;
+
+          .file-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: @ai-toolbar-upload-icon-fill-color;
+            border-radius: 50%;
+
+            .file-icon {
+              width: 16px;
+              height: 16px;
+              object-fit: contain;
+            }
+
+            .file-img-icon {
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
+            }
+          }
+
+          .file-name {
+            max-width: 160px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+
+    .ai-toolbar-inner-start {
+      flex-direction: column;
+
+      .ai-toolbar-upload {
+        margin: 0 12px 12px 12px;
+      }
+    }
+
+    .ai-toolbar-inner-end {
+      flex-direction: column-reverse;
+
+      .ai-toolbar-upload {
+        margin: 12px 12px 0 12px;
+      }
+    }
+
+    &.listening {
+      &::before {
+        position: absolute;
+        z-index: 0;
+        background: linear-gradient(
+          90deg,
+          #5c8dff 0%,
+          #a079ff 12.5%,
+          #d06ad6 25%,
+          #eb6296 37.5%,
+          #ff7257 50%,
+          #eb6296 62.5%,
+          #d06ad6 75%,
+          #a079ff 87.5%,
+          #5c8dff 100%
+        );
+        border-radius: inherit;
+        content: '';
+        pointer-events: none;
+        inset: -2px;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid @color-primary-6;
+      outline-offset: 2px;
+    }
+
+    &.listening:focus {
+      outline: none;
+    }
+  }
+
+  .ai-toolbar-send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    // padding: 2px;
+    margin-left: @ai-toolbar-gap;
+
+    .arco-btn-shape-circle {
+      width: 48px;
+      height: 48px;
+      color: @ai-toolbar-send-icon-color;
+      background-color: @ai-toolbar-bg;
+
+      &:hover:not(.arco-btn-disabled) {
+        background-color: @ai-toolbar-hover-bg;
+      }
+
+      &:active:not(.arco-btn-disabled) {
+        background-color: @ai-toolbar-active-bg;
+      }
+
+      &.arco-btn-disabled {
+        background-color: @ai-toolbar-disable-bg;
+
+        .arco-icon {
+          color: @ai-toolbar-disable-icon-bg;
+        }
+      }
+
+      .send-icon-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+      }
+    }
+
+    &.send--hasText {
+      .arco-btn-shape-circle {
+        background-color: @ai-toolbar-primary-color-bg;
+
+        .arco-icon {
+          color: @ai-toolbar-send-icon-hastext-fill-bg;
+        }
+
+        &:hover {
+          background-color: rgb(var(--primary-5));
+        }
+
+        &:active {
+          background-color: rgb(var(--primary-7));
+        }
+      }
+    }
+
+    &.send--listening {
+      .arco-btn-shape-circle {
+        background-color: @ai-toolbar-send-icon-listen-fill-bg;
+
+        &.arco-btn-disabled {
+          background-color: @ai-toolbar-send-icon-listen-fill-disabled-bg;
+        }
+
+        .arco-icon {
+          color: @ai-toolbar-send-icon-listen-color;
+        }
+
+        &:hover:not(.arco-btn-disabled) {
+          background-color: @ai-toolbar-send-icon-listen-fill-hover-bg;
+        }
+
+        &:active:not(.arco-btn-disabled) {
+          background-color: @ai-toolbar-send-icon-listen-fill-active-bg;
+        }
+      }
+    }
+
+    &.send--listening {
+      .arco-btn-shape-circle {
+        background-color: @ai-toolbar-bg;
+
+        &:hover:not(.arco-btn-disabled) {
+          background-color: @ai-toolbar-hover-bg;
+        }
+
+        &:active:not(.arco-btn-disabled) {
+          background-color: @ai-toolbar-active-bg;
+        }
+
+        &.arco-btn-disabled {
+          background-color: @ai-toolbar-disable-bg;
+
+          .arco-icon {
+            color: @ai-toolbar-disable-icon-bg;
+          }
+        }
+      }
+    }
+
+    &.send--active {
+      .arco-btn-shape-circle {
+        background-color: transparent;
+
+        .arco-icon {
+          color: rgb(var(--primary-6));
+        }
+
+        &:hover {
+          background-color: transparent;
+
+          .arco-icon {
+            color: rgb(var(--primary-5));
+          }
+        }
+
+        &:active {
+          background-color: transparent;
+
+          .arco-icon {
+            color: rgb(var(--primary-7));
+          }
+        }
+      }
+    }
+  }
+}

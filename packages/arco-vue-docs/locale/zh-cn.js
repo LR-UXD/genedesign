@@ -1,4 +1,4 @@
-import { effect } from "vue";
+import { effect } from 'vue';
 
 export default {
   docs: {
@@ -19,14 +19,14 @@ export default {
     feedback: '反馈',
     navigation: '导航',
     other: '其他',
-    ai: 'Ai'
+    ai: 'Ai',
   },
   demo: {
     name: '案例',
     aiDemo: 'Quantum',
     leforecast: 'Le Forecast',
     lsm: 'LSM',
-    mopp: 'MOPP'
+    mopp: 'MOPP',
   },
   liquid_glass: {
     name: '液态玻璃',
@@ -38,7 +38,6 @@ export default {
     glassMessage: '液态玻璃消息提示',
     glassTooltip: '液态玻璃文字气泡',
     glassDrawer: '液态玻璃抽屉',
-
   },
   component: {
     name: '组件',
@@ -50,6 +49,7 @@ export default {
     button: '按钮 Button',
     anime: '动画 Anime',
     aiInput: '输入框 AiInput',
+    aiToolbar: '工具栏 AiToolbar',
     aiChat: '对话 AiChat',
     link: '链接 Link',
     typography: '排版 Typography',
@@ -183,7 +183,7 @@ export default {
     media: '影音类图标',
     logo: '商标类图标',
     general: '通用类图标',
-    gene: 'ai类图标'
+    gene: 'ai类图标',
   },
   proDocs: {
     name: 'Arco Pro 最佳实践',

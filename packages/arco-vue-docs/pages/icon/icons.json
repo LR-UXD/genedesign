@@ -1188,5 +1188,51 @@
         "componentName": "IconWoman"
       }
     ]
+  },
+  {
+    "title": "文件类图标",
+    "type": "format",
+    "list": [
+      {
+        "name": "icon-format-txt",
+        "componentName": "IconFormatTxt"
+      },
+      {
+        "name": "icon-format-ppt",
+        "componentName": "IconFormatPpt"
+      },
+      {
+        "name": "icon-format-zip",
+        "componentName": "IconFormatZip"
+      },
+      {
+        "name": "icon-format-pdf",
+        "componentName": "IconFormatPdf"
+      },
+      {
+        "name": "icon-format-audio",
+        "componentName": "IconFormatAudio"
+      },
+      {
+        "name": "icon-format-excel",
+        "componentName": "IconFormatExcel"
+      },
+      {
+        "name": "icon-format-word",
+        "componentName": "IconFormatWord"
+      },
+      {
+        "name": "icon-format-apk",
+        "componentName": "IconFormatApk"
+      },
+      {
+        "name": "icon-format-folders",
+        "componentName": "IconFormatFolders"
+      },
+      {
+        "name": "icon-format-unknown",
+        "componentName": "IconFormatUnknown"
+      }
+    ]
   }
 ]

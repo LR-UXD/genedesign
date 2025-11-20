@@ -306,6 +306,10 @@
       {
         "name": "icon-ai-gene-video-camera",
         "componentName": "IconAiGeneVideoCamera"
+      },
+      {
+        "name": "icon-ai-gene-pause",
+        "componentName": "IconAiGenePause"
       }
     ]
   }

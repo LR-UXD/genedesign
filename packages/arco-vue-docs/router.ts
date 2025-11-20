@@ -204,15 +204,16 @@ const ColorPickerEn = () =>
 // const AnimeEn = () =>
 //   import('@web-vue/components/anime/README.en-US.md');
 
-const AiInput = () =>
-  import('@web-vue/components/ai-input/README.zh-CN.md');
-const AiInputEn = () =>
-  import('@web-vue/components/ai-input/README.en-US.md');
+const AiInput = () => import('@web-vue/components/ai-input/README.zh-CN.md');
+const AiInputEn = () => import('@web-vue/components/ai-input/README.en-US.md');
 
-const AiChat = () =>
-  import('@web-vue/components/ai-chat/README.zh-CN.md');
-const AiChatEn = () =>
-  import('@web-vue/components/ai-chat/README.en-US.md');
+const AiToolbar = () =>
+  import('@web-vue/components/ai-toolbar/README.zh-CN.md');
+const AiToolbarEn = () =>
+  import('@web-vue/components/ai-toolbar/README.en-US.md');
+
+const AiChat = () => import('@web-vue/components/ai-chat/README.zh-CN.md');
+const AiChatEn = () => import('@web-vue/components/ai-chat/README.en-US.md');
 
 const GlassButton = () =>
   import('@web-vue/components/glass-button/README.zh-CN.md');
@@ -239,21 +240,15 @@ const GlassDrawer = () =>
 const GlassDrawerEn = () =>
   import('@web-vue/components/glass-drawer/README.en-US.md');
 
-const AiDemo = () =>
-  import('./components/aidemo/aidemo.vue');
+const AiDemo = () => import('./components/aidemo/aidemo.vue');
 
-const Leforecast = () =>
-  import('./components/le-forecast/leforecast.vue');
+const Leforecast = () => import('./components/le-forecast/leforecast.vue');
 
-const Lsm = () =>
-  import('./components/lsm/lsm.vue');
+const Lsm = () => import('./components/lsm/lsm.vue');
 
-const Mopp = () =>
-  import('./components/mopp/mopp.vue');
+const Mopp = () => import('./components/mopp/mopp.vue');
 
-const Glass = () =>
-  import('./components/glass/glass.vue');
-
+const Glass = () => import('./components/glass/glass.vue');
 
 const docs = [
   {
@@ -308,7 +303,7 @@ const demos = [
     name: 'mopp',
     component: Mopp,
   },
-]
+];
 const liquidGlass = [
   {
     name: 'effect',
@@ -348,8 +343,8 @@ const liquidGlass = [
     type: 'glass',
     component: GlassDrawer,
     componentEn: GlassDrawerEn,
-  }
-]
+  },
+];
 
 const proDocs = [
   {
@@ -833,15 +828,20 @@ const components = [
         componentEn: AiInputEn,
       },
       {
+        name: 'aiToolbar',
+        component: AiToolbar,
+        componentEn: AiToolbarEn,
+      },
+      {
         name: 'aiChat',
         component: AiChat,
         componentEn: AiChatEn,
       },
       {
         name: 'aiIcon',
-        component: AiIcon
+        component: AiIcon,
       },
-    ]
+    ],
   },
   // {
   //   name: 'Quantum',
@@ -852,7 +852,6 @@ const components = [
   //     },
   //   ]
   // }
-
 ];
 
 function toKebabCase(string: string) {
@@ -913,7 +912,6 @@ for (const item of demos) {
   });
 }
 
-
 const glassMenu = [];
 for (const item of liquidGlass) {
   const path = `/gene-test/vue/docs/${toKebabCase(item.name)}`;
@@ -935,7 +933,6 @@ for (const item of liquidGlass) {
     type: item.type ? item.type : '',
   });
 }
-
 
 const componentMenu: ComponentMenuGroup[] = [];
 for (const group of components) {
@@ -984,8 +981,14 @@ proDocs.forEach((item) => {
 });
 
 // Add redirects for unmatched routes at the end
-routes.push({ path: '/gene-test/vue/en-US', redirect: '/gene-test/vue/en-US/docs/start' });
-routes.push({ path: '/gene-test/:pathMatch(.*)*', redirect: '/gene-test/vue/docs/start' });
+routes.push({
+  path: '/gene-test/vue/en-US',
+  redirect: '/gene-test/vue/en-US/docs/start',
+});
+routes.push({
+  path: '/gene-test/:pathMatch(.*)*',
+  redirect: '/gene-test/vue/docs/start',
+});
 
 nProgress.configure({ minimum: 0.4, showSpinner: false });
 
@@ -1032,5 +1035,14 @@ const glassMenuList = [
   },
 ];
 
-export { docsMenu, demoMenu, componentMenu, proDocsMenu, docsMenuList, demoMenuList, glassMenu, glassMenuList };
+export {
+  docsMenu,
+  demoMenu,
+  componentMenu,
+  proDocsMenu,
+  docsMenuList,
+  demoMenuList,
+  glassMenu,
+  glassMenuList,
+};
 export default router;

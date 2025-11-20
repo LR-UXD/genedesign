@@ -17,14 +17,14 @@ export default {
     feedback: 'Feedback',
     navigation: 'Navigation',
     other: 'Other',
-    ai: 'Ai'
+    ai: 'Ai',
   },
   demo: {
     name: 'demo',
     aiDemo: 'Quantum',
     leforecast: 'Le Forecast',
     lsm: 'LSM',
-    mopp: 'MOPP'
+    mopp: 'MOPP',
   },
   liquid_glass: {
     name: 'Liquid Glass',
@@ -36,7 +36,6 @@ export default {
     glassMessage: 'GlassMessage',
     glassTooltip: 'GlassTooltip',
     glassDrawer: 'GlassDrawer',
-
   },
   component: {
     name: 'Component',
@@ -47,6 +46,7 @@ export default {
     button: 'Button',
     anime: 'Anime',
     aiInput: 'AiInput',
+    aiToolbar: 'AiToolbar',
     aiChat: 'AiChat',
     link: 'Link',
     typography: 'Typography',
@@ -182,7 +182,7 @@ export default {
     media: 'Multimedia icon',
     logo: 'Trademark icon',
     general: 'Universal icon',
-    gene: 'Ai icon'
+    gene: 'Ai icon',
   },
   proDocs: {
     name: 'Arco Pro',

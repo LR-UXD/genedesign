@@ -7,6 +7,7 @@ import Anchor, { AnchorLink } from './anchor';
 import Anime from './anime';
 import AiChat from './ai-chat';
 import AiInput from './ai-input';
+import AiToolbar from './ai-toolbar';
 import AutoComplete from './auto-complete';
 import Avatar, { AvatarGroup } from './avatar';
 import BackTop from './back-top';
@@ -187,6 +188,7 @@ const components: Record<string, Plugin> = {
   VerificationCode,
   Anime,
   AiInput,
+  AiToolbar,
   AiChat,
   GlassButton,
   GlassCard,
