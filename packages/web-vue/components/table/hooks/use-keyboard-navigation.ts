@@ -361,13 +361,22 @@ export function useKeyboardNavigation({
     if (!hasTableFocus.value) {
       const rowIndex = getRowIndexFromElement(target);
 
-      if (rowIndex !== null && rowIndex === flattenData.value.length - 1) {
-        const lastRowElement = tableRef.value?.querySelector(
+      // If focus lands inside a data row (e.g. programmatic focus restore after
+      // route back), align the navigation state to that row instead of resetting
+      // to the header / first row.
+      if (rowIndex !== null) {
+        const rowElement = tableRef.value?.querySelector(
           `[data-row-index="${rowIndex}"]`
         );
-        const focusableElements = getVisibleFocusableElements(lastRowElement);
+        const focusableElements = getVisibleFocusableElements(rowElement);
 
-        if (focusableElements.length > 0) {
+        // Preserve original behavior when tabbing into the table from below:
+        // browser may focus the last row <tr>; then we jump to the last focusable.
+        if (
+          rowIndex === flattenData.value.length - 1 &&
+          target.tagName === 'TR' &&
+          focusableElements.length > 0
+        ) {
           const lastFocusableElement = focusableElements[
             focusableElements.length - 1
           ] as HTMLElement;
@@ -375,7 +384,12 @@ export function useKeyboardNavigation({
           lastFocusableElement.focus();
           return;
         }
-        updateFocusState(rowIndex, FOCUS_TYPES.ROW);
+
+        if (focusableElements.includes(target)) {
+          updateFocusState(rowIndex, FOCUS_TYPES.CELL);
+        } else {
+          updateFocusState(rowIndex, FOCUS_TYPES.ROW);
+        }
         return;
       }
 

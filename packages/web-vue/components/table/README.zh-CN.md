@@ -52,7 +52,10 @@ description: 用于数据收集展示、分析整理、操作处理。
 
 @import ./__demo__/custom-dom.md
 
+@import ./__demo__/split.md
+
 @import ./__demo__/virtual-list.md
+
 
 ## API
 

@@ -709,6 +709,7 @@ export default defineComponent({
       summarySpanMethod,
       scrollbar,
       showEmptyTree,
+
       keyboardNavigation,
     } = toRefs(props);
     const prefixCls = getPrefixCls('table');
@@ -902,6 +903,7 @@ export default defineComponent({
       columns: dataColumns,
       onSorterChange: handleSorterChange,
     });
+
 
     const disabledKeys = new Set();
 
@@ -1184,7 +1186,10 @@ export default defineComponent({
       headerRowTabIndex
     } = useKeyboardNavigation({
       flattenData,
-      tableRef: containerElement,
+      // In split-table mode (stickyHeader/scroll/virtual), header and body are
+      // rendered in different containers. Bind navigation to the outer content
+      // container so it can see both thead and tbody.
+      tableRef: contentRef,
       enableKeyboardNavigation: props.keyboardNavigation,
       dataColumns,
       hasRowSelection: hasRowSelectionRef,

@@ -54,7 +54,12 @@ description: It is used for data collection, display, analysis and processing, a
 
 @import ./__demo__/custom-dom.md
 
+@import ./__demo__/split.md
+
 @import ./__demo__/virtual-list.md
+
+
+
 
 ## API
 
