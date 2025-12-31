@@ -1,15 +1,7 @@
 <template>
-  <div
-    ref="root"
-    class="ai-toolbar-container"
-    :style="{ alignItems: alignValue, width: containerWidth }"
-    :class="`ai-toolbar-${contentAlign}`"
-  >
-    <div
-      class="ai-toolbar-main"
-      :class="{ listening: isListening }"
-      tabindex="0"
-    >
+  <div ref="root" class="ai-toolbar-container" :style="{ alignItems: alignValue, width: containerWidth }"
+    :class="`ai-toolbar-${contentAlign}`">
+    <div class="ai-toolbar-main" :class="{ listening: isListening }" tabindex="0">
       <div class="ai-toolbar-inner" :class="`ai-toolbar-inner-${contentAlign}`">
         <div class="ai-toolbar-content" :style="{ alignItems: alignValue }">
           <div class="ai-toolbar-left">
@@ -17,33 +9,17 @@
               <slot name="upload"><icon-plus :size="24" /></slot>
             </a-button>
 
-            <input
-              ref="fileInput"
-              type="file"
-              style="display: none"
-              :accept="accept"
-              :multiple="multiple"
-              @change="onFilesSelected"
-            />
-            />
+            <input ref="fileInput" type="file" style="display: none" :accept="accept" :multiple="multiple"
+              @change="onFilesSelected" />
           </div>
           <div class="ai-toolbar-center">
             <slot name="input">
-              <a-textarea
-                v-model="internalValue"
-                :placeholder="isListening ? listeningPlaceholder : placeholder"
-                :auto-size="autoSize"
-              />
+              <a-textarea v-model="internalValue" :placeholder="isListening ? listeningPlaceholder : placeholder"
+                :auto-size="autoSize" />
             </slot>
           </div>
           <div v-if="showVoice" class="ai-toolbar-right">
-            <a-button
-              type="text"
-              shape="circle"
-              :class="{ 'voice-active': isListening }"
-              @click="toggleVoice"
-            >
-              >
+            <a-button type="text" shape="circle" :class="{ 'voice-active': isListening }" @click="toggleVoice">
               <span v-if="!isListening">
                 <slot name="voice"><icon-voice :size="24" /></slot>
               </span>
@@ -67,33 +43,20 @@
               </div>
 
               <div class="file-name" :title="f.name">{{ f.name }}</div>
-              <a-button
-                type="text"
-                size="mini"
-                shape="circle"
-                @click="removeFile(idx)"
-                ><icon-close :size="16"
-              /></a-button>
+              <a-button type="text" size="mini" shape="circle" @click="removeFile(idx)"><icon-close
+                  :size="16" /></a-button>
             </div>
           </template>
         </div>
       </div>
     </div>
 
-    <div
-      class="ai-toolbar-send"
-      :class="{
-        'send--hasText': hasText,
-        'send--listening': isListening,
-        'send--active': isSending,
-      }"
-    >
-      <a-button
-        type="text"
-        shape="circle"
-        :disabled="!hasText && !isSending"
-        @click="handleAction"
-      >
+    <div class="ai-toolbar-send" :class="{
+      'send--hasText': hasText,
+      'send--listening': isListening,
+      'send--active': isSending,
+    }">
+      <a-button type="text" shape="circle" :disabled="!hasText && !isSending" @click="handleAction">
         <span v-if="isSending">
           <slot name="pause"> <icon-ai-gene-pause :size="48" /></slot>
         </span>
@@ -217,7 +180,7 @@ export default defineComponent({
           if (ff && ff.url) {
             try {
               URL.revokeObjectURL(ff.url);
-            } catch (e) {}
+            } catch (e) { }
           }
         });
       };
@@ -277,7 +240,7 @@ export default defineComponent({
       if (f && f.url) {
         try {
           URL.revokeObjectURL(f.url);
-        } catch (e) {}
+        } catch (e) { }
       }
       const removed = files.value.splice(index, 1);
       emit('file-remove', removed[0]);

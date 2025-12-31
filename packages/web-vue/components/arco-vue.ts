@@ -5,7 +5,7 @@ import Affix from './affix';
 import Alert from './alert';
 import Anchor, { AnchorLink } from './anchor';
 import Anime from './anime';
-import AiChat from './ai-chat';
+// import AiChat from './ai-chat';
 import AiInput from './ai-input';
 import AiToolbar from './ai-toolbar';
 import AutoComplete from './auto-complete';
@@ -189,7 +189,7 @@ const components: Record<string, Plugin> = {
   Anime,
   AiInput,
   AiToolbar,
-  AiChat,
+  // AiChat,
   GlassButton,
   GlassCard,
   GlassMessage,

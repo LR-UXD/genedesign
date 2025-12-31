@@ -17,8 +17,8 @@ export type { AiInputInstance } from './ai-input';
 export { default as AiToolbar } from './ai-toolbar';
 export type { AiToolbarInstance } from './ai-toolbar';
 
-export { default as AiChat } from './ai-chat';
-export type { AiChatInstance } from './ai-chat';
+// export { default as AiChat } from './ai-chat';
+// export type { AiChatInstance } from './ai-chat';
 
 export { default as GlassButton } from './glass-button';
 export type { GlassButtonInstance, GlassButtonProps } from './glass-button';
@@ -370,4 +370,4 @@ export type { WatermarkInstance } from './watermark';
 // hooks
 export { useFormItem } from './_hooks/use-form-item';
 // components.d.ts
-export type {} from './components';
+export type { } from './components';
