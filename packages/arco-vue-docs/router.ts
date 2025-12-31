@@ -872,14 +872,14 @@ const routes: RouteRecordRaw[] = [];
 
 const docsMenu = [];
 for (const item of docs) {
-  const path = `/gene-dev/vue/docs/${toKebabCase(item.name)}`;
+  const path = `/gene-test/vue/docs/${toKebabCase(item.name)}`;
   routes.push(
     {
       path,
       component: item.component,
     },
     {
-      path: `/gene-dev/vue/en-US/docs/${toKebabCase(item.name)}`,
+      path: `/gene-test/vue/en-US/docs/${toKebabCase(item.name)}`,
       component: item.componentEn ?? item.component,
     }
   );
@@ -893,14 +893,14 @@ for (const item of docs) {
 
 const demoMenu = [];
 for (const item of demos) {
-  const path = `/gene-dev/vue/docs/${toKebabCase(item.name)}`;
+  const path = `/gene-test/vue/docs/${toKebabCase(item.name)}`;
   routes.push(
     {
       path,
       component: item.component,
     },
     {
-      path: `/gene-dev/vue/en-US/docs/${toKebabCase(item.name)}`,
+      path: `/gene-test/vue/en-US/docs/${toKebabCase(item.name)}`,
       component: item.componentEn ?? item.component,
     }
   );
@@ -914,14 +914,14 @@ for (const item of demos) {
 
 const glassMenu = [];
 for (const item of liquidGlass) {
-  const path = `/gene-dev/vue/docs/${toKebabCase(item.name)}`;
+  const path = `/gene-test/vue/docs/${toKebabCase(item.name)}`;
   routes.push(
     {
       path,
       component: item.component,
     },
     {
-      path: `/gene-dev/vue/en-US/docs/${toKebabCase(item.name)}`,
+      path: `/gene-test/vue/en-US/docs/${toKebabCase(item.name)}`,
       component: item.componentEn ?? item.component,
     }
   );
@@ -941,14 +941,14 @@ for (const group of components) {
     list: [],
   };
   for (const item of group.list) {
-    const path = `/gene-dev/vue/component/${toKebabCase(item.name)}`;
+    const path = `/gene-test/vue/component/${toKebabCase(item.name)}`;
     routes.push(
       {
         path,
         component: item.component,
       },
       {
-        path: `/gene-dev/vue/en-US/component/${toKebabCase(item.name)}`,
+        path: `/gene-test/vue/en-US/component/${toKebabCase(item.name)}`,
         component: item.componentEn ?? item.component,
       }
     );
@@ -962,14 +962,14 @@ for (const group of components) {
 
 const proDocsMenu: { path: string; name: string }[] = [];
 proDocs.forEach((item) => {
-  const path = `/gene-dev/vue/docs/pro/${toKebabCase(item.name)}`;
+  const path = `/gene-test/vue/docs/pro/${toKebabCase(item.name)}`;
   routes.push(
     {
       path,
       component: item.component,
     },
     {
-      path: `/gene-dev/vue/en-US/docs/pro/${toKebabCase(item.name)}`,
+      path: `/gene-test/vue/en-US/docs/pro/${toKebabCase(item.name)}`,
       component: item.componentEn ?? item.component,
     }
   );
@@ -982,12 +982,12 @@ proDocs.forEach((item) => {
 
 // Add redirects for unmatched routes at the end
 routes.push({
-  path: '/gene-dev/vue/en-US',
-  redirect: '/gene-dev/vue/en-US/docs/start',
+  path: '/gene-test/vue/en-US',
+  redirect: '/gene-test/vue/en-US/docs/start',
 });
 routes.push({
-  path: '/gene-dev/:pathMatch(.*)*',
-  redirect: '/gene-dev/vue/docs/start',
+  path: '/gene-test/:pathMatch(.*)*',
+  redirect: '/gene-test/vue/docs/start',
 });
 
 nProgress.configure({ minimum: 0.4, showSpinner: false });
